@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 800px;
+      height: 800px;
+      background-color: aqua;
+      /* 绝对定位相对于其含有定位的祖先元素,如果没有祖先元素有定位属性,就默认视口为其定位的目标 */
+      /* 祖先元素不一定非要是相对元素, 只要是定位元素就可以, 但是相对元素不会脱离标准流, 所以最常用 */
+      position: relative;
+    }
+
+    .container {
+      /* 虽然是.item的父元素, 但是由于没有定位属性, 所以不会以这个元素为定位目标 */
+      width: 500px;
+      height: 500px;
+      background-color: greenyellow;
+    }
+
+    .item {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <div class="container">
+      <div class="item"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

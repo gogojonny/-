@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #2d2b2b;
+      cursor: none;
+    }
+
+    h1 {
+      font-size: 50px;
+      line-height: 1;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .cursor {
+      left: 0;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #f44336;
+      position: absolute;
+    }
+
+    .cursor-follower {
+      width: 6px;
+      height: 6px;
+      transition: transform .4s;
+    }
+  </style>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <h1>CUSTOM <br> <span>CURSOR</span> </h1>
+
+  <script>
+    let html = document.querySelector('html')
+
+    let cursor = document.createElement('div')
+    cursor.classList.add('cursor')
+    html.appendChild(cursor)
+
+    let follower = document.createElement('div')
+    follower.classList.add('cursor')
+    follower.classList.add('cursor-follower')
+    html.appendChild(follower)
+
+    addEventListener('mousemove', function (e) {
+      console.log(e.clientX, e.clientY);
+      setPosition(cursor, e)
+      setPosition(follower, e)
+    })
+
+    function setPosition(element, e) {
+      element.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
+
+    }
+
+  </script>
+
+</body>
+
+</html>

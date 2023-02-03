@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .content{
+      /* 去除父元素字体大小后，变成160px，因为默认字体大小为16px */
+      /* font-size: 15px; */
+      overflow: hidden;
+    }
+    .box{
+      height: 100px;
+      width: 10em;
+      /* 1：是200px，说明em的值是font-size的值大小 */
+      /* font-size: 20px; */
+      /*:2：去除后发现变成150px，由于继承父元素font-size，所以才变成150px */
+      /* font-size设置为1em，变成150px，继承了父元素的字体大小。 */
+      /* font-size: 1em; */
+      background-color: orange;
+      /* 总之，em的大小就是当前元素字体大小值 */
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="box"></div>
+  </div>
+  
+</body>
+</html>

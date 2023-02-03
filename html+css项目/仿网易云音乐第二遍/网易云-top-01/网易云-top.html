@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网易云top</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <style>
+    .top {
+      /* 高度设置为69, 还需要加一像素边框 */
+      height: 69px;
+      background-color: #242424;
+      border: 1px solid #000;
+    }
+
+    .topbar {
+      /* 通过flex布局, 让bar-left和bar-right分别处于bar的两边 */
+      display: flex;
+      justify-content: space-between;
+      /* 注意这里不要用aline-item来使内容处于中心对齐,  因为默认aline-item的效果是normal,效果是拉伸,  设置为center会让上下空间围绕内容而不是拉伸 */
+      /* 高度也给69, 让其充满内容 */
+      height: 69px;
+
+      /* 在flex布局中, 如果是行内级元素, 可以使用line-height来对齐做居中 */
+      /* line-height下面的元素会继承,但是只有文字内容生效 并且行内级元素不会对line-height生效*/
+      line-height: 69px;
+    }
+
+    .topbar .bar-left {
+      display: flex;
+    }
+
+    .topbar .logo {
+      /* 宽高由a元素撑起 */
+      /* 这里不给背景图片做定位, 因为一方面盒子足够大,可以显示想要的背景, 另一方面, 利用原图片的空白, 不需要在对这张图片做定位了 */
+      background: url(./images/topbar.png);
+
+    }
+
+    .topbar .logo a {
+      /*text-indent对行内非替换元素无效, 所以必须修改元素级别  */
+      /* 除了用display修改元素的级别外, 还可以使元素脱标 */
+      display: block;
+      /* 将文字最大程度隐藏 */
+      /*text-indent表示文本缩进  */
+      text-indent: -9999px;
+
+      width: 157px;
+      /* 高度由行高撑起, 行高被文字继承 */
+      padding-right: 20px;
+    }
+
+    .topbar .bar-left .list {
+      display: flex;
+    }
+
+    .topbar .bar-left .list .item {
+      position: relative;
+      /* 由于a元素是行内元素, 因此不会被line-height撑起来, 所以需要将a元素设置为块级元素 */
+      display: block;
+      font-size: 14px;
+      color: #ccc;
+      /* padding是设置空白边距的一大利器 */
+      padding: 0 20px;
+
+    }
+
+    /* active和hover效果一致, 可以一起设置 */
+    .topbar .bar-left .list .item.active,
+    .topbar .bar-left .list .item:hover {
+      color: #fff;
+      background-color: #000;
+    }
+
+    /* item中红色小箭头 */
+    .topbar .bar-left .list .item.active::after {
+      content: '';
+      /* 设置position后元素变为定位元素 */
+      position: absolute;
+      background: url(./images/topbar.png) no-repeat -226px 0;
+      width: 12px;
+      height: 6px;
+
+      bottom: -1px;
+      /* 定位元素居中对齐 */
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+
+    .topbar .bar-left .list .item .sprite_icon_hot {
+      /* hot图用的比较多, 所以在common里面添加了样式, 每次调用这个类在定位就可以了 */
+      position: absolute;
+      top: 14px;
+      right: -20px;
+    }
+
+    .topbar .bar-right {
+      display: flex;
+      color: #ccc;
+      /* 单独让bar-right居中对齐 */
+      align-items: center;
+    }
+
+    .topbar .bar-right .login a {
+      color: #787878;
+    }
+
+    .topbar .bar-right .login:hover a {
+      color: #ccc;
+    }
+
+    .topbar .bar-right .login a:hover {
+      color: #787878;
+      text-decoration: underline;
+    }
+
+    .topbar .bar-right .creater {
+      padding: 0 20px;
+    }
+
+    .topbar .bar-right .creater a {
+      display: inline-block;
+      width: 90px;
+      height: 32px;
+      border-radius: 20px;
+      border: 1px solid #4F4F4F;
+
+      /* 行高需要另行设置 */
+      line-height: 32px;
+      text-align: center;
+      color: #ccc;
+    }
+
+    .topbar .bar-right .creater a:hover {
+      color: #fff;
+      border: 1px solid #fff;
+    }
+
+    .topbar .bar-right .search {
+      width: 158px;
+      height: 32px;
+      /* 背景颜色和图标可以一起设置, 这个图标附近没有其他的图片,可以直接把这个图标连同附近直接当做背景,这样就不需要单独在哪一个盒子来包裹图标了 */
+      background: white url(./images/topbar.png) 0 -99px;
+      border-radius: 32px;
+
+      line-height: 32px;
+      /* text-align: center; */
+      overflow: hidden;
+    }
+
+    .topbar .bar-right .search input {
+      width: 95%;
+      margin-left: 28px;
+      font-size: 12px;
+      color: #787878;
+    }
+
+    .nav {
+      height: 35px;
+      line-height: 35px;
+      border-bottom: 1px solid #a40011;
+      background-color: #c20c0c;
+    }
+
+    .nav .navbar {
+      padding-left: 180px;
+      /* 设置为border-box, 让盒子包裹padding */
+      box-sizing: border-box;
+
+    }
+
+    .nav .navbar .list {
+      display: flex;
+    }
+
+    .nav .navbar .list .item {
+      display: inline-block;
+    }
+
+    .nav .navbar .list .item span {
+      display: inline-block;
+      height: 20px;
+      padding: 0 13px;
+      margin: 7px 17px 0;
+      border-radius: 20px;
+      line-height: 21px;
+      color: white;
+      background-color: #a40011;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top">
+    <div class="topbar wrapper_01">
+      <!-- 小技巧: 可以在盒子内先填入一些内容, 来方便定位 -->
+      <div class="bar-left">
+        <!-- 为了做SEO优化, 一般logo不会简单设置一个a, 通常会使用h1标签包裹, 并在a中写入文字, 让他看起来更像一个h元素 -->
+        <h1 class="logo">
+          <a href="#">网易云音乐</a>
+        </h1>
+        <!-- 为了做SEO优化,可以将bar里面的item用列表的形式书写 -->
+        <!-- emmet语法为: ul>(li>a[href='#'].item)*6 -->
+        <!-- 由于使用了li, 记得需要重置 -->
+        <ul class="list">
+          <li><a href="#" class="item active">发现音乐</a></li>
+          <li><a href="#" class="item">我的音乐</a></li>
+          <li><a href="#" class="item">音乐人</a></li>
+          <li><a href="#" class="item">关注</a></li>
+          <li><a href="#" class="item">商城</a></li>
+          <li><a href="#" class="item">下载客户端
+              <!-- hot图用的比较多, 所以在common里面添加了样式, 每次调用这个类在定位就可以了 -->
+              <i class="sprite_icon_hot"></i>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+      <div class="bar-right">
+        <div class="search">
+          <input type="text" placeholder="音乐/视频/电台/用户">
+        </div>
+        <div class="creater">
+          <a href="#">创作者中心</a>
+        </div>
+        <div class="login">
+          <a href="#">登录</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="navbar wrapper_01 ">
+      <!-- ul.list>(li>a[href='#'].item)*6 -->
+      <ul class="list">
+        <!-- li被设置为flex元素, item被span填充,充当点击时的小手效果,span占据空间并设置自己和内容的样式,用margin隔离相邻的盒子,用padding隔离与内容之间的距离  -->
+        <li><a href="#" class="item"> <span>推荐</span> </a></li>
+        <li><a href="#" class="item"> <span>排行榜</span> </a></li>
+        <li><a href="#" class="item"> <span>歌单</span> </a></li>
+        <li><a href="#" class="item"> <span>主播电台</span> </a></li>
+        <li><a href="#" class="item"> <span>歌手</span> </a></li>
+        <li><a href="#" class="item"> <span>新碟上架</span> </a></li>
+      </ul>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

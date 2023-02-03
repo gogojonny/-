@@ -1,0 +1,228 @@
+.new-section {
+  position: relative;
+  display: flex;
+  height: 342px;
+  background: url(../img/mainbg.png) no-repeat;
+}
+
+/* 主体布局 */
+.new-section .banner {
+  width: 604px;
+}
+
+.new-section .news {
+  flex: 1;
+  padding: 0 17px;
+  /* flex布局中解决单行不能出现省略号的问题 */
+  overflow: hidden;
+  /* background-color: purple; */
+}
+
+.new-section .download {
+  width: 236px;
+  /* background-color: skyblue; */
+}
+
+/* 轮播图布局 */
+.new-section .banner .swipe {
+  display: flex;
+  height: 298px;
+
+  overflow: hidden;
+}
+
+.new-section .banner .info-list {
+  display: flex;
+}
+
+.new-section .banner .info-list .info {
+  flex: 1;
+}
+
+.new-section .banner .info-list a {
+  display: block;
+  height: 44px;
+
+  text-align: center;
+  line-height: 44px;
+  color: #b1b2be;
+  font-size: 14px;
+}
+
+.new-section .banner .info-list a:hover,
+.new-section .banner .info-list a.active {
+  color: #f3c258;
+  background-color: #363636;
+}
+
+/* 新闻区域布局 */
+.news .title-list {
+  display: flex;
+
+}
+
+.news .title-list .title {
+  width: 52px;
+  height: 48px;
+  border-bottom: 1px solid black;
+}
+
+.news .title-list .title a {
+  display: block;
+  height: 48px;
+  box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+  text-align: center;
+  line-height: 45px;
+  color: #b8b9c5;
+  transition: border-bottom 200ms linear;
+}
+
+/* 否定伪类 */
+.news .title-list .title a:not(.more):hover,
+.news .title-list .title a.active {
+  color: #f3c258;
+  border-bottom-color: #f3c258;
+}
+
+/* .news .title-list .title a.more:hover{
+  color: #b8b9c5;
+  border-bottom-color: transparent;
+} */
+
+.news .notice {
+  height: 36px;
+  margin-top: 18px;
+  margin-bottom: 11px;
+  padding: 0 15px;
+  background-color: #414046;
+
+}
+
+.news .notice a {
+  display: block;
+  width: 230px;
+
+  color: #f3c258;
+  font-size: 18px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+/* news-list布局 */
+.news .news-list .item {
+  height: 21px;
+  margin-bottom: 11px;
+  
+}
+
+.news .news-list .item a {
+  display: inline-block;
+}
+
+.news .news-list .item a span {
+  display: inline-block;
+
+  margin-right: 5px;
+  margin-top: 2px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+  width: 32px;
+
+  font-size: 12px;
+  line-height: 16px;
+  vertical-align: top;
+  text-align: center;
+
+}
+.news .news-list .item a span.hot{
+  color: #ff3636;
+}
+.news .news-list .item a span.new{
+  color: #1e96ab;
+}
+.news .news-list .item a span.news-notice{
+  color: #f4be19;
+}
+.news .news-list .item a .desc{
+  display: inline-block;
+
+  width: 230px;
+
+  color: #b8b9c5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.news .news-list .item .date{
+  float: right;
+  color: #999;
+
+}
+
+
+
+/* 下载区域布局 */
+.new-section .download a {
+  display: block;
+  background-image: url(../img/main-sprite.png);
+}
+
+.new-section .download a.download-btn {
+  height: 128px;
+  background-position: 0 -219px;
+}
+
+.new-section .download a.guard-btn {
+  height: 106px;
+  background-position: 0 -350px;
+}
+
+.new-section .download a.experience-btn {
+  height: 108px;
+  background-position: 0 -461px;
+}
+.new-section .adapt-age{
+  position: absolute;
+  top: 0;
+  right: -58px;
+  width: 53px;
+  height: 68px;
+  background: url(../img/shiling.png) no-repeat;
+
+}
+.new-section .Indulge{
+  position: absolute;
+  top: 78px;
+  right: -58px;
+  width: 53px;
+  height: 47px;
+  background: url(../img/fanchenmi.png) no-repeat;
+  background-size: contain;
+
+}
+
+/* show区域布局 */
+.show-section ul{
+  display: flex;
+  margin-top: 25px;
+  justify-content: space-between;
+}
+.show-section ul .item{
+  width: 291px;
+  height: 134px;
+  overflow: hidden;
+}
+.show-section ul .item a{
+  display: block;
+  height: 100%;
+}
+.show-section ul .item a img{
+  transition: all 0.2s linear;
+}
+.show-section ul .item a:hover img{
+  transform: scale(1.1,1.1);
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      width: 500px;
+      height: 450px;
+      border: 10px solid black;
+      background-color: #00FF00;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    #ball {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 40px;
+      height: 40px;
+      transition: 1s all;
+
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Click on a field to move the ball there.
+  <br> The ball should never leave the field.
+
+
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+
+</body>
+<script>
+  let field = document.getElementById('field')
+  let ball = document.getElementById('ball')
+  field.addEventListener('click', (e) => {
+    // 实际上每次点击都是改变ball相对于field的位置,也就是想改变ball的状态
+    // 点击一个位置让ball从一个位置变到另一个位置,那么新的位置是什么就需要计算
+    // 获取新的位置需要鼠标当前坐标,field相对窗口位置,field边框大小
+    let fieldPosition = field.getBoundingClientRect()
+
+    let ballPosition = {
+      top: e.clientY - fieldPosition.top - field.clientTop - ball.clientHeight / 2,
+      left: e.clientX - fieldPosition.left - field.clientLeft - ball.clientWidth / 2,
+    }
+
+    // 为了不让ball跑出边框,所以给跑出边框时的状态
+    if (ballPosition.top < 0) ballPosition.top = 0
+
+    if (ballPosition.left < 0) ballPosition.left = 0
+
+    if (ballPosition.left + ball.clientWidth > field.clientWidth) ballPosition.left = field.clientWidth - ball.clientWidth
+
+    if (ballPosition.top + ball.clientHeight > field.clientHeight) ballPosition.top = field.clientHeight - ball.clientHeight
+
+
+
+    ball.style.top = ballPosition.top + 'px'
+    ball.style.left = ballPosition.left + 'px'
+  })
+</script>
+
+</html>

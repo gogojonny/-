@@ -1,0 +1,17 @@
+$font-size:25px;
+$big-num:500px;
+$small-num:300px;
+.box{
+  width: $big-num;
+  height: $big-num;
+  background-color: aqua;
+
+  .item{
+    width: $small-num;
+    height: $small-num;
+    background-color: orange;
+    p{
+      font-size: $font-size;
+    }
+  }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>banner</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    .banner {
+      height: 285px;
+      /* 轮播图背景设置 */
+      background: url(./images/bg/109951168120449780.jpg) center center /6000px;
+    }
+
+    .banner .area {
+      position: relative;
+      display: flex;
+      height: 100%;
+      background-color: orange;
+    }
+
+    .banner .area .area-left {
+      position: relative;
+      width: 730px;
+    }
+
+    .banner .area .area-left .img-list {
+      width: 100%;
+      /* 将几张图片横向摆放,用flex布局 */
+      display: flex;
+      /* 多出的部分被隐藏 */
+      overflow: hidden;
+    }
+
+    .banner .area .area-left .img-list li {
+      width: 100%;
+      /* 图片不会缩小 */
+      flex-shrink: 0;
+    }
+
+    .banner .area .area-left .item {
+      display: block;
+    }
+
+    .banner .area .area-left .item img {
+      width: 100%;
+      height: 285px;
+      object-fit: cover;
+    }
+
+    .banner .area .area-left .doc-list {
+      position: absolute;
+      display: flex;
+      bottom: 0;
+      /* 定位盒子居中对齐,前提条件是必须有宽度 */
+      /* flex布局left默认为0,right默认为auto,需要重置 */
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      /* width: 100%;这样写也可以 */
+      /* 分配主轴上的剩余空间,如果是center,那么剩余空间就被平分到两边 */
+      justify-content: center;
+      /* 子元素继承 */
+      line-height: 20px;
+
+    }
+
+    .banner .area .area-left .doc-list span {
+      height: 20px;
+      width: 20px;
+      display: inline-block;
+      margin: 0 3px;
+      background-image: url(./images/banner.png);
+      background-position: 3px -343px;
+    }
+
+    .banner .area .area-left .doc-list span.active,
+    .banner .area .area-left .doc-list span:hover {
+      background-position: -16px -343px;
+    }
+
+    .area .area-right {
+      position: absolute;
+      width: 254px;
+      background-color: red;
+      right: -1px;
+      bottom: 0px;
+      top: 0;
+      background-image: url(./images/download.png);
+    }
+
+    .area .area-right .download {
+      display: block;
+      width: 215px;
+      height: 56px;
+      margin: 186px 0 0 19px;
+      text-indent: -9999px;
+    }
+
+    .area .area-right .download:hover {
+      background: url(./images/download.png) 0 -290px;
+    }
+
+    .area .area-right .desc {
+      color: #8d8d8d;
+      text-align: center;
+      margin: 10px auto;
+    }
+
+    .area .btn {
+      position: absolute;
+      /* 列居中 */
+      top: 0;
+      bottom: 0;
+      /* 在定位元素中,margin:auto 0;是有效果的,会平分上下间距 */
+      margin: auto 0;
+      width: 37px;
+      height: 63px;
+      background-image: url(./images/banner.png);
+    }
+
+    .area .btn.left {
+      background-position: 0 -360px;
+      left: -70px;
+    }
+
+    .area .btn.right {
+      background-position: 0 -508px;
+      right: -70px;
+    }
+
+    .area .btn.left:hover {
+      background-position: 0 -430px;
+    }
+
+    .area .btn.right:hover {
+      background-position:0 -578px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <div class="area wrapper_03">
+      <div class="area-left">
+        <ul class="doc-list">
+          <li><a href="#"><span class="active"></span></a></li>
+          <li><a href="#"><span></span></a></li>
+          <li><a href="#"><span></span></a></li>
+          <li><a href="#"><span></span></a></li>
+          <li><a href="#"><span></span></a></li>
+          <li><a href="#"><span></span></a></li>
+        </ul>
+        <ul class="img-list">
+          <li><a href="#" class="item"><img src="./images/soccer.jpg" alt=""></a></li>
+          <li><a href="#" class="item"><img src="./images/soccer.jpg" alt=""></a></li>
+          <li><a href="#" class="item"><img src="./images/soccer.jpg" alt=""></a></li>
+          <li><a href="#" class="item"><img src="./images/soccer.jpg" alt=""></a></li>
+          <li><a href="#" class="item"><img src="./images/soccer.jpg" alt=""></a></li>
+        </ul>
+      </div>
+      <div class="area-right">
+        <a href="#" class="download">下载客户端</a>
+        <p class="desc">PC 安卓 iPhone WP iPad Mac 六大客户端</p>
+      </div>
+      <a href="#" class="btn left"></a>
+      <a href="#" class="btn right"></a>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

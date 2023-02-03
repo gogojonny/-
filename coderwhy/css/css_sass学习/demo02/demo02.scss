@@ -1,0 +1,19 @@
+.content {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: orange;
+  .item {
+    width: calc(23%);
+    height: 300px;
+    background-color: skyblue;
+    &.active {
+      background-color: red;
+    }
+    &:hover {
+      background-color: red;
+    }
+  }
+}

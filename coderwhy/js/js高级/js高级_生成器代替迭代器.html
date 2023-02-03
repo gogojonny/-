@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 以往写获取数组迭代器的方法很复杂,但是迭代器可以完美代替这部分的代码
+    // class Foo {
+    //   constructor(friends) {
+    //     this.friends = friends
+    //   }
+    //   [Symbol.iterator]() {
+    //     let index = 0;
+    //     return {
+    //       next: () => {
+    //         if (index < this.friends.length) {
+    //           return { done: false, value: this.friends[index++] }
+    //         } else {
+    //           return { done: true }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // 重构后的Foo
+    // class Foo {
+    //   constructor(friends) {
+    //     this.friends = friends
+    //   }
+    //   *[Symbol.iterator]() {
+    //     for (let i = 0; i < this.friends.length; i++) {
+    //       yield this.friends[i]
+    //     }
+    //   }
+    // }
+
+    // 再次重构Foo,利用yield语法糖
+    class Foo {
+      constructor(name, age, height, friends) {
+        this.name = name;
+        this, age = age;
+        this.height = height;
+        this.friends = friends
+      }
+
+      *[Symbol.iterator]() {
+        yield* Object.entries(this)
+      }
+
+    }
+
+
+    let foo = new Foo('foo', 19, 1.80, ['bar', 'baz', 'rdx'])
+    for (let attr of foo) {
+      console.log(attr);
+    }
+
+  </script>
+
+</body>
+
+</html>

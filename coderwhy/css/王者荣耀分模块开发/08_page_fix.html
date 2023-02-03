@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王者荣耀_fix布局</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    .fix-bg {
+      position: fixed;
+      z-index: 3;
+      top: 50%;
+      right: 0;
+      margin-top: -240px;
+      width: 254px;
+      height: 494px;
+      background: url(./img/fix/r_navBg.png) no-repeat;
+    }
+
+    /* 封装精灵图 */
+    .fix-bg .down-spr {
+      background: url(./img/fix/r_all2022.png) no-repeat;
+    }
+
+    .fix-bg .fix-dj {
+      position: absolute;
+      top: 15px;
+      left: 24px;
+      z-index: 2;
+      width: 165px;
+      height: 145px;
+      background: url(./img/fix/r_dj.png) no-repeat;
+    }
+
+    .fix-bg .fix-dj p {
+      display: block;
+      position: absolute;
+      top: 37px;
+      height: 12px;
+      width: 88px;
+      height: 36px;
+      font-size: 14px;
+      text-indent: 2;
+      font-weight: bold;
+      line-height: 18px;
+      color: #62401b;
+      overflow: hidden;
+    }
+
+    .fix-bg .fix-dj p:last-child {
+      top: 57px;
+      display: block;
+    }
+
+    .fix-bg .fix-addnews {
+      position: absolute;
+      top: 160px;
+      left: 85px;
+      width: 117px;
+    }
+
+    .fix-bg .fix-addnews li {
+      height: 38px;
+      margin-top: 1px;
+      cursor: pointer;
+    }
+
+    .fix-bg .fix-addnews .download {
+      height: 132px;
+      margin-top: 1px;
+      padding-top: 2px;
+      background-position: -243px 0;
+    }
+
+    .fix-bg .fix-addnews .download img {
+      display: block;
+      width: 107px;
+      height: 107px;
+      margin: 0 auto;
+
+    }
+
+    .fix-bg .fix-addnews .wzyd {
+      position: relative;
+      background-position: -243px -134px;
+    }
+
+    .fix-bg .fix-addnews .wzyd:hover .show,
+    .fix-bg .fix-addnews .wb:hover .show,
+    .fix-bg .fix-addnews .wx:hover .show,
+    .fix-bg .fix-addnews .video-num:hover .show {
+      display: block;
+      animation: opacityAnim 300ms ease forwards;
+    }
+
+    .fix-bg .fix-addnews .wzyd:hover {
+      background-position: -243px -172px;
+    }
+
+    .fix-bg .fix-addnews .wb:hover {
+      background-position: -122px -240px;
+    }
+
+    .fix-bg .fix-addnews .wx:hover {
+      background-position: -122px -200px;
+    }
+
+    .fix-bg .fix-addnews .video-num:hover {
+      background-position: -122px -42px;
+    }
+
+    .fix-bg .fix-addnews .show {
+      position: absolute;
+      top: -66px;
+      left: -116px;
+      width: 115px;
+      height: 144px;
+      background: url(./img/fix/r_all2022.png);
+      background-position: 0 -416px;
+      padding-top: 7px;
+      display: none;
+
+    }
+
+    @keyframes opacityAnim {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .fix-bg .fix-addnews .show img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .fix-bg .fix-addnews .show p {
+      margin-top: 3px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .fix-bg .fix-addnews .show p span {
+      color: #cd974b;
+    }
+
+    .fix-bg .fix-addnews .wb {
+      position: relative;
+      background-position: -122px -120px;
+    }
+
+    .fix-bg .fix-addnews .wx {
+      position: relative;
+      background-position: -122px -160px;
+    }
+
+    .fix-bg .fix-addnews .video-num {
+      position: relative;
+      background-position: -122px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fix-bg">
+    <div class="fix-dj">
+      <p>扫一扫，立刻</p>
+      <p>下载游戏</p>
+    </div>
+    <ul class="fix-addnews">
+      <li class="download down-spr">
+        <a href="#"><img src="./img/fix/wzry_qrcode.webp" alt=""></a>
+      </li>
+      <li class="wzyd down-spr">
+        <div class="show">
+          <img src="./img/fix/2.webp" width="100px" height="101px" alt="">
+          <p>扫码关注<span>微信公众号</span>，领取<span>更多福利</span>
+          </p>
+        </div>
+      </li>
+      <li class="wb down-spr">
+        <div class="show">
+          <img src="./img/fix/3.webp" width="100px" height="101px" alt="">
+          <p>扫码关注<span>微信公众号</span>，领取<span>更多福利</span>
+          </p>
+        </div>
+      </li>
+      <li class="wx down-spr">
+        <div class="show">
+          <img src="./img/fix/4.webp" width="100px" height="101px" alt="">
+          <p>扫码关注<span>微信公众号</span>，领取<span>更多福利</span>
+          </p>
+        </div>
+      </li>
+      <li class="video-num down-spr">
+        <div class="show">
+          <img src="./img/fix/1.jpg" width="100px" height="101px" alt="">
+          <p>扫码关注<span>微信公众号</span>，领取<span>更多福利</span>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</body>
+
+</html>

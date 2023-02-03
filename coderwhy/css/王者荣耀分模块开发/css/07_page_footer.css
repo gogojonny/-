@@ -1,0 +1,71 @@
+.footer {
+  position: relative;
+  padding-top: 80px;
+}
+.footer .footer-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12px;
+  z-index: -1;
+  height: 362px;
+  background: url(../img/footer/bg_footer.webp) no-repeat;
+}
+
+.footer-top {
+  height: 66px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #d4d4d4;
+}
+
+.footer-top .tencent-logo {
+  float: left;
+  width: 285px;
+  height: 64px;
+  background: url(../img/blue-sprite.png) no-repeat 0 0;
+  text-indent: -999px;
+}
+
+.footer-top .timi-logo {
+  float: left;
+  width: 70px;
+  height: 64px;
+  background: url(../img/blue-sprite.png) no-repeat -285px 0;
+
+  text-indent: -999px;
+}
+
+/* footer底部布局 */
+.footer-bottom {
+  display: flex;
+}
+
+.footer-left {
+  margin-right: 50px;
+  width: 508px;
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-left .tips em {
+  display: inline-block;
+  margin-right: 9px;
+}
+
+.footer-left .intro {
+  margin-top: 6px;
+}
+
+.footer-right {
+  flex: 1;
+  font-size: 12px;
+  color: #666;
+}
+
+.footer-right .link-list li {
+  display: inline-block;
+}
+.footer-right .link-list li.copyright {
+  display: block;
+}

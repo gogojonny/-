@@ -1,0 +1,8 @@
+@import "demo04-02";
+$var: 300px !default;
+// 设置了default后，后设置的var无效了
+.box {
+  width: $var;
+  height: 100px;
+  background-color: orange;
+}

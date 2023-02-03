@@ -1,0 +1,9 @@
+.foo .bar, .foo .biz .big .bii .bip, .biz .big .bii .foo .bip {
+  width: 100px;
+}
+
+.biz .big {
+  height: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */

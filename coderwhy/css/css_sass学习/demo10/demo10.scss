@@ -1,0 +1,14 @@
+.foo .bar {
+  width: 100px;
+}
+
+.biz {
+  .big {
+    height: 100px;
+    .bii{
+      .bip{
+        @extend .bar;
+      }
+    }
+  }
+}

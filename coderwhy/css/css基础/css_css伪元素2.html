@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .before {
+      font-weight: bold;
+      color: orange;
+    }
+
+    .after {
+      font-weight: bold;
+      color: green;
+    }
+
+    .box2::before {
+      content: "123";
+      font-weight: bold;
+      color: orange;
+    }
+
+    .box2::after {
+      content: "321";
+      font-weight: bold;
+      color: green;
+    }
+
+    .box3::before {
+      content: "1";
+      font-weight: bold;
+      color: red;
+    }
+
+    /* .box3::after{
+      content: url(./svg.svg);
+      font-size: 20px;
+    } */
+    .box4::before {
+      content: "1";
+      font-weight: bold;
+      color: red;
+
+    }
+    .box4::after{
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      position: relative;
+      left: 10px;
+      top: -3px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 如果不添加伪元素,想在一段文本前后加入元素 -->
+  <div class="box1">
+    <span class="before">123</span>
+    我是div1
+    <span class="after">321</span>
+  </div>
+
+  <!-- 通过伪元素给一段文本添加样式 -->
+  <div class="box2">
+    我是div2
+  </div>
+
+  <!-- 通过伪元素添加图片 -->
+  <div class="box3">
+    我是div3
+  </div>
+  <!-- 通过伪元素添加一个块 -->
+  <div class="box4">我是div4</div>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+  <title>霁青+翠蓝的Tabbar动画特效</title>
+</head>
+
+<body>
+  <nav>
+    <div class="link-bg"></div>
+
+    <ul>
+
+      <li><a class="active">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          <span class="link-text">home</span>
+        </a></li>
+      <li><a>
+          <i class="fa fa-inbox" aria-hidden="true"></i>
+          <span class="link-text">box</span>
+        </a></li>
+      <li><a>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <span class="link-text">user</span>
+        </a></li>
+    </ul>
+  </nav>
+
+</body>
+
+</html>
+<script>
+  // 点击的时候，会背景移动，另外会给active状态
+  //有三个a元素，需要给每个a元素都设定状态
+  let links = document.querySelectorAll('a');
+  let bg = document.querySelector('.link-bg');
+
+  function setActive(el) {
+    links.forEach((link) => {
+      link.classList.remove('active')
+    })
+    el.classList.add('active')
+  }
+
+  //点击其中之一的a，背景被跳转到对应的位置，这个位置需要计算
+  links.forEach((link, index) => {
+    link.addEventListener("click", e => {
+      e.preventDefault()
+      bg.style.transform='translate('+(190*index)+'px,'+-50+'%)';
+      setActive(e.currentTarget)
+    })
+  })
+
+</script>

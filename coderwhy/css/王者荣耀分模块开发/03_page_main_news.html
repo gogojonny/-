@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王者荣耀-main-news</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    .new-section {
+      position: relative;
+      display: flex;
+      height: 342px;
+      background: url(./img/mainbg.png) no-repeat;
+    }
+
+    /* 主体布局 */
+    .new-section .banner {
+      width: 604px;
+    }
+
+    .new-section .news {
+      flex: 1;
+      padding: 0 17px;
+      /* flex布局中解决单行不能出现省略号的问题 */
+      overflow: hidden;
+      /* background-color: purple; */
+    }
+
+    .new-section .download {
+      width: 236px;
+      /* background-color: skyblue; */
+    }
+
+    /* 轮播图布局 */
+    .new-section .banner .swipe {
+      display: flex;
+      height: 298px;
+
+      overflow: hidden;
+    }
+
+    .new-section .banner .info-list {
+      display: flex;
+    }
+
+    .new-section .banner .info-list .info {
+      flex: 1;
+    }
+
+    .new-section .banner .info-list a {
+      display: block;
+      height: 44px;
+
+      text-align: center;
+      line-height: 44px;
+      color: #b1b2be;
+      font-size: 14px;
+    }
+
+    .new-section .banner .info-list a:hover,
+    .new-section .banner .info-list a.active {
+      color: #f3c258;
+      background-color: #363636;
+    }
+
+    /* 新闻区域布局 */
+    .news .title-list {
+      display: flex;
+
+    }
+
+    .news .title-list .title {
+      width: 52px;
+      height: 48px;
+      border-bottom: 1px solid black;
+    }
+
+    .news .title-list .title a {
+      display: block;
+      height: 48px;
+      box-sizing: border-box;
+      border-bottom: 3px solid transparent;
+      text-align: center;
+      line-height: 45px;
+      color: #b8b9c5;
+      transition: border-bottom 200ms linear;
+    }
+
+    /* 否定伪类 */
+    .news .title-list .title a:not(.more):hover,
+    .news .title-list .title a.active {
+      color: #f3c258;
+      border-bottom-color: #f3c258;
+    }
+
+    /* .news .title-list .title a.more:hover{
+      color: #b8b9c5;
+      border-bottom-color: transparent;
+    } */
+
+    .news .notice {
+      height: 36px;
+      margin-top: 18px;
+      margin-bottom: 11px;
+      padding: 0 15px;
+      background-color: #414046;
+
+    }
+
+    .news .notice a {
+      display: block;
+      width: 230px;
+
+      color: #f3c258;
+      font-size: 18px;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+    }
+
+    /* news-list布局 */
+    .news .news-list .item {
+      height: 21px;
+      margin-bottom: 11px;
+      
+    }
+
+    .news .news-list .item a {
+      display: inline-block;
+    }
+
+    .news .news-list .item a span {
+      display: inline-block;
+
+      margin-right: 5px;
+      margin-top: 2px;
+      border-radius: 2px;
+      border: 1px solid currentColor;
+      width: 32px;
+
+      font-size: 12px;
+      line-height: 16px;
+      vertical-align: top;
+      text-align: center;
+
+    }
+    .news .news-list .item a span.hot{
+      color: #ff3636;
+    }
+    .news .news-list .item a span.new{
+      color: #1e96ab;
+    }
+    .news .news-list .item a span.news-notice{
+      color: #f4be19;
+    }
+    .news .news-list .item a .desc{
+      display: inline-block;
+
+      width: 230px;
+
+      color: #b8b9c5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .news .news-list .item .date{
+      float: right;
+      color: #999;
+
+    }
+
+
+
+    /* 下载区域布局 */
+    .new-section .download a {
+      display: block;
+      background-image: url(./img/main-sprite.png);
+    }
+
+    .new-section .download a.download-btn {
+      height: 128px;
+      background-position: 0 -219px;
+    }
+
+    .new-section .download a.guard-btn {
+      height: 106px;
+      background-position: 0 -350px;
+    }
+
+    .new-section .download a.experience-btn {
+      height: 108px;
+      background-position: 0 -461px;
+    }
+    .new-section .adapt-age{
+      position: absolute;
+      top: 0;
+      right: -58px;
+      width: 53px;
+      height: 68px;
+      background: url(./img/shiling.png) no-repeat;
+
+    }
+    .new-section .Indulge{
+      position: absolute;
+      top: 78px;
+      right: -58px;
+      width: 53px;
+      height: 47px;
+      background: url(./img/fanchenmi.png) no-repeat;
+      background-size: contain;
+
+    }
+
+    /* show区域布局 */
+    .show-section ul{
+      display: flex;
+      margin-top: 25px;
+      justify-content: space-between;
+    }
+    .show-section ul .item{
+      width: 291px;
+      height: 134px;
+      overflow: hidden;
+    }
+    .show-section ul .item a{
+      display: block;
+      height: 100%;
+    }
+    .show-section ul .item a img{
+      transition: all 0.2s linear;
+    }
+    .show-section ul .item a:hover img{
+      transform: scale(1.1,1.1);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="main main_wrapper">
+    <div class="new-section">
+      <div class="banner">
+        <ul class="swipe">
+          <li class="item"><a href="#"><img src="./img/轮播图img/1.jpeg" alt=""></a></li>
+          <li class="item"><a href="#"><img src="./img/轮播图img/2.jpeg" alt=""></a></li>
+          <li class="item"><a href="#"><img src="./img/轮播图img/3.jpeg" alt=""></a></li>
+          <li class="item"><a href="#"><img src="./img/轮播图img/4.jpeg" alt=""></a></li>
+          <li class="item"><a href="#"><img src="./img/轮播图img/5.jpeg" alt=""></a></li>
+
+        </ul>
+        <ul class="info-list">
+          <li class="info">
+            <a href="#" class="active">高校青英杯</a>
+          </li>
+          <li class="info">
+            <a href="#">世冠TOP5</a>
+          </li>
+          <li class="info">
+            <a href="#">海都新英雄</a>
+          </li>
+          <li class="info">
+            <a href="#">大仙暖冬送福利</a>
+          </li>
+          <li class="info">
+            <a href="#">世冠应援曲</a>
+          </li>
+        </ul>
+      </div>
+      <div class="news">
+        <ul class="title-list">
+          <li class="title"><a href="#" class="active">热门</a></li>
+          <li class="title"><a href="#">新闻</a></li>
+          <li class="title"><a href="#">公告</a></li>
+          <li class="title"><a href="#">活动</a></li>
+          <li class="title"><a href="#">赛事</a></li>
+          <li class="title "><a href="#" class="more">...</a></li>
+        </ul>
+        <div class="notice">
+          <a href="#">王者世冠半决赛落幕：星辰耀世，雄狮觉醒，谁能捧得凤凰杯？</a>
+        </div>
+        <ul class="news-list">
+          <li class="item">
+            <a href="#">
+              <span class="hot">热门</span>
+              <p class="desc">蒙犽皮肤设计大赛创意赏析第一期</p>
+            </a>
+            <span class="date">12/17</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="news-notice">公告</span>
+              <p class="desc">12月15日全服不停机更新公告</p>
+            </a>
+            <span class="date">12/17</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="news-notice">公告</span>
+              <p class="desc">12月8日全服不停机更新公告</p>
+            </a>
+            <span class="date">12/04</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="hot">热门</span>
+              <p class="desc">蒙犽皮肤设计大赛创意赏析第一期</p>
+            </a>
+            <span class="date">12/18</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="new">新闻</span>
+              <p class="desc">蒙犽源·梦皮肤设计大赛开启公告</p>
+            </a>
+            <span class="date">12/19</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="hot">热门</span>
+              <p class="desc">元歌源·梦皮肤台词方案票选结果公布</p>
+            </a>
+            <span class="date">12/20</span>
+          </li>
+          <li class="item">
+            <a href="#">
+              <span class="hot">热门</span>
+              <p class="desc">1v1可以跨区对战啦，谁是全服单挑王一试便知！</p>
+            </a>
+            <span class="date">12/17</span>
+          </li>
+        </ul>
+
+      </div>
+      <div class="download">
+        <a href="#" class="download-btn"></a>
+        <a href="#" class="guard-btn"></a>
+        <a href="#" class="experience-btn"></a>
+      </div>
+      <a href="#" class="adapt-age"></a>
+      <a href="#" class="Indulge"></a>
+
+    </div>
+    <div class="show-section">
+      <ul>
+        <li class="item"><a href="#"><img src="./img/show/1.jpg" alt=""></a></li>
+        <li class="item"><a href="#"><img src="./img/show/2.png" alt=""></a></li>
+        <li class="item"><a href="#"><img src="./img/show/3.jpg" alt=""></a></li>
+        <li class="item"><a href="#"><img src="./img/show/4.png" alt=""></a></li>
+      </ul>
+    </div>
+    
+  </div>
+
+
+</body>
+
+</html>

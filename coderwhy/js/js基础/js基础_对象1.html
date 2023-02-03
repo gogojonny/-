@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 从红宝书中的描述说，对象可以描述为一种散列表，用于存放键值对，值可以是对象，函数，以及其他类型的数据
+
+    // 8.1 理解对象
+    // 早期对象的创建方法
+    // let foo = new Object()
+    // foo.name = 'foo'
+    // foo.age = 18
+    // foo.address = 'Boston'
+    // foo.run = function () {
+    //   console.log('run')
+    // }
+
+    // 后来对象的创建方法
+    // let bar = {
+    //   name: "bar",
+    //   age: 18,
+    //   address: 'Boston',
+    //   run: function () {
+    //     console.log('run')
+    //   }
+
+    // }
+
+    // 8.1.1 属性类型
+    // JavaScript中一些原生属性有“内部特性”，有“内部特性”的属性开发者是无法直接访问到的，为了与其他属性进行区分，含有内部特性的属性使用双中括号包裹起来，例如[[scopes]]和[[enumerable]]
+    // 属性分两种:数据属性和访问器属性
+    // * 数据属性
+
+    // 数据属性包含一个位置，这个位置保存一个数据值，值会从这个位置读取，也会写入到这个位置
+    // let obj = {
+    //   name: 'foo'
+    // }
+
+    // console.log(obj.name)
+    // obj.name = 'bar'
+
+    // 数据有四个属性描述他们的行为
+    // * [[configurable]]: 表示属性是否可以被delete删除,以及属性的特性是否可以改变,默认情况下定义在对象中的属性这个值都为true
+    // * [[enumberable]]:表示这个属性是否可以被for...in进行遍历,默认情况下这个属性为true
+    // * [[writeable]]: 表示属性的值是否可以被修改,默认为true
+    // * [[value]]: 包含属性实际的值,默认为undefined
+
+    // ; (function () {
+    //   "use strict"
+    //   let obj = {
+    //     name: 'foo',
+    //     age: 19
+    //   }
+    //   delete obj.name;
+    //   console.log(obj.name)
+
+    //   // 严格模式下，设置configurable为fales的属性被删除不会静默处理，而是直接报错
+    //   Object.defineProperty(obj, 'age', {
+    //     configurable: false
+    //   })
+    //   delete obj.age
+    //   console.log(obj.age)
+    // })()
+
+    // ; (function () {
+    //   "use strict"
+    //   let obj = {
+    //     name: 'foo',
+    //     age: 19
+    //   }
+
+    //   Object.defineProperty(obj, 'age', {
+    //     enumerable: false
+    //   })
+    //   // 设置了enumerable为false的属性不能被for...in遍历
+    //   for (let property in obj) {
+    //     console.log(property)
+    //   }
+
+    // })()
+
+    // ; (function () {
+    //   "use strict"
+    //   let obj = {
+    //     name: 'foo',
+    //     age: 19
+    //   }
+
+    //   Object.defineProperty(obj, 'age', {
+    //     writable: false
+    //   })
+    //   // 设置了writable为false的属性不能被修改
+    //   obj.age = 22;
+
+    // })()
+
+    // ; (function () {
+    //   "use strict"
+    //   let obj = {
+    //     name: 'foo',
+    //     age: 19
+    //   }
+
+    //   Object.defineProperty(obj, 'age', {
+    //     value: 35
+    //   })
+    //   console.log(obj.age)//value值为35
+
+    // })()
+
+    // ; (function () {
+    //   "use strict"
+    //   let obj = {
+    //     name: 'foo',
+    //     age: 19
+    //   }
+
+    //   Object.defineProperty(obj, 'age', {
+    //     configurable: false,
+    //     writable: true
+    //   })
+    //   // 经过测试，设置过 configurable: false的属性，如果在设置这个属性时设置了writable为false，那么这个属性将一直无法修改，成为不可配置的属性，如果writable没有一开始设置为false，那么这个属性将成为唯一可以修改的属性
+    //   Object.defineProperty(obj, 'age', {
+    //     // configurable: true,
+    //     writable: false
+    //     // enumerable:false
+    //     // value:10
+
+    //   })
+    // })()
+
+    // 多数情况可能并不需要defineProperty的设置，但是为了了解对象，知道这些很有必要
+
+    // 访问器属性
+    // 访问器属性不包含属性的值“value”，相反包含了两个函数set和get
+    // * set函数: 返回一个有效的值
+    // * get函数: 在写入这个访问器属性时,就会调用这个设置函数对数据进行修改
+    // 通常的使用场景是,某个属性我们不想用对象方法以外的方式调用,就会设置get属性来返回. 通过写入某个值时,会调用设置函数对这个数据以及其他的一些数据进行修改
+
+    // let obj = {
+    //   // 用下划线代表这个属性不想被直接调用
+    //   year_: 2020,
+    //   edition: 1
+    // }
+
+    // Object.defineProperty(obj, 'year', {
+    //   get() {
+    //     return this.year_
+    //   },
+    //   set(newYear) {
+    //     // 判断新值是否满足条件，满足则会修改
+    //     if (newYear > 2020) {
+    //       this.year_ = newYear
+    //       // 联通修改了版本
+    //       this.edition += newYear - 2020
+    //     }
+    //   }
+    // })
+    // console.log(obj.year)
+
+    // obj.year = 2022
+    // console.log(obj.edition)
+
+    // 只定义get函数的属性是只读的，严格模式下修改会报错，只设置set函数的属性是只能修改的。
+
+
+
+    // ; (function () {
+    //   'use strict'
+    //   // let obj = {
+    //   //   year_: 2020
+    //   // }
+    //   // Object.defineProperty(obj, 'year', {
+    //   //   get() {
+    //   //     return this.year_
+    //   //   }
+    //   // })
+    //   // // 只读属性不能修改，区别在于没有set函数
+    //   // obj.year = 2022
+
+    //   let foo = {
+    //     year_: 2020
+    //   }
+
+    //   Object.defineProperty(foo, 'year', {
+    //     set(newValue) {
+    //       this.year_ = newValue
+    //     }
+    //   })
+
+    //   console.log(foo.year)//严格模式下读取一个没有设置get函数的访问器属性得到undefined
+
+    // })()
+
+
+    // 8.1.2 定义多个属性
+    // 在一个对象上有可能定义多个需要配置的属性
+    // ; (function () {
+    //   'use strict'
+    //   let obj = {}
+    //   Object.defineProperties(obj, {
+    //     year_: {
+    //       value: 2020
+    //     },
+    //     edition: {
+    //       value: 1
+    //     },
+    //     year: {
+    //       get() {
+    //         return this.year_
+    //       },
+    //       set(newValue) {
+    //         if (newValue > 2020) {
+    //           this.year_ = newValue
+    //           this.edition += newValue - 2020
+    //         }
+    //       }
+
+    //     }
+    //   })
+    // })()
+
+    // 8.1.3 读取属性的特性
+    // 属性通过defineProperty设置的特性可以通过getOwnPropertyDescriptor来获取，返回一个包含这些属性特性的一个对象
+
+    // ; (function () {
+    //   'use strict'
+    //   let obj = {}
+    //   Object.defineProperties(obj, {
+    //     year_: {
+    //       configurable: true,
+    //       writable: true,
+    //       value: 2020
+    //     },
+    //     edition: {
+    //       configurable: true,
+    //       writable: true,
+    //       value: 1
+    //     },
+    //     year: {
+    //       get() {
+    //         return this.year_
+    //       },
+    //       set(newValue) {
+    //         if (newValue > 2020) {
+    //           this.year_ = newValue
+    //           this.edition += newValue - 2020
+    //         }
+    //       }
+
+    //     }
+    //   })
+
+    //   obj.year = 2022;
+    //   console.log(obj.year)//要注意直接设置过defineProperty的属性，没有配置的其他特性一律为false，值为undefined
+
+    //   let descripter1 = Object.getOwnPropertyDescriptor(obj, 'year_')
+    //   console.log(descripter1)
+
+    //   let descripter2=Object.getOwnPropertyDescriptor(obj,'year')
+    //   console.log(descripter2)
+
+    //   // 当然还有更方便的获取所有对象的特征的方法
+    //   let objDescripter=Object.getOwnPropertyDescriptors(obj)
+    //   console.log(objDescripter)
+    // })()
+
+
+    // 8.1.4 合并对象
+
+    //  合并对象指将两个对象进行合并或者混入。JavaScript提供Object.assign方法，将源对象和目标对象传入。他会将源对象中满足可以遍历以及属于自己的属性的属性复制到目标对象中，并对满足条件的属性使用源对象上的[[get]]函数获取属性的值,并调用目标函数上的[[set]]函数将值传入到目标对象.
+
+    ; (function () {
+      'use strict'
+      // 单一源对象
+      // let dest, src, result;
+
+      // dest = {}
+      // src = { id: 'src' }
+
+      // result = Object.assign(dest, src)
+      // console.log(dest===result)//由于这里是true，所以可以判定Object.assign是对源对象进行操作的
+      // console.log(dest!==src)
+      // console.log(dest)
+      // console.log(result)
+
+      // 多个源对象
+
+      // let dest = {}
+      // let result = Object.assign(dest, { foo: "foo" }, { bar: 'bar' })
+      // console.log(result)
+      // console.log(result === dest)
+
+      // 设置源对象有get函数，目标对象有set函数.这里应对的是同名访问器属性
+
+      // let dest = {
+
+      // }
+
+      // Object.defineProperty(dest, 'a', {
+      //   set(newValue) {
+      //     console.log('目标对象的set函数启动了,并传入了', newValue)
+      //   }
+      // })
+
+      // let src = {
+      //   name: "foo",
+      //   // set,get函数的语法糖
+      //   get a() {
+      //     console.log('源对象的get函数启动了')
+      //     return this.name
+      //   }
+      // }
+
+      // let result = Object.assign(dest, src)
+      // console.log(result)
+
+
+
+
+      // 对于Object.assign方法，可以传入一个目标函数和多个原函数，原函数传入属性需要满足两个条件
+      // * 必须是defineProperty为true的属性
+      // * 必须是enumerable为true的属性
+      // 满足以上两个条件的属性会执行get函数，然后再目标函数中执行set函数。(数据属性没有get和set函数就直接代替)
+      // Object.assign对对象的传递不会传递get函数和set函数,在传递完成后,对象使用的属性依旧是自己设置的get函数和set函数,也就是源对象的属性的获取函数,实际上是作为一个静态支付给目标对象.
+      // Object.assign方法使用是不能回滚的，所以如果中途报错那么前面执行的部分依旧会保留下来
+      // let dest = {
+
+      // }
+
+      // Object.defineProperty(dest, 'name', {
+      //   set(newValue) {
+      //     console.log('dest get ', newValue)
+      //   }
+      // })
+
+      // let src = {
+      //   // get配置函数语法糖，这个get函数会让enumerable自动变为true
+      //   get age() {
+      //     console.log('使用了get函数')
+      //     return 20
+      //   }
+
+      // }
+
+      // Object.defineProperty(src, 'name', {
+      //   enumerable: true,
+      //   get() {
+      //     return 'foo'
+      //   }
+      // })
+
+      // let result = Object.assign(dest, src)
+      // console.log(result)
+
+
+      // 由于两个对象之间是浅拷贝,所以赋值的属性值如果是一个对象,那么会把这个对象的指针传递过去
+
+      // let dest = {}
+      // let src = {
+      //   a: {
+      //     name: 'foo'
+      //   }
+      // }
+
+      // let result=Object.assign(dest,src)
+      // src.a.name='bar'
+      // console.log(dest)
+
+
+    })()
+
+    // 对象标识及相等判定
+    !(function () {
+
+      //// 相等判断也无能为力的场景
+      // console.log(+0 === 0)//true
+      // console.log(+0 === -0)//true
+      // console.log(-0 === 0)//true
+
+      // console.log(NaN === NaN)//false
+      // // 这时必须要isNaN来判断
+      // console.log(isNaN(NaN))//true
+
+      // // 解决处于这种情况下出现的问题
+      // // es6提供了一种十分好用的语法，Object.is（），解决上述边界问题
+      // console.log(Object.is(0, -0))//false
+      // console.log(Object.is(0, +0))//true
+      // console.log(Object.is(-0, +0))//false
+      // console.log(Object.is(NaN, NaN))//true
+      // console.log(Object.is({}, {}))//false
+
+      // // 当出现检查两个以上的值时
+      // function recursivelyCheckEqual(x, ...values) {
+
+      //   return Object.is(x, values[0]) && (values.length < 2 || recursivelyCheckEqual(x, ...values.splice(0, 1)))
+      // }
+
+      // console.log(recursivelyCheckEqual(0, 0, 0, 0))
+
+    })()
+
+      // 增强的对象语法~语法糖
+      ; (function () {
+
+        // // 属性值简写
+        // let name = 'matt'
+
+        // let obj = {
+        //   name//相当于name：name
+        // }
+        // console.log(obj.name)
+
+
+        // function foo(name) {
+        //   return {
+        //     name
+        //   }
+        // }
+
+        // let bar = foo('matt')
+        // console.log(bar.name)//这里需要尤其注意以下，这里的name属性的值找到了函数的作用域内，正常外层作用域无法访问内层作用于定义的变量，而这里依旧保存着函数的作用域。
+
+
+        // 可计算属性
+        // 在可计算属性出现之前，如果想把某一个值作为一个对象的属性，那么就必须先创建这个对象，然后用中括号语法。不能用对象字面量的方法
+        // let name = 'foo'
+        // let age = 28
+        // let address = 'boston'
+        //   // 出现可计算属性之前的写法
+        // let obj={}
+        // obj[name]='foo'
+        // obj[age]=28
+        // obj[address]='boston'
+        // console.log(obj)
+
+        // 可计算属性出现之后，直接在字面量内就可以使用中括号语法
+        // let nameKey = 'name'
+        // let ageKey = 'age'
+        // let addressKey = 'address'
+
+        // let obj = {
+        //   [nameKey]: 'matt',
+        //   [ageKey]: 28,
+        //   [addressKey]: 'boston'
+        // }
+        // console.log(obj)
+
+        // // 进阶一些就可以设置key添加一些特殊标识符
+
+        // function addAuthor(key) {
+        //   return`xs_${key}`
+        // }
+
+        // let bar = {
+        //   [addAuthor(nameKey)]: 'matt',
+        //   [addAuthor(ageKey)]: 28,
+        //   [addAuthor(addressKey)]: 'boston'
+        // }
+
+
+        // console.log(bar)
+
+
+        // // 简写方法名
+        // 不仅可以简写方法名，还可以简写get函数和set函数
+        // let foo = {
+        //   sayName: function (name) {
+        //     console.log(`my name is ${name}`)
+        //   }
+        // }
+        // let bar = {
+        //   sayName(name) {
+        //     console.log(`my name is ${name}`)
+        //   }
+        // }
+        // let methodKey = "sayName"
+        // let baz = {
+        //   [methodKey](name) {
+        //     console.log(`my name is ${name}`)
+        //   }
+        // }
+        // foo.sayName('matt')
+        // bar.sayName('matt')
+        // baz.sayName('matt')
+
+
+      })()
+
+
+
+      // 对象解构
+      ; (function () {
+
+        // let obj = {
+        //   name: 'matt',
+        //   age: 28
+        // }
+
+        // let { name: personName, age: personAge } = obj
+        // console.log(personName, personAge)
+
+        // let { name, age } = obj
+        // console.log(name, age)
+
+        // 按照对象的结构和属性进行解构，如果没有属性，那么就返回undefined
+        // let {name,job}=obj
+        // console.log(name,job)//job为undefined
+
+        // 解构可以设置默认值
+        // let {name,job='microsoft engineer'}=obj
+        // console.log(name,job)
+
+
+        // 解构会在内部调用toObject（），也就是说，原始值会被当成对象，但是null和undefined不能被解构（根据toObject的定义）
+        // let {constructor:c}=4
+        // console.log(c===Number)//true
+
+        // let {length}='foobar'
+        // console.log(length)//6
+
+        // 解构并不要求一定在结构表达式中声明变量，但是如果在外部声明变量，想在结构表达式中使用就必须把结构表达式用圆括号包裹起来
+        // let personName, personAge
+        // let obj = {
+        //   name: 'foo',
+        //   age: 18
+        // };//要注意使用圆括号的时候需要在前面加上分号
+
+        // // let { name: personName, age: personAge } = obj//会显示上面两个变量已经被声明过了
+        // ({ name: personName, age: personAge } = obj)
+        // console.log(personName, personAge)
+
+        // 1 嵌套结构
+        // let person = {
+        //   name: 'amtt',
+        //   age: 20,
+        //   job: {
+        //     title: 'software engineer'
+        //   }
+        // }
+        // console.log(person.job.title)
+        // let personCopy = {}
+
+        //   ; ({ name: personCopy.name, age: personCopy.age, job: personCopy.job } = person)
+
+        // // 由于job是一个对象，所以赋值给personCopy的job是一个指针，因此修改person的copy属性，也会修改personCopy里的job属性
+        // person.job.title = 'hacker'
+        // console.log(person)
+        // console.log(personCopy)
+
+        // 嵌套结构实际上是解构对象的对象
+        // let person = {
+        //   job: {
+        //     title: 'software engineer'
+        //   }
+        // }
+
+        // let personCopy = {}
+
+        //   // 如果某一个属性是以对象作为值，那么可以继续用大括号表示这个对象，然后输入属性名来获取这个属性的值
+        //   ; ({ job: { title } } = person)
+
+        // console.log(title)
+
+        //   // 也可以将值赋值给新定义的参数
+        //   ; ({ job: { title: jobTitle } } = person)
+        // console.log(jobTitle)
+        //   // 但是不能一步到位的直接复制给personCopy
+        //   ; ({ job: { title: personCopy.job.title } })
+        // console.log(personCopy)//这里一定会出错，因为personCopy根本没有这个job属性
+
+
+        // 2 部分解构
+
+        // 对象解构过程实际上是一种输出无关的顺序化过程，也就是对象的属性会分别对照解构赋值的接收参数。
+        // let person = {
+        //   name: 'matt',
+        //   age: 20,
+        //   job: 'engineer'
+        // }
+
+        // // let personCopy = {}
+        //   ; ({ name, foo, job } = person)
+        //   console.log(name,foo,job)//对于匹配不上的解构的接收参数，就会返回undefined 
+
+
+        // 3 参数上下文匹配
+        // 在函数的参数列表中也可以使用解构，但是不会影响arguments
+        // let person = {
+        //   name: 'matt',
+        //   age: 20
+        // }
+
+        // function printPerson(foo, { name, age }, bar) {
+        //   console.log(arguments)
+        //   console.log(name, age)
+        // }
+
+        // function newPrintPerson(foo, { name: personName, age: personAge }, bar) {
+        //   console.log(arguments)
+        //   console.log(personName, personAge)
+        // }
+
+        // printPerson(1, person, 2)
+        // newPrintPerson(1, person, 2)
+
+      })()
+
+      // 8.2 创建对象
+
+      ; (function () {
+        // 正常创建一些有相同功能的对象，如果不使用某些方法敲会发现代码重复性太高了，所以使用一些方法可以降低这种代码重复性
+        // 创建三个不同的人
+        // let matt = {
+        //   name: 'matt',
+        //   age: 20,
+        //   job: {
+        //     title: 'software engineer'
+        //   }
+        // }
+
+        // let foo = {
+        //   name: 'foo',
+        //   age: 27,
+        //   job: {
+        //     title: 'doctor'
+        //   }
+
+        // }
+
+        // let bar = {
+        //   name: 'bar',
+        //   age: 22,
+        //   job: {
+        //     title: 'teacher'
+        //   }
+        // }
+
+        // es5可以使用原型的方式来模拟继承和类的概念，尽管面向对象编程的继承和类是在es6发布的，不过依然有一些概念性的只是需要理解，es6的类和继承实际上是对es5原有结构的底层封装、
+
+        ; (function () {
+          // // 8.2.2 工厂模式
+
+          // // 工厂模式也就是生产对象的工厂,可以批量生产类似的对象
+          // function creatPerson(name, age, job) {
+          //   let person = new Object()
+          //   person.name = name;
+          //   person.age = age;
+          //   person.job = job;
+          //   person.sayName(){
+          //     console.log(person.name)
+          //   }
+          // }
+
+          // let matt = creatPerson('matt', 20, { title: 'software engineer' })
+          // let foo = creatPerson('foo', 28, { title: 'doctor' })
+          // let bar = creatPerson('bar', 22, { title: 'teacher' })
+          // // 虽然工厂模式可以解决对象的批量生产问题，但是还有一些问题没有解决，例如对象是属于什么类型的
+
+        })()
+
+
+          ; (function () {
+            // 8.2.3 构造函数模式
+            // 在JavaScript中存在一些原生的构造函数，可以通过new关键字来构造对应类型的对象，类似于Object和Array这种原生类型的构造函数。
+            // 当然可以自己设置一个构造函数，下面就是一个自定义的构造函数
+            // function Person(name, age, job) {
+            //   this.name = name;
+            //   this.age = age;
+            //   this.job = job
+            // }
+
+            // let matt = new Person('matt', 29, { title: "software engineer" })
+            // console.log(matt)//Person {name: 'matt', age: 29, job: {…}}
+            // let foo = new Person('foo', 29, { title: 'doctor' })
+            // console.log(foo)//Person {name: 'foo', age: 29, job: {…}}
+
+
+
+
+            //构造函数和工厂函数的区别
+            // * 构造函数不需要定义一个对象
+            // * 构造函数会把属性和方法定义在this中
+            // * 构造函数没有return
+
+
+            // 要使用构造函数，需要使用new关键字，以这种方式调用构造函数会执行以下操作
+            // * 在内存中创建一个对象
+            // * 这个对象内部的[[prototype]]特性被赋值为构造函数的prototype属性
+            // * 会把this指向这个新创建的对象
+            // * 执行构造函数中的代码，如果没有return就会静默返回自动创建的对象
+
+
+            // 所有通过构造函数创建的实例的[[prototype]]都会保存构造函数的prototype属性的值，所以实例都可以查找到他对应的构造函数是谁
+            // 实例可以通过constructor来查找对应的构造函数
+            // console.log(matt.constructor === Person)//true
+            // console.log(foo.constructor === Person)//true
+            // console.log(matt.constructor === Object)//false
+
+            // // constructor不适用于查看实例的类型，可以使用instanceof操作符来查看实例的类型
+            // console.log(matt instanceof Person)//true
+            // console.log(matt instanceof Object)//true
+            // 这里说明matt既是Person的类型也是Object的类型
+
+            // 相对于工厂函数，构造函数创造的实例有自己的类型，这是构造函数最大的优点，另外创造的实例也是Objet的实例，那是因为构造函数自身也是object的实例
+            // 构造函数不一定都是定义的模式，表达式也可以定义构造函数
+
+            // let Fruit = function (color, weight, smell) {
+            //   this.color = color;
+            //   this.weight = weight;
+            //   this.smell = smell
+            // }
+
+
+            ; (function () {
+              // // 1 构造函数也是函数
+              // // 构造函数与普通函数的区别在于构造函数可以使用new来调用，除此之外并没有什么区别，其实任何函数只要不是用new调用的，那么都可以叫做普通函数
+              // function Person(name, age, job) {
+              //   this.name = name;
+              //   this.age = age;
+              //   this.job = job
+              //   this.sayThis=()=>console.log(this)
+              // }
+
+              // let matt = new Person('matt', 29, { title: 'software engineer' })
+              // // matt.sayThis()
+
+              // console.log(matt.name)
+
+              // Person('foo', 28, { title: 'fireKeeper' })
+              // console.log(window.name)
+
+              // let obj = {}
+              // Person.call(obj, 'bar', 10, { title: 'lord' })
+              // console.log(obj.name)
+              // obj.sayThis.call(matt)// obj
+              // //new关键字指向的this优先级高于显式调用
+
+            })()
+
+              ; (function () {
+                // // 2 构造函数的问题
+                // // 构造函数虽然好，但是不是没有问题的，构造函数的问题在于，在构造函数上定义的方法会在实例中再创造一遍。而不是每个实例都保存着某个方法的引用，这样有可能会导致内存云泄露的发生
+                // function Person(name) {
+                //   this.name;
+                //   this.sayName = function (name) {
+                //     console.log(this.name)
+                //   }
+
+                // }
+
+                // let matt = new Person('matt')
+                // let foo = new Person('foo')
+                // console.log(matt.sayName === foo.sayName)//false
+
+                // // 解决办法是外部定义一个函数
+                // function sayName() {
+                //   console.log(this.name)
+                // }
+
+                // function NewPerson(name) {
+                //   this.name = name;
+                //   this.sayName = sayName;
+                // }
+
+                // let newMatt = new NewPerson('matt')
+                // let newFoo = new NewPerson('foo')
+                // console.log(newMatt.sayName === newFoo.sayName)//true
+
+
+              })()
+
+
+          })()
+
+          ; (function () {
+            // 8.2.4 原型模式
+            // 每个函数都会创建一个prototype属性，这个属性的值是一个对象，这个对象包含了由构造函数创造的实例所共享的属性和方法，同时这个对象也是通过new操作符构造出来对象的原型对象。
+            // prototype的值，也就是原型对象的特点就是他的属性和方法被所有实例共享
+            // function Person() { }
+            // Person.prototype.name = 'matt'
+            // Person.prototype.age = 28
+            // Person.prototype.job = { title: 'software engineer' }
+            // Person.prototype.sayName = function () {
+            //   console.log(this.name)
+            // }
+
+            // let person1 = new Person()
+            // let person2 = new Person()
+            // console.log(person1.name === person2.name)//true
+            // console.log(person1.job === person2.job)//true
+            // person1.sayName()//matt
+            // console.log(person1.sayName === person2.sayName)//true
+
+
+            // 对于原型的理解
+            // 首先，每个函数都会有一个prototype属性，这个属性的值是一个对象，这个对象就是原型，这个原型对象初始会有一个属于自己的属性，也就是constructor，这个属性指向这个函数，其他的属性和方法都是继承自Object对象。
+            // 其次，构造函数使用new操作符时都会创建一个对象，创建的对象有一个[[prototype]]特性，这个特性一般无法访问到，但是在chrome，fireFox,Safair浏览器中可以使用_proto_属性访问。
+            // 总之，由构造函数创建出来的实例实际上与构造函数本身无关，但是与构造函数的原型对象有关
+            // function Person() { }
+            // console.log(Person.prototype.constructor === Person)//true
+            // console.log(Person.prototype)
+
+            // let person = new Person()
+            // console.log(person.__proto__)
+
+            // 每个对象都有原型,Person的原型对象也有原型，他的原型是Object的原型对象
+            // console.log(Person.prototype.__proto__ === Object.prototype)//true
+            // console.log(Person.prototype.__proto__.constructor === Object)//true
+            // // object原型对象的原型是null
+            // console.log(Person.prototype.__proto__.__proto__ === null)//true
+            // // 两个实例共享同一个原型对象
+            // let person1 = new Person()
+            // let person2 = new Person()
+            // console.log(person1.__proto__ === person2.__proto__)//true
+
+            // instanceof 检查实例的原型链
+            // isPrototypeOf（）方法可以检查某一对象是不是调用这个方法的对象的实例
+            // console.log('................')
+            // console.log(Person.prototype.isPrototypeOf(person1))//true
+            // 这样虽然某些浏览器不支持使用__proto__属性来获取实例对象的原型,但是依然可以通过这个方法来检查某一实例是否有这个原型
+
+            // 另外在Object中存在getPrototypeOf方法来获取某一实例的原型
+            // console.log(Object.getPrototypeOf(person1))
+            // 这个方法非常重要，因为这个方法设置到后面的利用原型实现继承
+
+
+            // 除了获取某一实例的原型外，话可以设定某一对象的原型，但是因为这个方法对性能的损耗很大所以不多过介绍
+
+            // 为了避免使用设置原型的方法，这里推出了Object.create()方法来创建一个新的对象,同时为其指定原型
+            // let biped = {
+            //   numLegs: 2
+            // }
+            // let newPerson=Object.create(biped)//指定原型为biped
+
+            // console.log(newPerson.__proto__===biped)//true
+
+            ; (function () {
+              // // 2 原型层级
+              // // 通过对象访问属性时，会按照这个属性的名称开始搜索。搜索起始于对象本身，如果在这个实例上发现了这个属性，就会停止搜索，如果没有找到，就会沿着指针进入原型对象，然后在原型对象上找到这个属性后，将这个值返回
+              // // 虽然可以通过原型来获取到这个属性，但是不能修改这个属性。、
+              // function Person() { }
+              // Person.prototype.name = 'matt'
+              // Person.prototype.age = 20
+              // Person.prototype.job = 'engineer'
+
+              // let person1 = new Person()
+              // let person2 = new Person()
+
+              // person1.name = 'foo'
+              // console.log(person1.name)//不是matt，实际上是在perosn1对象上新建一个属性叫做name并且覆盖了原型对象中的name
+              // console.log(person2.name)
+
+              // // 因为原型上的name属性被实例覆盖，所以就无法访问原型上的name属性，即使把这个name设置为null也不可以，但是可以通过将实例上的name属性删除掉就又可以访问原型上的name属性
+
+              // delete person1.name
+              // console.log(person1.name)//删除了实例上的name，返回原型上的name
+
+
+              // // 原型上有属性，实例上也有属性，所以可以通过hasOwnProperty方法来确定实例上的属性是否是私有属性
+
+              // console.log(person1.hasOwnProperty('name'))//false
+              // person1.name = 'matt'
+              // console.log(person1.hasOwnProperty('name'))//true
+
+              // // Object.getOwnPropertyDescriptor()方法可以获取实例上的属性，但是只对实例属性有效，想获取原型上的属性，就必须在原型上调用这个方法
+              // console.log(Object.getOwnPropertyDescriptor(person1,'name'))
+
+
+            })()
+
+              ; (function () {
+                // // 3 原型和in操作符
+                // // 有两种使用in的情况，第一种是在for...in...循环中使用,另一种是单独使用,两种的意思大概一致,就是判断一个属性是否在一个对象中.
+
+                // let obj = {
+                //   name: 'matt',
+                //   age: 20,
+                //   job: 'engineer'
+                // }
+                // let newObj = Object.create(obj)
+                // Object.defineProperty(newObj, 'address', {
+                //   enumerable: false,
+                //   value: 'boston'
+                // })
+
+                // for (let property in obj) {
+                //   // in 操作符可以遍历实例属性和原型上的属性，但是无法遍历不可枚举的属性
+                //   console.log(property in newObj)//true*3
+                // }
+
+                // // 另外，in操作符可以判断一个属性是否在原型上，原理是in操作符可以判断属性是在原型和实例上的，但是hasOwnProperty只能判断是否在实例上
+                // function Person() { }
+                // Person.prototype.name = 'matt'
+                // Person.prototype.age = 30
+                // Person.prototype.job = 'engineer'
+                // Person.prototype.home = '朝阳'
+
+                // let person1 = new Person()
+
+                // person1.name = 'foo'
+                // person1.address = 'China'
+
+                // // 这个函数可以判断属性是否只是在原型对象上
+                // function isPrototypeProperty(obj, property) {
+                //   return !obj.hasOwnProperty(property) && (property in obj)
+
+                // }
+                // console.log(isPrototypeProperty(person1, 'name'))//fasle
+                // console.log(isPrototypeProperty(person1, 'address'))//false
+                // console.log(isPrototypeProperty(person1, 'age'))//true
+
+                // // in 操作符可以遍历实例属性和原型上的属性，但是无法遍历不可枚举的属性
+                // // 如果想获取一个对象上所有的实例属性，可以使用Object。keys（）方法（不包括不可枚举的属性）
+                // // 如果想获取某一对象上所有的实例属性，不管是否可以枚举，那就是用Object.getOwnPropertyName()
+                // // es6之后出现了Object.getOwnPropertyNames()的兄弟方法,这个方法获取所有对象上的symbol属性,那就是Object.getOwnPropertySymbols()
+
+
+
+              })()
+
+              ; (function () {
+                // // 3 属性枚举顺序
+                // // 遍历对象目前学习到了五种方法，foe...in..，Object.keys,Object.getOwnPropertyName(),Object.getOwnPropertySymbol,Object.assign()
+                // // 其中，for...in...和Object.keys()方法的遍历顺序是不确定的，依照浏览器而定
+                // // Object.getOwnPropertyNames()和Object.getOwnPropertySymbols()方法和Object.assign()方法是确定遍历顺序的
+                // // 对于属性是数字的，按照数字升序遍历，对于是字符串和symbol的，会按照他们出现的顺序遍历
+                // let key1 = Symbol()
+                // let key2 = Symbol()
+
+                // let o = {
+                //   1: 1,
+                //   first: 'first',
+                //   0: 0,
+                //   second: 'second',
+                //   [key1]: 'key1',
+                //   [key2]: 'key2',
+                // }
+
+                // o[3] = 3
+                // o[5] = 5
+                // o.third='third'
+
+                // console.log(Object.getOwnPropertyNames(o))
+                // console.log(Object.getOwnPropertySymbols(o))
+
+              })()
+
+          })()
+
+          ; (function () {
+            // 8.2.5 对象迭代
+
+            // es2017新增呢个了两个个静态方法，Object.values和object.entries,这两个静态方法都接受一个对象，其中第一个方法会返回内容数组，第二个方法返回键值对形式的数组。
+
+            // let obj = {
+            //   name: 'foo',
+            //   age: 20,
+            //   job: 'engiineer'
+            // }
+
+            // console.log(Object.values(obj))//['foo', 20, 'engiineer']
+            // console.log(Object.entries(obj))
+            // // 0: (2)['name', 'foo']
+            // // 1: (2)['age', 20]
+            // // 2: (2)['job', 'engiineer']
+            // // length: 3
+
+            // let s1 = Symbol()
+            // let s2 = Symbol()
+            // let str = 3
+            // obj[s1] = 's1'
+            // obj[s2] = 's2'
+            // obj[str] = 'string'
+            // console.log(Object.values(obj))
+            // console.log(Object.entries(obj))
+            // 这两个方法会忽略符号属性，会把非字符串属性转换为字符串，另外，这两个方法执行对象的浅复制
+
+            ; (function () {
+              // // 1 其他原型语法
+              // // 按照以前给构造函数的原型对象设置属性的方法会咋代码中重复出现Person.prototype，可以通过一个更简单的方法来给原型对象设置属性
+              // function Person() { }
+              // Person.prototype = {
+              //   name: 'matt',
+              //   age: 20,
+              //   job: 'engineer'
+              // }
+
+              // // 但这种写法会带来副作用，那就是constructor属性就不会指向Person了。默认设置构造函数时会默认创建一个含有constructor的对象且这个值指向构造函数，由于这种写法完全重写了默认的prototype对象，所以constructor也会指向完全不容的新对象（Object构造函数，在自身找不到constructor，所以上原型上查找，找到的原型对象的constructor，值指向Object）
+              // // 想解决这个问题也很简单，就是在对象中设置constructor属性来覆盖原型上的constructor属性
+              // Person.prototype = {
+              //   constructor: Person,
+              //   name: 'matt',
+              //   age: 20,
+              //   job: 'engineer'
+              // }
+              // // 但这样写还是会产生副作用，因为设置的prototype对象属性是可枚举的，也就是constructor也变成可枚举的属性，想要修改这一特性也很简单，不在prototype对象中直接定义这个属性，而是使用Object.denfineProperty（）方法
+
+              // Object.defineProperty(Person.prototype, 'constructor', {
+              //   enumerable: false,
+              //   value: Person
+              // })
+
+            })()
+
+              ; (function () {
+                // 2 原型的动态性
+                // 原型和实例之间的关系是松散的，也就是实例用[[prototype]]特性链接原型对象，实际上这个特性的值是一个指向原型对象的指针。
+                // 因此，在调用实例的属性时，如果某个属性是原型对象上的，且恰好在执行之前修改了这个属性的值，那么实例的属性也会发生相应的修改。
+                // 需要注意的是，原型的属性改变与重写原型不是一回事，原型改变只会改变属性和方法而不会改变原型对象的指针，重写原型会导致原型对象的指针发生改变，这会导致实例找不到原型
+                // function Person() { }
+                // Person.prototype = {
+                //   constructor: Person,
+                //   name: 'foo',
+                //   age: 20,
+                //   job: 'engineer'
+                // }
+
+                // Person.prototype.name = 'matt'
+                // let person1 = new Person()
+                // console.log(person1.name)//matt
+
+
+                //重写prototype
+
+                // function Person() { }
+
+                // let person1 = new Person()
+
+                // Person.prototype = {
+                //   name: 'foo'
+                // }
+                // console.log(person1.name)//undefined
+
+              })()
+
+              ; (function () {
+                // 原生对象原型
+                // 原生对象之所以重要，是因为原生对象是实现自定义类的基本方法，也是所有原生引用类型的基本模式。
+                // 原生引用类型的构造函数（例如String，Number，Object等）都在原型上定义了实例方法
+
+                // let arr = [1, 2, 3]
+                // console.log(arr.concat === Array.prototype.concat)//true
+
+                // 其实可以在原生构造函数的原型对象中定义新的方法，实例可以使用这些方法，但是不推荐这样，可以自定义一个类型然后继承原生构造函数的原型对象
+
+              })()
+
+              ; (function () {
+                // 原型的问题
+                // // 在生产模式中不会单独使用原型模式，其原因在于原型上的属性是共享的，也就是说一些引用值也会共享，比如数组会共享同一个数组
+                // function Person(){}
+                // Person.prototype={
+                //   name:'matt',
+                //   age:20,
+                //   job:'engineer',
+                //   arr:[1,2,3]
+                // }
+                // let person1=new Person()
+                // let person2=new Person()
+
+                // person1.arr.push(4)
+                // console.log(person1.arr)
+                // console.log(person2.arr)
+                // // 两者的数组都发生了改变，所以在原型上最好不要使用引用值，对于普通值，可以在实例中创建同名属性来覆盖掉
+
+              })()
+
+          })()
+
+          ; (function () {
+            // 继承
+            // JavaScript中不实现接口继承，只实现实现继承，因为JavaScript函数没有签名
+
+            ; (function () {
+              // 8.3.1 原型链
+              // 原型链是实现继承的关键，也就是说一个原型对象是另一个原型对象的实例，或者说一个原型对象的[[prototype]]属性指向另一个原型对象，就可以说一个类型继承了另一个类型
+              // function Commodity(price, num) {
+              //   this.price = price;
+              //   this.num = num
+
+              // }
+              // Commodity.prototype = {
+              //   constructor: Commodity,
+              //   sale: function () {
+              //     console.log(`卖出${this.price}元`)
+              //   },
+              //   show: function () {
+              //     console.log(`电脑配置为${this.screen},${this.GPU}`)
+              //   }
+
+              // }
+
+              // function Computer() {
+              //   this.screen = '超清',
+              //     this.GPU = 'RTX3060'
+
+              // }
+              // // 实现了电脑类继承商品类
+              // Computer.prototype = new Commodity(5999, 100)
+
+              // let computer = new Computer()
+              // computer.sale()
+              // computer.show()
+              // console.log(Object.getOwnPropertyNames(computer))
+              // console.log(Object.getOwnPropertyNames(computer.__proto__))
+              // console.log(Object.getOwnPropertyNames(computer.__proto__.__proto__))
+              // console.log(Computer.prototype.constructor)
+
+              ; (function () {
+                // 1 默认原型
+                // 所有引用类型都是Object原型的实例，这也是为什么自定义类型都可以使用Object里的方法
+
+
+              })()
+                ; (function () {
+                  // 2 原型与继承的关系
+                  // 这里主要讲两个查看实例是否是原型的实例的方法，也就是instancof和isPrototypeOF方法
+
+                })()
+                ; (function () {
+                  // // 3 关于方法
+                  // // 和属性一样，在实例中定义的同名方法会覆盖掉在原型对象上定义的方法
+                  // function SuperValue() { }
+                  // SuperValue.prototype = {
+                  //   constructor: SuperValue,
+                  //   sayHello() {
+                  //     console.log('SuperValue  hello')
+                  //   },
+                  //   sayHi() {
+                  //     console.log('hi')
+                  //   }
+                  // }
+                  // function SubValue() { }
+                  // SubValue.prototype = new SuperValue
+
+                  // SubValue.prototype.sayHello = function () {
+                  //   console.log('SubValue hello')
+                  // }
+
+                  // let subValue = new SubValue()
+                  // subValue.sayHello()
+
+                  // // 需要注意的点是，以对象字面量的方式创建原型方法会破坏之前的原型链
+
+                  // SubValue.prototype = {
+                  //   sayHello() {
+                  //     console.log('SubValue hello')
+                  //   }
+                  // }
+
+                  // let newValue = new SubValue()
+                  // newValue.sayHi()//会报错，因为newValue的作用域链内没有sayHI方法
+
+                })()
+
+                ; (function () {
+                  // // 4 原型链的问题
+                  // // 在前面提到过，原型的问题在于定义在原型上的属性和方法是共享的，一旦某一个实例修改了属性，那么所有的实例都会受到影响。
+                  // function SuperValue() { }
+                  // SuperValue.prototype = {
+                  //   arr: [1, 2, 3, 4]
+                  // }
+                  // function SubValue() { }
+                  // SubValue.prototype = new SuperValue()
+                  // let newValue = new SubValue()
+                  // let newValue2 = new SubValue()
+                  // newValue.arr.push(5)
+                  // console.log(newValue.arr)//[1, 2, 3, 4, 5]
+                  // console.log(newValue2.arr)//[1, 2, 3, 4, 5]
+
+                  // // 另外一个问题就是，子类在实例化时不能给父类型的构造函数传参  ??可以传参呀
+
+                  // function SuperValue(name) {
+                  //   this.name = name
+                  // }
+                  // SuperValue.prototype = {
+                  //   sayHi() {
+                  //     console.log('hi')
+                  //   }
+
+                  // }
+                  // function SubValue(age) {
+                  //   this.age = age
+                  // }
+                  // SubValue.prototype = new SuperValue('matt')
+
+                  // let newValue = new SubValue(29)
+                  // console.log(newValue.name)
+                  // console.log(newValue.age)
+
+                })()
+
+            })()
+
+              ; (function () {
+                // 8.3.2 盗用构造函数
+                // 为了解决原型链中出现引用值共享的问题，社区中出现了盗用构造函数的技术，基本思想是在子类中调用父类的构造函数，因为父类也是一个函数，可以使用call方法将父类构造函数的代码在新创建的对象中运行
+                // function SuperValue() {
+                //   this.arr = [1, 2, 3, 4]
+                // }
+                // function SubValue() {
+                //   // 这相当于在子类中执行了父类所有初始化代码，结构就是每个实例都会拥有属于自己的arr
+                //   SuperValue.call(this)
+                // }
+                // let newValue=new SubValue()
+                // newValue.arr.push(5)
+                // console.log(newValue.arr)
+                // let newValue2=new SubValue()
+                // console.log(newValue2.arr)
+
+                ; (function () {
+                  //   // 1 传递参数
+                  //   // 盗用构造函数的另一优点是可以在子类中向父类传参
+                  //   function SuperType(name) {
+                  //     this.name = name
+                  //   }
+                  //   function SubType(name,age) {
+                  //     SuperType.call(this, name)
+                  //     // 为了保证父类的同名属性不会覆盖子类的属性，所以可以在父类的初始化执行完成后在定义自己的属性
+                  //     this.age = age
+                  //   }
+
+                  //   let newValue=new SubType('matt',29)
+                  //   console.log(newValue.name)
+                  //   console.log(newValue.age)
+                })()
+
+                  ; (function () {
+                    // 盗用构造函数的问题
+                    // 必须在构造函数中定义方法，因此函数不能重用。子类不能访问父类原型上定义的方法
+
+                  })()
+
+              })()
+
+              ; (function () {
+                // 8.3.3 组合继承
+                // 就是把属性定义在构造函数中，把方法定义在构造函数的原型对象上，然后再把这个构造函数用call方法调用在子类中，这样那些引用值都会单独创建一份，但是方法会被共用，这样就节省了内存，还不会影响其他实例
+
+                // function Person(name) {
+                //   this.name = name;
+                //   this.color = ['red', 'balck', 'white', 'yellow']
+                // }
+
+                // Person.prototype = {
+                //   constructor: Person,
+                //   sayName() {
+                //     console.log(this.name)
+                //   }
+                // }
+
+                // function Student(name, age) {
+                //   this.age = age;
+                //   Person.call(this, name)
+                // }
+                // Student.prototype = new Person
+                // console.log(Student.prototype.constructor)
+                // Student.prototype.constructor = Student
+
+                // let matt = new Student('matt', 20)
+                // matt.color.push('green')
+                // let foo = new Student('foo', 10)
+                // console.log(matt.color)
+                // console.log(foo.color)
+
+                // foo.sayName()
+                // matt.sayName()
+
+
+              })()
+
+              ; (function () {
+                // 8.3.4 原型式继承
+                // 圆形式继承适用于不需要扼腕创造类但是需要在对象之间共享信息的场合
+                // 基本实现思路是在函数内创造一个构造函数，并让这个构造函数的原型函数指向我们传入的对象，并返回这个构造函数的实例
+                // function object(o) {
+                //   function F() { }
+                //   F.prototype = o
+                //   return new F()
+                // }
+
+                // let obj = {
+                //   name: 'matt',
+                //   age: 20,
+                //   color: ['red', 'blue', 'pink']
+                // }
+
+                // let newObj = object(obj)
+                // newObj.color.push('green')
+
+                // let anotherObject=object(obj)
+                // anotherObject.color.push('brown')
+
+                // console.log(obj.color)//['red', 'blue', 'pink', 'green', 'brown']
+
+                // 在JavaScript后来版本中，提供了Object.create方法，与object函数功能相同
+                // let obj = {
+                //   name: 'matt',
+                //   age: 20,
+                //   color: ['red', 'blue', 'pink']
+                // }
+
+                // let newObj = Object.create(obj)
+                // newObj.color.push('green')
+
+                // let anotherObject = Object.create(obj)
+                // anotherObject.color.push('brown')
+
+                // console.log(obj.color)//['red', 'blue', 'pink', 'green', 'brown']
+
+                // // Object.create方法还可以传入第二个参数，第二个参数与Object.defineProperties的第二个参数一样
+                // let lastObject = Object.create(obj, {
+                //   name: {
+                //     value: 'foo'
+                //   },
+                //   age: {
+                //     value: 25,
+                //   },
+                //   job: {
+                //     value: 'engineer'
+                //   },
+                //   getName: {
+                //     get() {
+                //       return this.name
+                //     }
+                //   }
+                // })
+                // console.log(lastObject.getName)
+
+
+
+
+
+              })()
+
+              ; (function () {
+                // // 8.3.5 寄生式继承
+                // // 原型式继承与工厂模式组合起来形成寄生式继承，寄生式继承实际上是一个对象寄生在另一个对象上，与原型式继承不同的是寄生式继承会用一个工厂函数创造很多个
+                // function createAnother(original) {
+                //   let newObj = Object.create(original)
+                //   newObj.sayHi = function () {
+                //     console.log('hi')
+                //   }
+                //   return newObj
+                // }
+
+                // let obj = {
+                //   name: 'foo',
+                //   age: 20,
+                //   job: 'engineer'
+                // }
+
+                // let anotherObj = createAnother(obj)
+                // anotherObj.sayHi()
+
+              })()
+
+              ; (function () {
+                // 8.3.6 寄生式组合继承
+                // 组合继承有一个缺点，那就是在实例中的属性可能会在子类的原型中出现，例如下面
+                // function SuperType() {
+                //   this.name = 'foo'
+                //   this.age = 20
+                // }
+                // SuperType.prototype = {
+                //   sayName() {
+                //     console.log(this.name)
+                //   }
+                // }
+
+                // function SubType() {
+                //   // 盗用父类，使实例拥有父类设置的属性，因此有name和age属性
+                //   SuperType.call(this)
+                //   this.job = 'engineer'
+                //   this.arr = [1, 2, 3, 4, 5]
+                // }
+                // // 由于子类的原型是父类的实例，所以name和age属性依旧在子类的原型上
+                // SubType.prototype = new SuperType()
+                // console.log(SubType.prototype)//{name: 'foo', age: 20}
+
+                // let instance = new SubType()
+                // console.log(Object.getOwnPropertyNames(instance))//['name', 'age', 'job', 'arr']
+
+                // 这样就会先来问题，子类的原型上有与实例同名的属性，因此子类原型上的属性就会一直不被用到，这样就会占内存，但有解决办法
+
+                // 利用寄生式继承，将让子类的原型吸父类原型的血，子类的原型和父类这个构造函数之间没有什么联系，这样就只有两个原型对象之间有联系，从而避免出现有属性会重叠的问题
+                // function SuperType() {
+                //   this.name = 'foo'
+                //   this.age = 20
+                // }
+                // SuperType.prototype = {
+                //   sayName() {
+                //     console.log(this.name)
+                //   }
+                // }
+
+                // function SubType() {
+                //   // 盗用父类，使实例拥有父类设置的属性，因此有name和age属性
+                //   SuperType.call(this)
+                //   this.job = 'engineer'
+                //   this.arr = [1, 2, 3, 4, 5]
+                // }
+                // // 由于子类的原型是父类的实例，所以name和age属性依旧在子类的原型上
+                // SubType.prototype = Object.create(SuperType.prototype)
+                // SubType.prototype.constructor = SubType
+                // console.log(SubType.prototype)//{constructor: ƒ}
+
+                // let instance = new SubType()
+                // console.log(Object.getOwnPropertyNames(instance))//['name', 'age', 'job', 'arr']
+
+                // // 可以用一个函数包装一个寄生式组合继承的核心代码
+                // function inheritPrototype(SubType, SuperType) {
+                //   let prototype = Object.create(SuperType.prototype)
+                //   prototype.constructor = SubType
+                //   SubType.prototype = prototype
+                // }
+
+              })()
+
+          })()
+
+
+      })()
+
+      ; (function () {
+        // 8.4 类
+        // es6之后出现了类的概念，类的底层其实还是原型和构造函数的概念
+
+        ; (function () {
+          // 8.4.1 类定义
+          // 与函数声明方式相同，类的声明也有两种方式，类声明和类表达式
+          // class Foo { }
+          // let Bar = class { }
+
+          // 但是与函数不同的是，类声明并不能提升，另外函数受函数作用域限制，类受块作用域限制。
+          // console.log(classDeclaration)//Cannot access 'classDeclaration' before initialization
+          // class classDeclaration { }
+
+          // {
+          //   function functionInBlock(){}
+          //   class classInBlock{}
+          // }
+          // console.log(functionInBlock)//ƒ functionInBlock(){}
+          // console.log(classInBlock)//classInBlock is not defined
+
+
+          ; (function () {
+            // 1 类的构成
+            // 类可以包括构造函数方法，实例方法，get方法，set方法和类静态方法，但这些都不是必须的
+            // 类定义中的代码默认会在严格模式下执行
+            // 没有任何方法的类
+            // class Foo { }
+            // // 有构造函数的类
+            // class Bar {
+            //   constructor() {
+            //   }
+            // }
+
+            // // 有获取函数的类
+            // class Baz {
+            //   get myBaz() {
+            //   }
+            // }
+
+            // // 有静态方法的类
+            // class Qux {
+            //   static myQux() { }
+            // }
+
+            // 类表达式与类定义的区别
+            // 类表达式多出一次定义类名的机会
+            // let Foo = class FooName {
+            //   myName() {
+            //     console.log(Foo.name, FooName.name)
+            //   }
+            // }
+
+            // // console.log(Foo.name)//Foo
+            // // console.log(FooName.name)//Foo is not defined
+            // // Foo只能在类内部使用
+            // let f = new Foo()
+            // f.myName()
+
+
+          })()
+
+
+        })()
+          ; (function () {
+            // 8.4.2 类构造函数
+            // 在以前，构造函数都是通过new调用的，在类中会有一个constructor方法，当使用new关键字时会调用这个方法，也就相当于在类中的构造函数
+            // class Foo {
+            //   constructor() {
+            //     this.name = 'foo'
+            //     this.age = 20
+            //   }
+            // }
+            // let f = new Foo()
+            // console.log(f.name)//foo
+            // console.log(f.age)//20
+            ; (function () {
+              // 1 实例化
+              // 当使用new关键字调用类时，会调用类中的constructor方法，这个与调用构造函数时发生的过程一模一样
+              /*
+              * 先在内存中创造一个对象
+              * 将这个对象的[[prototype]]指向constructor的prototype属性
+              * 在constructor中将this指向刚刚创建的对象
+              * 执行constructor中的代码
+              * 默认返回这个对象
+              */
+
+              // instanceof 检查实例是否是某一类的实例，我认为的检查机制是检查实例的[[prototype]]属性值是否是类中构造函数的prototype值，如果不是按摩就会告诉我们这个实例不是这个类的实例
+              // 在类中如果constructor返回的不是默认对象，那么创造的实例也不会被instanceof认为是这个类的实例，原因在于实例的[[prototypr]]的指针变了
+
+              // 普通构造函数中使用new来创造实例，但如果不用new那么this机会指向window然后返回，但是在类中不使用new会报错
+              // function Person() {
+              //   this.name = 'foo'
+              //   this.age = 20
+
+              // }
+              // let p = Person()
+              // console.log(window.name)
+              // console.log(window.age)
+              // console.log(p)
+
+              //这是因为如果不用new，那么普通构造函数就会是普通函数，调用构造函数的位置在window，所以会给window这两个属性
+
+            })()
+              ; (function () {
+                // 2 把类当成特殊函数
+                // JavaScript中没有严格的类的概念，因此类其实是一种特殊的函数，可以通过typeof来查看类的类型
+                // console.log(typeof class Foo { })//function
+                // 在类中有一个prototype属性，是一个对象，这个对象也有constructor属性指向这个类
+                // class Bar { }
+                // console.log(Bar === Bar.prototype.constructor)//true
+
+                // 与普通的构造函数一样，可以使用instanceof操作符来检查某一个实例是否是这个类的实例
+                // 与普通的构造函数不同，类中的constructor不是构造函数，使用instanceof也会返回错误，但是如果new的时候使用constructor就会有不一样的结果
+                // class Foo {
+                //   constructor(name) {
+                //     this.name = name
+                //   }
+                // }
+                // let f = new Foo('matt')
+                // console.log(f instanceof Foo)//true
+                // console.log(f instanceof Foo.constructor)//fasle
+
+                // let newF = new Foo.constructor('foo')
+                // console.log(newF instanceof Foo)//false
+                // console.log(newF instanceof Foo.constructor)//true
+
+                // 类在JavaScript中也是头等公民，所以也可以当做参数传递
+                // function createIns(className, ...args) {
+                //   let ins = new className(...args)
+                //   return ins
+                // }
+
+                // class Foo {
+                //   constructor(name) {
+                //     this.name = name
+                //   }
+                // }
+
+                // let ins = createIns(Foo, 'matt')
+                // console.log(ins.name)//matt
+                // console.log(ins instanceof Foo)//true
+
+                // 立即创建实例
+                // let p=new class Person{
+                //   constructor(name){
+                //     this.name=name
+                //   }
+                // }('matt')
+                // console.log(p.name)//matt
+
+
+              })()
+
+
+          })()
+
+          ; (function () {
+            // 8.4.3 实例，原型和类成员
+
+            // 类可以轻松定义应该存在在实例上的成员，应该在原型上的成员，应该在类本身的成员
+            ; (function () {
+              // 1 实例成员
+              // 实例成员不会与原型共享
+              // 实例成员定义在constructor中
+              // class Person {
+              //   constructor(name) {
+              //     this.name = name
+              //     this.sayName = function () {
+              //       console.log(this.name)
+              //     }
+              //     this.color = ['red', 'green', 'blue']
+              //   }
+              // }
+              // let p1 = new Person('foo')
+              // let p2 = new Person('matt')
+              // p1.color.push('pink')
+              // console.log(p1.color)// ['red', 'green', 'blue', 'pink']
+              // console.log(p2.color)// ['red', 'green', 'blue']
+              // console.log(p1.sayName === p2.sayName)//false
+
+
+            })()
+
+              ; (function () {
+                // 2 原型方法与访问器
+                // 在类块中定义的方法属于原型上的方法，可以被所有实例使用，注意类快中不能定义原始值和对象作为成员数据
+                // class Person {
+                //   constructor(name) {
+                //     this.name_ = name
+                //   }
+                //   sayName() {
+                //     console.log(this.name_)
+                //   }
+                //   sayHello() {
+                //     console.log('hello')
+                //   }
+                //   // num:[1,2,3]//会报错,这样设置的原因也是避免多个实例之间会篡改属性值
+
+                //   // 在类中可以设置访问器
+                //   // set和get就是访问器，注意访问器名字不能与实例成员的名字有重叠，如果有就在实例成员的属性下添加下划线
+                //   set name(newName) {
+                //     this.name_ = newName
+                //     console.log('执行了其他的代码')
+                //   }
+                //   get name() {
+                //     console.log('执行了其他的代码')
+                //     return this.name_
+                //   }
+                // }
+                // let p1 = new Person('matt')
+                // let p2 = new Person('foo')
+                // console.log(p1.sayName === p2.sayName)//true
+                // p1.name = 'bar'
+                // console.log(p1.name)
+
+              })()
+
+              ; (function () {
+                // 3 静态类方法
+                // 每个类上只能有一个静态成员
+                // 使用static关键字作为前缀，且在静态成员中this指向类
+                // class Person {
+                //   constructor() {
+                //     this.locate = () => console.log('instance', this)
+                //   }
+                //   locate() {
+                //     console.log('prototype', this)
+                //   }
+                //   static locate() {
+                //     console.log('static', this)
+                //   }
+                //   static create() {
+                //     return Math.floor(Math.random() * 100)
+                //   }
+                // }
+
+                // let p = new Person()
+                // p.locate()//用new调用，这个this找constructor，constructor的this被指向实例
+                // Person.prototype.locate()//普通函数找调用对象，是Person的原型对象
+                // Person.locate()//Person的静态方法，指向Person这个类
+                // console.log(Person.create())
+
+                // 静态方法非常适合做工厂函数
+                // class Person {
+                //   constructor(age) {
+                //     this.age_ = age
+                //   }
+                //   sayAge() {
+                //     console.log(this.age_)
+                //   }
+                //   static create() {
+                //     // 通过静态方法创造许多不同的实例
+                //     return new Person(Math.floor(Math.random() * 100))
+                //   }
+                // }
+
+                // let p = Person.create()
+                // p.sayAge()
+
+
+              })()
+              ; (function () {
+                // // 4 非函数原型和类成员
+                // // 在类内部无法定义原始值和对象，但是在类外部可以
+                // class Person {
+                //   constructor() {
+                //     this.sayColor = function () {
+                //       console.log(Person.color)
+                //     }
+                //   }
+
+                // }
+                // // 这样定义会定义在类中，不会定义在原型中
+                // Person.color = ['red', 'green', 'blue']
+                // // 这样定义会定义在原型对象中
+                // Person.prototype.str = 'my name is str'
+                // let p = new Person()
+                // console.log(p.str)
+                // let p2 = new Person()
+                // p2.sayColor()
+
+
+              })()
+              ; (function () {
+                // 5 迭代器与生成器方法
+
+                // 类定义语法支持在原型上和类本身定义生成器方法
+                // class Person {
+                //   // 在原型上定义生成器方法
+                //   *createNikenameIterator() {
+                //     yield 'jack';
+                //     yield 'jake';
+                //     yield 'j-dog'
+                //   }
+                //   // 在类上定义生成器方法
+                //   static *createJobIterator() {
+                //     yield 'butcher';
+                //     yield 'baker';
+                //     yield 'engineer'
+                //   }
+                // }
+
+                // let jobIter = Person.createJobIterator()
+                // console.log(jobIter.next().value)
+                // console.log(jobIter.next().value)
+                // console.log(jobIter.next().value)
+
+                // class Person {
+                //   constructor(name, age, arr) {
+                //     this.name_ = name;
+                //     this.age_ = age;
+                //     this.arr_ = arr
+                //   }
+
+                //   *[Symbol.iterator]() {
+                //     yield* Object.entries(this)
+                //   }
+                // }
+
+                // let p = new Person('matt', 20, [1, 2, 3])
+                // for (let [key, value] of p) {
+                //   console.log(key, value)
+                // }
+
+                // 也可以只定义迭代器
+                // class Person {
+                //   constructor(name, age, arr) {
+                //     this.name_ = name;
+                //     this.age_ = age;
+                //     this.arr_ = arr
+                //   }
+                //   [Symbol.iterator]() {
+                //     //entries() 方法返回一个新的数组迭代器对象，该对象包含数组中每个索引的键/值对。
+                //     return this.arr_.entries()
+                //   }
+                // }
+
+                // let p = new Person('matt', 20, [1, 2, 3])
+                // for (let [key, value] of p) {
+                //   console.log(value)
+                // }
+
+              })()
+
+
+
+
+
+          })()
+          ; (function () {
+            // 8.4.4 继承
+
+            ; (function () {
+              // 1 继承基础
+              // class Vehicle { }
+              // class Bus extends Vehicle { }
+              // let b = new Bus()
+              // console.log(b instanceof Bus)
+              // console.log(b instanceof Vehicle)
+
+              // class Person {
+              //   constructor(id) {
+              //     this.id = id
+              //   }
+              //   identifyPrototype(id) {
+              //     console.log(id, this)
+              //   }
+              //   static identifyClass(id) {
+              //     console.log(id, this)
+              //   }
+
+
+              // }//类和原型上定义的方法都会带到派生类上
+              // class Engineer extends Person { }
+              // let e = new Engineer('e')
+              // let p = new Person('p')
+              // e.identifyPrototype('engineer')
+              // p.identifyPrototype('person')
+
+              // Engineer.identifyClass('engineer')
+              // Person.identifyClass('person')
+
+              // console.log(e.__proto__)
+              // console.log(e instanceof Engineer)
+
+
+
+            })()
+              ; (function () {
+                // 2 构造函数，HomeObject和super
+                // super关键字：派生类的方法可以通过super这个关键字引用他们的原型，这个关键字只能在构造函数内部，静态方法，原型方法内部使用
+                // es6给类构造函数和静态方法添加了[[HomeObject]]内部特性，这个特性是一个指针，指向定义该方法的对象，而super始终是[[HomeObject]]的原型
+                // class Person { }
+                // class Engineer extends Person {
+                //   constructor() {
+                //     super()
+                //     // 不要在super调用之前引用this，否则会报错
+                //     console.log(this)
+                //   }
+
+                // }
+                // let e = new Engineer()
+
+                // class Person {
+
+                //   static identify() {
+                //     console.log("Person")
+                //   }
+                // }
+
+                // class Engineer extends Person {
+                //   static identify() {
+                //     // 可以借助super调用继承的类上定义的静态方法
+                //     super.identify()
+                //   }
+
+                // }
+                // Engineer.identify()//Person
+
+                // 使用super时需要注意的七个问题
+                // 1. super只能在派生类的构造函数和静态方法中使用
+                // class Person{
+                //   constructor(){
+                //     super()// SyntaxError: 'super' keyword unexpected here
+                //   }
+                // }
+
+                // 2. 不能单独使用super，要么调用他的构造函数，要么使用他的静态方法
+                // class Person { }
+                // class Engineer  extends Person {
+                //   constructor() {
+                //     console.log(super)//报错，不能单独使用super
+                //   }
+                // }
+
+                // 3. 调用super()会调用父类的构造函数，并将结果赋值给this
+                // class Person {
+                //   constructor() {
+                //     this.name = 'matt'
+                //   }
+                // }
+                // class Engineer extends Person {
+                //   constructor() {
+                //     super()
+                //     console.log(this)
+                //   }
+                // }
+                // let e = new Engineer()
+
+                // 4. super()的行为如同调用构造函数，如果需要给父类构造函数传入参数，需要手动传入
+                // class Person {
+                //   constructor(passedParaments) {
+                //     this.passedParaments = passedParaments
+                //   }
+                // }
+
+                // class Engineer extends Person {
+                //   constructor() {
+                //     super('paraments')
+                //   }
+                // }
+                // let e = new Engineer()
+                // console.log(e.passedParaments)//paraments
+
+                // 5. 如果派生类中没有定义构造函数，那么实例化时，会自动调用super()，并将传入的参数传入到super中
+                // class Person {
+                //   constructor(paraments) {
+                //     this.paraments = paraments
+                //   }
+                // }
+                // // 没有定义构造函数
+                // class Engineer extends Person { }
+                // let e = new Engineer('paraments')
+                // console.log(e.paraments)//paraments
+
+                // 6. 在派生类构造函数中，super必须在this之前调用
+                // class Person { }
+                // class Engineer extends person {
+                //   constructor() {
+                //     super()
+                //     console.log(this)
+                //   }
+                // }
+
+                // 7. 在派生类构造函数中，如果显示定义了构造函数，那么要么必须调用super，要么显式返回一个对象
+                // class Person { }
+                // // 没有显式定义构造函数
+                // class Engineer extends Person { }
+                // // 显式定义构造函数
+                // class Teacher extends Person {
+                //   constructor(params) {
+                //     super()
+
+                //   }
+                // }
+                // // 显式定义了构造函数
+                // class Doctor extends Person {
+                //   constructor(params) {
+                //     let obj = {}
+                //     obj.name = 'matt'
+                //     return obj
+                //   }
+                // }
+
+              })()
+
+              ; (function () {
+                // 3 抽象基类
+                // 有一种类，他可以被其他类继承，但是永远不会实例化，这种类叫做抽象基类
+                // new.target属性，可以保存哪些类和函数被new关键字调用，可以在实例化的时候检测new.target来判断是不是抽象基类，进而阻止实例化
+
+                // 抽象基类
+                // class Person {
+                //   constructor() {
+                //     console.log(new.target)
+                //     if (new.target === Person) {
+                //       throw new Error('Person can not be instanced')
+                //     }
+                //   }
+                // }
+                // // let p = new Person()//Person can not be instanced
+
+                // class Engineer{}
+                // let e=new Engineer()//没有毛病
+
+                // 抽象基类可以判断派生类是否定义了某个方法
+                // class Person{
+                //   constructor() {
+                //     if(new.target===Person){
+                //       throw new Error('Person can not be instanced')
+                //     }
+                //     if(!this.foo){
+                //       throw new Error('subClass must have foo()')
+                //     }
+
+                //   }
+                // }
+                // class Engineer extends Person{
+                //   foo(){
+                //     console.log('foo')
+                //   }
+                // }
+                // class Doctor extends Person{
+
+                // }
+
+                // new Engineer()
+                // new Doctor()//subClass must have foo()
+
+
+
+
+
+              })()
+              ; (function () {
+                // 4 继承内置类型
+                // class SuperArray extends Array {
+                //   shuffle() {
+                //     for (let i = this.length - 1; i > 0; i--) {
+                //       let j = Math.floor(Math.random() * (i + 1));
+                //       [this[i], this[j]] = [this[j], this[i]];
+                //     }
+                //   }
+                // }
+                // let arr = new SuperArray(1, 2, 3, 4, 5)
+                // console.log(arr);
+                // arr.shuffle();
+                // console.log(arr);
+
+                // console.log(arr instanceof SuperArray);
+                // console.log(arr instanceof Array);
+
+                // // 继承了内置类型的类所创造出的实例使用内置类型的方法并创造出新的实例时，新的实例的类型依然是创造这个实例的实例的类型
+                // let newArr = arr.filter((params) => !!(params % 2));
+                // console.log(newArr);
+                // console.log(newArr instanceof SuperArray);
+                // console.log(newArr instanceof Array);
+
+                // // 如果不想让新创建的实例与创建他的实例类型相同，可以在创建他的实例的类中覆盖[symbol.species]访问器，这个访问器决定创建返回的实例时使用的类
+
+                // class MyArray extends Array {
+                //   // 覆盖 species 到父级的 Array 构造函数上
+                //   static get [Symbol.species]() { return Array; }
+                // }
+                // var a = new MyArray(1, 2, 3);
+                // var mapped = a.map(x => x * x);
+
+                // console.log(mapped instanceof MyArray); // false
+                // console.log(mapped instanceof Array);   // true
+
+              })()
+
+              ; (function () {
+                // // 5 类混入
+                // // 把不同的类的行为集中到一个类中是JavaScript常用的模式
+                // // 通常一个类拥有很多父类，JavaScript没有提供多类继承，但是可以通过类混入来达到目的
+                // class Person {
+                //   constructor() {
+                //     this.name = 'matt';
+                //     this.age = 20;
+                //     this.job = 'engineer';
+                //   }
+                // };
+                // let FooMixin = (basicClass) => class extends basicClass {
+                //   foo() {
+                //     console.log('foo')
+                //   }
+                // };
+                // let BarMixin = (basicClass) => class extends basicClass {
+                //   bar() {
+                //     console.log('bar')
+                //   }
+                // };
+                // let BazMixin = (basicClass) => class extends basicClass {
+                //   baz() {
+                //     console.log('baz')
+                //   }
+                // };
+
+                // class Engineer extends BazMixin(BarMixin(FooMixin(Person))) { };
+                // let e = new Engineer();
+                // e.foo();
+                // e.bar();
+                // e.baz();
+
+
+                // // 如果只是想混入多个对象的属性，那么使用Object.assign就可以了
+                // let doctor = Object.assign(new Person());
+                // console.log(doctor.name);
+                // console.log(doctor instanceof Person);//true
+
+                // // class Engineer extends BazMixin(BarMixin(FooMixin(Person))) { }可读性非常差，可以设置新的函数来代替
+                // function classMixin(basicClass, ...mixin) {
+                //   return mixin.reduce((accumulates, current) => { return current(accumulates) }, basicClass)
+                // }
+
+                // class Teacher extends classMixin(Person, FooMixin, BarMixin, BazMixin) { };
+                // let t = new Teacher();
+                // t.foo();
+                // t.bar();
+                // t.baz();
+
+                // // 复合胜过继承，所以在react中会使用复合，代码会更加灵活
+
+              })()
+          })()
+
+
+      })()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

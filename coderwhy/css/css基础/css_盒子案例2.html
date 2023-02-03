@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a{
+      display: inline-block;
+      text-decoration: none;
+      color: #333;
+    }
+    .item{
+      width: 300px;
+      margin: 0 auto;
+    }
+    .item .img-box img{
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .item .info .main a{
+      /* 把a设置为inline-block,width默认是auto,也就是由子元素填充,子元素和父元素始终一样大,那多出的部分就hidden不起来,设置为100%后就可以把多余的部分hidden起来了,因为这时a的宽度为item的宽度 */
+      width: 100%;
+      margin-top: 5px;
+      font-size: 15px;
+      
+    }
+    .item .info .main a p{
+      /* white-space: nowrap; */
+      /* 超出父元素的部分hidden起来 */
+      overflow: hidden;
+      /* 用...表示hidden的部分 */
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .item .info .title span{
+      color: #999;
+      font-size: 14px;
+    }
+    .item .info .title span svg{
+      width: 16px;
+      position: relative;
+      top: 2px;
+    }
+
+   
+
+
+    
+
+  </style>
+</head>
+
+<body>
+  <div class="item">
+    <div class="img-box">
+      <a href="#">
+        <img src="https://i2.hdslb.com/bfs/archive/a76a13fcc90c81e9f65c4842a2433b6d1062992e.jpg@672w_378h_1c"
+          referrerpolicy="no-referrer" alt="">
+      </a>
+
+    </div>
+    <div class="info">
+      <div class="main">
+        <a href="#">
+          <p>【完结】“下地狱吧，人渣”，用我入狱9年换你万劫不复——高分犯罪悬疑漫画《有花无实》</p>
+        </a>
+
+      </div>
+      <div class="title">
+        <a href="#">
+          <span class="bili-video-card__info--author">
+            <svg  id="widget-up" viewBox="0 0 14 10.666"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2.5A2.5 2.5 0 0 1 2.5 0h8.334a2.5 2.5 0 0 1 2.5 2.5v5.666a2.5 2.5 0 0 1-2.5 2.5H2.5a2.5 2.5 0 0 1-2.5-2.5ZM2.5 1A1.5 1.5 0 0 0 1 2.5v5.666a1.5 1.5 0 0 0 1.5 1.5h8.334a1.5 1.5 0 0 0 1.5-1.5V2.5a1.5 1.5 0 0 0-1.5-1.5zM3 2.833a.5.5 0 0 1 .5.5v2.5a1 1 0 1 0 2 0v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-4 0v-2.5a.5.5 0 0 1 .5-.5Zm4.667 0a.5.5 0 0 0-.5.5v4a.5.5 0 1 0 1 0v-.667H9.25a1.917 1.917 0 1 0 0-3.833zM9.25 5.666H8.167V3.833H9.25a.917.917 0 1 1 0 1.833z" fill="currentColor" id="path48"></path></svg> 宅基生命收容所· 11-4</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

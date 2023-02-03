@@ -1,0 +1,12 @@
+#wrap {
+  color: 'bar';
+}
+#wrap {
+  color: 'bar';
+}
+.box {
+  color: 'bar';
+}
+#wrap::after {
+  content: 'i am bar';
+}

@@ -1,0 +1,29 @@
+// 变量作用域
+@var: @a;//@a取最后一次定义的@a
+@a:red;
+
+
+#wrap{
+  color: @var;
+}
+#wrap{
+  // 说明变量作用域受到上下文限制
+  color: @var;
+  @a:green;
+
+}
+
+
+@a:yellow;
+
+.box{
+  color: @var;
+}
+
+// 用变量去定义变量
+@bar:'i am bar';
+@var : 'bar';
+#wrap::after{
+
+  content: @@var;
+}

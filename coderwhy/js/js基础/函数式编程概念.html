@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 判断一个编程语言是否可以进行函数式编程的条件就是这个语言的函数是否是头等公民(first-class function)
+    // 头等函数:
+    //可以把函数赋值给一个变量,或者函数当做参数,函数当做返回值,或者函数可以储存在数据类型中,例如存储在数组中
+    // 函数可以赋值给变量
+    (function () {
+      let foo = function () {
+        console.log('hello')
+      }
+
+      foo()
+
+      // 函数可以作为参数
+      let bar = function (fn) {
+        fn()
+      }
+      bar(foo)
+      // 函数作为返回值
+      let baz = function () {
+        return bar
+      }
+
+      let srr = baz()
+      srr(foo)
+      // 函数可以存储到数组里
+      let arr = [foo, bar, baz]
+
+    })()
+  </script>
+
+</body>
+
+</html>

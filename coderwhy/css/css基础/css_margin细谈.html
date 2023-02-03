@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 500px;
+      height: 500px;background-color: aqua;
+      /* overflow: auto; */
+      /* overflow: hidden; */
+      /* border: 1px solid aqua; */
+      box-sizing: border-box;
+      padding-top: 50px;
+
+    }
+    .content{
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      /* 用margin给元素一个向左的位移 */
+      margin-left: 50px;
+      /* 但是当你给他一个向下的位移时,就会出现塌陷的问题 */
+      /* margin-top: 50px; */
+      /* 想要解决这个问题有很多方法 ,例如让父元素有一个border,让父元素的overflow设置为auto或者hidden,或者给父元素一个更大的margin*/
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- 一般来讲,margin是用于设定元素之间的距离的,尤其是兄弟元素之间的距离 -->
+  <div class="box">
+    <div class="content"></div>
+
+  </div>
+
+</body>
+
+</html>

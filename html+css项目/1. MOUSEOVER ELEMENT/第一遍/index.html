@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: aqua;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    console.log('hello world');
+    let canvas = document.getElementById('canvas')
+    let c = canvas.getContext('2d')
+    let tx = window.innerWidth
+    let ty = window.innerHeight
+    canvas.width = tx;
+    canvas.height = ty;
+
+    function getColor() {
+      return `rgba(
+        ${Math.floor(Math.random() * 256)},
+      ${Math.floor(Math.random() * 256)},
+      ${Math.floor(Math.random() * 256)},
+      ${Math.floor(Math.random() * 10) / 10 + 0.1}
+      )`
+    }
+
+    let grav = 0.99
+    let gravNum = 2
+
+    function Ball() {
+      this.color = getColor();
+      this.radius = Math.random() * 20 + 14;
+      this.originRadius = this.radius;
+      this.x = this.radius + Math.random() * (tx - 2 * this.radius)
+      this.y = Math.random() * (ty - this.radius)
+      this.dx = (Math.floor(Math.random() * 10) - 4)
+      this.dy = (Math.floor(Math.random() * 10) + 20) / 10
+      this.create = function () {
+        c.beginPath()
+        c.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
+        c.fillStyle = this.color
+        c.fill()
+      }
+
+    }
+    let clientx = 0;
+    let clienty = 0
+
+    addEventListener('mousemove', function (event) {
+      clientx = event.clientX;
+      clienty = event.clientY;
+    })
+
+
+    let bals = []
+    for (let i = 0; i < 50; i++) {
+      bals.push(new Ball())
+    }
+    // console.log(bals);
+
+
+    function animation() {
+      if (window.innerWidth !== tx || window.innerHeight !== ty) {
+        tx = window.innerWidth;
+        ty = window.innerHeight;
+      }
+      c.clearRect(0, 0, tx, ty)
+      requestAnimationFrame(animation)
+      for (let i = 0; i < bals.length; i++) {
+        bals[i].x = bals[i].x + bals[i].dx;
+        bals[i].y = bals[i].y + bals[i].dy;
+        if (bals[i].x + bals[i].radius > tx || bals[i].x - bals[i].radius < 0) {
+          bals[i].dx = -bals[i].dx
+        }
+        if (bals[i].y + bals[i].radius > ty) {
+          bals[i].dy = -bals[i].dy * grav
+
+        } else {
+          bals[i].dy = bals[i].dy + 0.1
+
+        }
+
+        if (clientx < bals[i].x + bals[i].radius && clientx > bals[i].x - bals[i].radius && clienty > bals[i].y - bals[i].radius && clienty < bals[i].y + bals[i].radius && bals[i].radius <= 70) {
+          bals[i].radius += 5;
+        } else if (bals[i].radius > bals[i].originRadius) {
+          bals[i].radius -= 5
+        }
+
+
+        bals[i].create()
+
+      }
+    }
+
+    animation()
+
+    setInterval(() => {
+      bals.push(new Ball())
+      bals.splice(0, 1)
+
+    }, 400);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

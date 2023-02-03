@@ -1,0 +1,113 @@
+/* 字体设置 */
+body {
+  font: 14px/1.5 "Microsoft YaHei", Tahoma, "simsun", sans-serif;
+  min-width: 1400px;
+}
+
+.top_wrapper {
+  margin: 0 auto;
+  width: 980px;
+}
+
+/* header的中间区域 */
+.header_wrapper {
+  width: 1300px;
+  margin: 0 auto;
+}
+/* main区域的中间区域 */
+.main_wrapper {
+  width: 1200px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+/* footer区域的中间区域 */
+.footer_wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/* common-left */
+.common_left {
+  min-width: 872px;
+  margin-right: 33px;
+}
+
+/* common-right */
+.common_right {
+  min-width: 295px;
+}
+
+/* common_title共有区域代码 */
+.common_title {
+  margin: 0 auto 5px;
+  width: 100%;
+  height: 100px;
+  /* background-color: orange; */
+}
+.common_title .title {
+  position: relative;
+  height: 26px;
+  margin: 0 0 16px;
+}
+.common_title .title .desc {
+  float: left;
+  width: 140px;
+  height: 26px;
+  font-size: 22px;
+  line-height: 25px;
+  font-weight: bold;
+  text-indent: 33px;
+
+  background: url(../img/main-sprite.png) no-repeat 0 -106px;
+}
+.common_title .title .more {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 22px;
+  background: url(../img/main-sprite.png) no-repeat -252px 4px;
+  line-height: 26px;
+  color: #999;
+}
+
+.common_title .category {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+.common_title .category .item {
+  flex: 1 1 auto;
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  color: #333;
+  border-bottom: 3px solid transparent;
+}
+.common_title .category .item.active,
+.common_title .category .item:not(.normal):hover {
+  border-bottom-color: #f3c258;
+}
+
+.common_title .category .split {
+  width: 1px;
+  height: 20px;
+  background-color: #e1e1e1;
+}
+
+/* 视频列表布局 */
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.video-list .video {
+  min-width: 209px;
+  height: 175px;
+  margin-bottom: 30px;
+  /* background-color: orange; */
+}
+
+em {
+  font-style: normal;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 传入一个数字，可以根据数字转化成显示为 亿、万文字显示的文本
+    let num = 13667;
+    let num2 = 145665555;
+    let num3 = 3722222222;
+
+    function numToUnit(inputNum) {
+      let result;
+      if (inputNum > 10_0000_0000) {
+        result = Math.floor(inputNum / 1_0000_0000) + '亿'
+      } else if (inputNum > 10_0000) {
+        result = Math.floor(inputNum / 1_0000) + '万'
+      } else {
+        result = inputNum+''
+      }
+
+      return result;
+
+    }
+    console.log(numToUnit(num));
+    console.log(numToUnit(num2));
+    console.log(numToUnit(num3));
+
+    let foo=function bar(){}
+  </script>
+
+</body>
+
+</html>

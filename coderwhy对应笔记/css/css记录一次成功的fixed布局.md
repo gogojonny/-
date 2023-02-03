@@ -1,0 +1,126 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    body {
+      background-color: #f4f4f4;
+    }
+
+    svg {
+      width: 15px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 3px;
+    }
+
+    .box {
+      width: 60px;
+      background-color: white;
+      position: fixed;
+      right: 275px;
+      top: 75px;
+      user-select: none;
+    }
+
+    .box i {
+      width: 12px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 3px;
+      display: block;
+
+    }
+
+    .content {
+      border-bottom: 1px solid #eee;
+      width: 32px;
+      margin: 0 auto;
+      height: 58px;
+      color: #666;
+      padding: 12px 0px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    /* .content:last-child{
+      border: 0px;
+    } */
+    .no-border {
+      border: 0px;
+    }
+
+    .item:hover {
+      transition: 0.2s;
+      cursor: pointer;
+      background-color: #C81623;
+    }
+
+    
+
+    .item:hover .content {
+      transition: 0.2s;
+      border-bottom: 1px solid #C81623;
+      color: white;
+      fill: white;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="item">
+      <div class="content">京东秒杀</div>
+    </div>
+    <div class="item">
+      <div class="content">特色优选</div>
+    </div>
+    <div class="item">
+      <div class="content">频道广场</div>
+    </div>
+    <div class="item">
+      <div class="content">为你推荐</div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <svg id="icon_timline" viewBox="0 0 16 16">
+          <path
+            d="M12.986 5.582a.505.505 0 0 0 .25-.063c.34-.188.364-.738.056-1.252-.235-.391-.59-.643-.905-.643a.511.511 0 0 0-.251.063c-.338.188-.363.738-.055 1.252.234.391.59.643.905.643m-9.975 0c.317 0 .674-.252.91-.643.31-.514.286-1.064-.056-1.253a.52.52 0 0 0-.252-.062c-.317 0-.674.252-.91.643-.31.514-.285 1.064.056 1.252.076.042.16.063.252.063m10.779.956a.372.372 0 0 0-.295-.024.387.387 0 0 0-.225.201c-.013.025-.315.609-1.062 1.191-.738.573-2.062 1.26-4.185 1.279h-.075c-2.076 0-3.384-.653-4.116-1.2-.779-.581-1.094-1.177-1.097-1.182a.395.395 0 0 0-.23-.199.371.371 0 0 0-.293.031.42.42 0 0 0-.161.549c.039.077.413.772 1.316 1.45.826.622 2.29 1.363 4.573 1.363l.089-.001c2.331-.019 3.81-.793 4.641-1.439.862-.672 1.225-1.345 1.292-1.475a.419.419 0 0 0-.172-.544m-5.848-.124c1.092 0 2.268-.218 2.268-.697S9.034 5.02 7.942 5.02c-1.071 0-2.152.216-2.152.697s1.081.697 2.152.697m4.086 4.647c-1.004.574-1.052 1.597-1.015 2.223a.098.098 0 0 1-.113.104c-.693-.096-1.161-.407-1.757-.943a1.343 1.343 0 0 0-.933-.351l-.21.003c-3.809 0-6.897-2.458-6.897-5.489 0-3.032 3.088-5.489 6.897-5.489 3.808 0 6.896 2.457 6.896 5.489 0 1.834-1.129 3.461-2.868 4.453M8 0C3.589 0 0 2.931 0 6.533c0 3.603 3.589 6.533 8 6.533l.224-.002c.102 0 .204.033.272.099 1.239 1.205 2.568 1.323 3.303 1.336a.3.3 0 0 0 .303-.342c-.087-.613-.318-1.813.477-2.263C14.722 10.684 16 8.677 16 6.533 16 2.931 12.411 0 8 0">
+          </path>
+        </svg>客服
+      </div>
+    </div>
+
+
+    <div class="item">
+      <div class="content">
+        <svg id="icon_feedback" viewBox="0 0 16 16">
+          <path
+            d="M1.4,15l0-1l14,0v1H1.4z M2.5,13H2l0-0.5c0-0.1,0-0.2,0-0.3c0-0.3,0.1-0.8,0.2-1.3c0.1-0.7,0.4-1.7,0.4-2 C2.7,8.7,2.8,8.4,3,8.3l8-8c0.3-0.3,0.8-0.3,1.1,0l2.7,2.7c0.3,0.3,0.3,0.8,0,1.1l0,0l-8,8c-0.1,0.1-0.4,0.3-0.6,0.4 c-0.7,0.2-1.4,0.3-2.1,0.4c-0.5,0.1-1,0.2-1.3,0.2C2.7,13,2.6,13,2.5,13z M11.6,1.1L3.7,9c0,0.1-0.1,0.1-0.1,0.2 c-0.1,0.2-0.3,1.1-0.4,1.9c-0.1,0.3-0.1,0.6-0.1,0.9c0.3,0,0.6-0.1,0.9-0.1c0.7-0.1,1.3-0.2,2-0.4c0,0,0.1-0.1,0.2-0.1L14,3.5 L11.6,1.1z M14.1,3.3C14.1,3.3,14.1,3.3,14.1,3.3L14.1,3.3z M11.4,0.9C11.4,0.9,11.4,0.9,11.4,0.9L11.4,0.9z">
+          </path>
+        </svg>反馈
+      </div>
+    </div>
+    <div class="item">
+      <div class="content no-border"> <i class="fa fa-chevron-up" aria-hidden="true"></i>顶部</div>
+    </div>
+  </div>
+</body>
+
+</html>
+```
+

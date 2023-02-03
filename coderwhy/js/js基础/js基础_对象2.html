@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+
+
+
+    ; (function () {
+      // 对象的定义方法
+      // * 字面量定义
+      // let foo = {
+      //   name: 'foo'
+      // }
+      // // * new一个Object实例
+      // let bar = new Object()
+      // bar.name = 'bar'
+      // // * 通过构造函数构造一个对象
+      // function Baz() {
+      //   this.name = 'baz'
+      // }
+      // let baz = new Baz()
+      // console.log(baz)
+
+      // 可枚举对象
+      // let obj = {
+      //   name: 'foo',
+      //   age: 18,
+      //   address: 'boston'
+
+      // }
+      // // Object.keys()方法会返回所有可以枚举的对象属性
+      // // console.log(Object.keys(obj))
+      // let objKeys = Object.keys(obj)
+      // for (let i = 0; i < objKeys.length; i++) {
+      //   let objKey = objKeys[i]
+      //   let objValue = obj[objKey]
+      //   console.log(objKey, ':', objValue)
+      // }
+
+      // 还可以使用for...in 方法遍历
+      // for(let key in obj){
+      //   let value=obj[key]
+      //   console.log(key,':',value)
+      // }
+
+
+    })()
+
+      ; (function () {
+        // // 原始类型调用方法
+        // // 在JavaScript中分为原始类型和引用类型，一些原始类型可以使用方法，这些方法是JavaScript引擎底层帮我们把原始类型转为对应的引用类型的
+        // let str = 'hello world'
+        // let num = 1.888
+        // console.log(str.split(' '))
+        // console.log(str.length)
+        // console.log(num.toFixed(2))
+        // // 在使用完包装的对象后，会自动销毁这个对象
+        // // 常见的类型 Symbol，BigInt，String，Number
+        // let newStr=new String('hello world')
+        // console.log(typeof newStr)//object
+
+      })()
+
+      ; (function () {
+        // // Number类型补充
+        // // Number是构造函数，本身也是一种对象，所以可以使用其属性与方法
+        // // 打印最大数
+        // console.log(Number.MAX_VALUE)
+        // // 打印最小数
+        // console.log(Number.MIN_VALUE)
+        // // 打印最大安全整数
+        // console.log(Number.MAX_SAFE_INTEGER)
+        // // 打印最小安全整数
+        // console.log(Number.MIN_SAFE_INTEGER)
+
+        // // 保留小数位
+        // let num = 3.1415926
+        // console.log(num.toFixed(2))
+        // console.log(3.1415926.toFixed(3))
+        // // 转换为字符串
+        // console.log(num.toString())
+        // // 转换为二进制字符串
+        // let int=1000
+        // console.log(int.toString(2))
+
+        // // Number方法补充
+        // // 将字符串转化为数字
+        // let str='123.456'
+        // let str2='a120a3a'
+        // let str3='.123'
+        // console.log(Number.parseInt(str))
+        // console.log(Number.parseInt(str2))//从第一个字符开始检测，如果是非数字，就返回NaN，如果是数字就返回数字，直到遇到非数字就停止检测
+        // console.log(Number.parseInt(str3))
+        // console.log(Number.parseFloat(str))
+        // console.log(Number.parseFloat(str2))
+        // console.log(Number.parseFloat(str3))
+
+      })()
+
+      ; (function () {
+        //   // Math对象方法的补充
+        //   // 需要注意，Math是一个对象而不是一个构造函数
+        //   let pi = Math.PI
+        //   console.log(Math.floor(pi))
+        //   console.log(Math.ceil(pi))
+        //   console.log(Math.round(pi))
+        //   console.log(Math.random())
+        //   // 获取5~50的随机数
+        //   let random = Math.floor(Math.random() * 45) + 5
+      })()
+
+      ; (function () {
+        // String类型的补充
+        // length属性，for...of...循环，可以用中括号获取字符
+
+        // 修改字符串
+        // * 字符串的不可变性
+        // 定义好的字符串是不会被修改的
+        // let str = 'strings'
+        // str[0] = 'a'
+        // console.log(str)//strings
+
+        // // * 想要获取修改过的字符串，需要返回一个新的字符串
+        // let upperStr = str.toUpperCase()
+        // console.log(upperStr)//STRINGS
+        // let lowerStr = str.toLowerCase()
+        // console.log(lowerStr)//strings
+
+        // 查找字符串
+        // * indexOf方法，这个方法同样适用于数组
+        // let string = 'my name is foo,her name is also foo'
+        // let name = 'foo'
+        // // indexof会查找这个字符串，找到后返回这个字符串的索引，找不到就返回-1
+
+        // console.log(string.indexOf(name))//11
+        // if (string.indexOf(name) === -1) {
+        //   console.log('在string中没找到foo这个值')
+        // }
+        // // indexOf还可以设置第二个参数,第二个参数用于指明查找的位置
+        // console.log(string.indexOf(name, 13)) // 32
+        // //还有lastIndexOf方法可以从后往前找
+        // console.log(string.lastIndexOf(name))//32
+
+
+
+        // * es6新增查找字符串的方法includes
+        // console.log(string.includes(name))//true
+
+        // // * 判断字符串是否是以某个东西开头和结尾
+        // let start = 'm'
+        // let end = 'o'
+        // console.log(string.startsWith(start))//true
+        // console.log(string.endsWith(end))//true
+
+        // * 替换字符串，用replace
+        // let newName='matt'
+        // let newString=string.replace('foo',newName)//只修改了找到的第一个
+        // console.log(newString)
+
+        // * 获取子字符串
+        // 使用silce或者subString方法
+        // let str = 'hello world'
+        // console.log(str.slice(3, 7))//lo w
+        // console.log(str.slice(3, -1))//lo worl
+        // // slice方法是可以使用负数的，负数的值是length-那个数
+
+        // // substring不可以使用负数
+        // console.log(str.substring(3,7))//lo w
+        // console.log(str.substring(3,-1))//如果任一参数小于 0 或为 NaN，则被当作 0。如果开始的参数大于结尾的参数，那么效果会和他们调换了一样
+
+
+        // * 拼接字符串
+        // 使用+
+        // let str1 = 'hello'
+        // let str2 = 'world'
+        // console.log(str1 + str2)//helloworld
+        // // 使用concat拼接
+        // console.log(str1.concat(str2,'abc','cba'))//helloworldabccba
+
+
+        // * 删除首尾的空格
+        // let str = '  hello world  '
+        // console.log(str.trim())//hello world
+
+        // * 字符串分割
+        // let str = 'my name is str';
+        // console.log(str.split(' ', 3))//['my', 'name', 'is']
+        // console.log(str.split(' ', 3).join('*') + '*str')//my*name*is*str
+
+      })()
+
+      ; (function () {
+        // 数组方法
+
+
+
+
+
+
+
+
+      })()
+
+      ; (function () {
+        // 面向对象三大特性
+        // * 封装：是指将属性和方法封装到一个类中
+        // * 继承：是多态的前提，可以大大减轻代码重复量
+        // * 多态：不同的对象在执行时表现出不同的状态
+
+        
+
+
+      })()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

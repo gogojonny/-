@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      display: inline-block;
+      color: #333;
+    }
+
+    .item {
+      width: 300px;
+      margin: 0 auto;
+
+
+
+    }
+
+    .item .img img {
+      width: 100%;
+      border-radius: 6px;
+    }
+
+    .item .info a {
+      width: 100%;
+    }
+
+    .item .info p {
+      margin-top: 8px;
+      font-size: 16px;
+      /* 设置为nowrap后,文字内容会展示为一行,宽度就很高,需要给父元素添加宽度来限制文本展示,多出的部分就用text-overflow展示为... */
+      /* white-space: nowrap; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* 实现两行出省略号 */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      /*clamp:夹子,夹紧*/
+      -webkit-box-orient: vertical;
+      /*orient:确认方向.vertical:垂直的*/
+    }
+
+    .item .info .details {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .item .info .details::before {
+      content: url(./images/hot.svg);
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      position: relative;
+      top: 3px;
+
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <img src="./images/up.svg" alt=""> -->
+  <div class="item">
+    <div class="img">
+      <img src="https://i0.hdslb.com/bfs/archive/c7f9cc32644cfde9e435059ed9d2b6d1143d3de4.jpg@672w_378h_1c"
+        referrerpolicy="no-referrer" alt="">
+        <!-- referrer:来源 -->
+    </div>
+    <div class="info">
+      <div class="main">
+        <a href="#">
+          <p>仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季仙王的日常生活 第三季</p>
+        </a>
+      </div>
+      <a href="#">
+        <div class="details"> 仙王的日常生活</div>
+      </a>
+    </div>
+  </div>
+
+</body>
+
+</html>

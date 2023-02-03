@@ -1,0 +1,10 @@
+.box .error, .box .error_unknow .box, .error_unknow .box .box {
+  width: 200px;
+  height: 200px;
+}
+
+.error_unknow .box h1 {
+  background-color: orange;
+}
+
+/*# sourceMappingURL=style.css.map */

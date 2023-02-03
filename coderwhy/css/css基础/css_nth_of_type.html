@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    /* ul>li:nth-of-type(6) {
+      color: red;
+    } */
+    /* first-child, last-child, first-of-type, last-of-type, only-child, only-of-type尝试 */
+    /* first-child与nth-child(1)相同 */
+    ul li:first-child{
+      color: red;
+    }
+    /* last-child与nth-last-child(1)相同 */
+    ul li:last-child{
+      color: green;
+    }
+
+    /*first-of-type  */
+    ul li:first-of-type{
+      font-size: 20px;
+    }
+
+    /* last-of-type */
+    ul li:last-of-type{
+      font-size: 20px;
+    }
+
+    /* only-child, 冒号前面的元素的父元素只有一个子元素,而且是该元素, 冒号前面没有元素就任意元素 */
+    ul li:only-child{
+      color: yellow;
+    }
+
+    /* only-of-type ,冒号前面的元素的父元素仅仅拥有一个该元素,父元素可以有多个元素 */
+    ul :only-of-type{
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li class="test">4</li>
+    <li>5</li>
+    <span>123</span>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+  </ul>
+
+  <ul>
+    <li>11</li>
+  </ul>
+
+  <ul>
+    <li>12</li>
+    <p>13</p>
+  </ul>
+
+</body>
+
+</html>

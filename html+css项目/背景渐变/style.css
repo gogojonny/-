@@ -1,0 +1,35 @@
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;/*body元素如果没设置就是有元素硬撑起来的*/
+  display: flex;
+  justify-content: center;/*水平居中*/
+  align-items: center;/*垂直居中*/
+  background: linear-gradient(125deg,#2c3e50,#27ae60,
+  #2908b9,#e74c3c,#8e44ad);
+  background-size: 500%;
+  /* 设置动画：动画名，时长，移动是否线性，是否重复 */
+  animation: Animation 15s linear infinite ;
+  /* filter: blur(20px); */
+}
+
+body .text{
+  color: #fff;
+  font-size: 30px;
+  /* 字间距 */
+  letter-spacing: 15px;
+  /* filter: blur(10px); */
+
+}
+
+@keyframes Animation{
+  0%{
+    background-position:0%,50% ;
+  }
+  50%{
+    background-position:100%,50% ;
+  }
+  100%{
+    background-position:0%,50% ;
+  }
+}

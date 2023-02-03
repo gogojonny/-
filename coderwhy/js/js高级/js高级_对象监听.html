@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 class="name"></h1>
+  <h1 class="age"></h1>
+  <h1 class="sex"></h1>
+
+  <script>
+
+    let obj = {
+      name: "foo",
+      age: 27,
+      sex: "male"
+    }
+
+    // 通过设置监听器给每一个属性加上监听功能
+    let h1name = document.querySelector(".name");
+    let h1age = document.querySelector(".age");
+    let h1sex = document.querySelector(".sex");
+
+    let keys = Object.keys(obj)
+    let keysSelectors = new Map()//使用map存储 属性-监听器 的键值对
+    keysSelectors.set("name", h1name)
+    keysSelectors.set("age", h1age)
+    keysSelectors.set("sex", h1sex)
+
+
+    keys.forEach(key => {
+      let value = obj[key]
+
+      Object.defineProperty(obj, key, {
+        set: function (newVal) {
+          console.log(`${key}设置了新值`);
+          value = newVal;
+          keysSelectors.get(key).textContent = newVal
+
+        },
+        get: function () {
+          return value;
+        }
+      })
+    })
+    h1name.textContent = obj.name;
+    h1age.textContent = obj.age;
+    h1sex.textContent = obj.sex;
+    console.log(obj.name);
+
+    obj.name = "matt"
+    obj.address="618"//无法监听初始化时不存在的属性
+  </script>
+</body>
+
+</html>

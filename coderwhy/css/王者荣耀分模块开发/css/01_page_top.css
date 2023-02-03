@@ -1,0 +1,113 @@
+.top {
+  height: 41px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.top .area {
+  display: flex;
+  justify-content: space-between;
+  height: 41px;
+
+  line-height: 41px;
+}
+
+.top .left-area {
+  display: flex;
+  /* background-color: red; */
+}
+
+.top .left-area .logo a {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 150px;
+  /* 高度由line-height撑起 */
+  background: url(../img/logo.png) no-repeat center center;
+  /* text-indent在块级元素内生效 */
+  text-indent: -999em;
+}
+
+.top .left-area .recommend {
+  position: relative;
+
+}
+
+.top .left-area .recommend .recommend-gamedesc {
+  display: none;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  z-index: 3;
+}
+
+.top .left-area .recommend:hover .recommend-gamedesc {
+  display: block;
+}
+
+.top .right-area {
+  display: flex;
+  /* background-color: blue; */
+
+}
+
+.top .right-area .item a {
+  position: relative;
+  /* 文字继承line-height，自动撑起盒子高度 */
+  font-size: 14px;
+  color: #464646;
+}
+
+.top .right-area .item a.ranking {
+  display: block;
+  margin-left: 20px;
+  padding-right: 30px;
+}
+
+.top .right-area .item a.ranking iframe {
+  position: absolute;
+  right: 0;
+
+  width: 708px;
+  height: 582px;
+  display: none;
+
+}
+
+.top .right-area .item a.ranking::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../img/top-sprite.png) no-repeat 0 0;
+
+  opacity: 0.1;
+  transform: rotate(90deg);
+
+}
+
+.top .right-area .item a.ranking:hover iframe {
+  display: block;
+}
+
+.top .right-area .item a.growth {
+  padding-left: 30px;
+}
+
+.top .right-area .item .icon-grow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../img/top-sprite.png) no-repeat -30px 0;
+}
+
+.top .right-area .item .growth:hover {
+  color: #ff4e00;
+}

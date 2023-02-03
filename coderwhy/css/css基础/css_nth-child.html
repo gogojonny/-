@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* :nth-child(an+b) 这个 CSS 伪类首先找到所有当前元素的兄弟元素 */
+    /* 选择第几个元素 */
+    .old li:nth-child(1) {
+      color: red;
+    }
+
+    /* 选择倒数第几个元素 */
+    .old li:nth-last-child(1) {
+      color: blue;
+    }
+
+    /* 选择前几个 */
+    /* n是指自然数, 如果只填入n就是选择第0,1,2,3....个,但是如果是-n,就代表是负数,负数不会处理,后面填入几,就代表选多少个 */
+    .old li:nth-child(-n+3) {
+      font-size: 20px;
+    }
+
+    /* 选择后几个 */
+    /* nth-last-child表示从后向前选 */
+    .old li:nth-last-child(-n+3) {
+      font-size: 20px;
+    }
+
+    /* 按照一定规律选择 */
+    /* 由于n代表选择0,1,2...,那么2n代表选择0,2,4...,同理2n+1代表选择1,3,5...,这么说通过对n进行操作可以按照规律来选择 */
+    /* 选择所有偶数项 */
+    .new li:nth-child(2n) {
+      color: green;
+    }
+
+    /* 选择所有奇数相 */
+    .new li:nth-child(2n+1) {
+      color: yellow;
+    }
+
+    /* 选择所有n的平方的项 */
+    /* 在css中没有办法提供选择n的平方的项,因为这个接口是an+b形式的 */
+  </style>
+</head>
+
+<body>
+  <ul class="old">
+    <li>列表1</li>
+    <li>列表2</li>
+    <li>列表3</li>
+    <li>列表4</li>
+    <li>列表5</li>
+    <li>列表6</li>
+    <li>列表7</li>
+    <li>列表8</li>
+    <li>列表9</li>
+    <li>列表10</li>
+  </ul>
+
+  <ul class="new">
+    <li>新列表1</li>
+    <li>新列表2</li>
+    <li>新列表3</li>
+    <li>新列表4</li>
+    <li>新列表5</li>
+    <li>新列表6</li>
+    <li>新列表7</li>
+    <li>新列表8</li>
+    <li>新列表9</li>
+    <li>新列表10</li>
+  </ul>
+</body>
+
+</html>

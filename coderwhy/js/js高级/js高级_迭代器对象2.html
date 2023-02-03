@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 对迭代器的优化
+  // let foo = {
+  //   nums: [1, 2, 3, 4],
+  //   // 迭代器构造函数
+  //   [Symbol.iterator]() {
+  //     let index = 0;
+  //     let iterator = {
+  //       next: () => {
+  //         // 使用箭头函数,箭头函数本身没有this,这样this就会从外部作用域寻找,有些像闭包. 函数创建时会永久保存一个[[remember]],用于记录自己的位置,自己内部没有的变量会在这里查询. 
+  //         // 正常调用function而不用箭头函数这里的this就会在执行的时候在确定,也就会确定为.之前的内容,也就是iterator.
+  //         if (index < this.nums.length) {
+  //           return { done: false, value: this.nums[index++] }
+  //         } else {
+  //           return { done: true }
+  //         }
+  //       }
+  //     }
+  //     return iterator
+  //   }
+  // }
+
+
+  // for (let value of foo) {
+  //   console.log(value);
+  // }
+
+
+  // 迭代器的实现定义了遍历可迭代对象的方法
+  // let foo = {
+  //   name: 'foo',
+  //   age: 19,
+  //   address: 'china',
+  //   [Symbol.iterator]() {
+  //     let index = 0;
+  //     // 按照实现不同,遍历不同的内容
+  //     let keys = Object.keys(foo);
+  //     let values = Object.values(foo)
+  //     let entries = Object.entries(foo)
+
+  //     let iterator = {
+  //       next: () => {
+  //         if (index < keys.length) {
+  //           return { done: false, value: keys[index++] }
+  //         } else {
+  //           return { done: true }
+  //         }
+  //       }
+  //     }
+  //     return iterator
+  //   }
+  // }
+
+  // for (let key of foo) {
+  //   console.log(key);
+  // }
+
+  let foo = {
+    name: 'foo',
+    age: 17,
+    address: 'china',
+    [Symbol.iterator]() {
+      let index = 0;
+      let values = Object.values(foo)
+      let iterator = {
+        next (){
+          if (index < values.length) {
+            return { done: false, value: values[index++] }
+          } else {
+            return { done: true }
+          }
+        }
+      }
+      return iterator
+    }
+  }
+
+  for (let item of foo) {
+    console.log(item)
+
+  }
+</script>
+
+</html>

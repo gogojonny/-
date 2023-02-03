@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script>
+    // promise链式调用时then的返回值
+    let promise = new Promise((resolve) => {
+      resolve('aaaaa')
+    })
+
+    // 链式调用
+    promise.then((res) => {
+      console.log('这是promise调用的第二个then方法:', res);
+      return 'bbbb'
+    }).then(res => {
+      console.log(res);
+
+    }).then(res => {
+      console.log(res);
+    })
+
+    // promise的第二个then方法
+    promise.then(res => {
+      console.log('这是promise调用的第二个then方法:', res);
+    })
+  </script> -->
+
+  <script>
+    // 当then的return结果是一个新的期约或者一个thenable的对象时
+    let promise = new Promise((resolve) => {
+      resolve('aaaaa')
+    })
+
+    // 创建新的期约
+    let newPromise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('bbbbb')
+
+      }, 3000);
+    })
+
+    promise.then(res => {
+      console.log('第一次调用then:', res);
+      return newPromise
+
+    }).then(res => {
+      console.log('三秒后');
+      console.log('第二次调用then:', res);
+      // 返回一个thenable的对象
+      return {
+        then: function (resolve) {
+          resolve('thenable')
+        }
+      }
+    }).then(res => {
+      console.log('第三次调用then:', res);
+    })
+  </script>
+</body>
+
+</html>

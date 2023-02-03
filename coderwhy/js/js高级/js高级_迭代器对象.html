@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // let obj = {
+  //   friends: ['kobe', 'curry', 'james'],
+  //   // 设置可迭代对象需要一个[Symbol.iterator]()函数,这个函数返回一个迭代器,这样这个对象就变成可迭代对象了
+  //   [Symbol.iterator]() {
+  //     let index = 0;
+  //     return {
+  //       next() {
+  //         if (index < obj.friends.length) {
+  //           return { done: false, value: obj.friends[index++] }
+  //         } else {
+  //           return { done: true }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  // // 正常来说,obj不是一个可迭代对象,除非将它设置为一个可迭代对象
+  // for(let value of obj){
+  //   console.log(value);
+  // }
+
+  // 构造好可迭代对象后,就可以使用for...of遍历
+  // for(let value of obj){
+  //   console.log(value);
+  // }
+
+
+  //数组是一个天生的可迭代对象,自身内部实现了迭代器
+  let nums=[1,2,3,4,5]
+  // 获取数组内部的迭代器生成函数
+  let numsIterator=nums[Symbol.iterator]()
+  console.log(numsIterator);
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+</script>
+
+</html>

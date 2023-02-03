@@ -1,0 +1,110 @@
+# 函数绑定
+
+bind()函数会创建一个新的绑定函数（BF），绑定函数是一个怪异函数对象，他包装了原函数对象。调用绑定函数通常会导致执行包装函数。
+
+```javascript
+   // 通常可以利用bind来修改this指向
+    color='red'
+    let o={
+      color:'blue',
+      sayColor(){
+        console.log(this.color)
+      }
+    }
+
+    o.sayColor()
+
+    let newSayColor=o.sayColor
+    // newSayColor的this指向window
+    newSayColor()
+    // 通过bind将this指向修改为o
+    let newSayColorBind=o.sayColor.bind(o)
+    newSayColorBind()
+```
+
+除了设置this指向外，还可以设置参数，来达到某一函数的偏函数的效果
+
+```javascript
+function multiply(a, b) {
+      return a * b
+    }
+    console.log(multiply(3, 4))
+
+ // bind第一个参数后面的参数会按照顺序到被绑定的参数中，绑定的函数的参数会在bind设置的参数后面，也就是这段代码的argument是（2,3）和（2,4）
+    let double = multiply.bind(null, 2)
+    console.log(double(3))
+    console.log(double(4))
+
+    let triple = multiply.bind(null, 3)
+    console.log(triple(4))
+```
+
+####   // 在没有上下文情况下的 partial
+
+```JavaScript
+function partial(func, ...argsBound) {
+  return function(...args) { // (*)
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+
+// 用法：
+let user = {
+  firstName: "John",
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// 添加一个带有绑定时间的 partial 方法
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// 类似于这样的一些内容：
+// [10:00] John: Hello!
+```
+
+上面的情况并没有写死,可以使用call/apply方法修改this指向.  **可以认为是只是设定了参数,没有改变this.**
+
+```javascript
+    // 在有上下文情况下
+let obj = {
+      name: 'john',
+      say(time, content) {
+        console.log(`[${time}] ${this.name} ${content}`)
+      }
+    }
+	//这样的obj.sayNow的this就被写死了，在呼叫call方法this也不会改变
+    obj.sayNow = obj.say.bind(obj, new Date().getHours() + ':' + new Date().getMinutes())
+```
+
+
+
+#### bind可以简化call和apply的函数绑定
+
+```JavaScript
+// bind可以简化call和apply的函数绑定
+// bind的返回值是一个新的函数，而call和apply的返回值是调用者的返回值
+let newObj={
+  name:'foo'
+}
+function sayhi(){
+  console.log('hi',this.name)
+}
+// 如果使用call或者apply，想使用多次需要这样
+sayhi.call(newObj)
+sayhi.call(newObj)
+sayhi.call(newObj)
+sayhi.apply(newObj)
+sayhi.apply(newObj)
+
+// 使用bind可以生成一个新的绑定了this的函数
+let fn=sayhi.bind(newObj)
+fn()
+fn()
+fn()
+fn()
+fn()
+// 这样可以看起来简化了一些
+```
+

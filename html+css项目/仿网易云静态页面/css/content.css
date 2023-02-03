@@ -1,0 +1,172 @@
+.center {
+  width: 980px;
+  height: 1000px;
+  margin: 0 auto;
+  background-color: white;
+}
+.content {
+  float: left;
+  width: 726px;
+  height: 1000px;
+  padding: 25px 20px 40px;
+}
+/* 热门推荐中的标题栏 */
+.content .con-nav {
+  height: 35px;
+  width: 100%;
+  border-bottom: 2px solid #c20c0c;
+  margin-bottom: 20px;
+  /* 子元素继承 */
+  line-height: 35px;
+}
+.content .con-nav .circle {
+  float: left;
+  background: url(../images/index.png) no-repeat -235px -164px;
+  width: 14px;
+  height: 14px;
+  margin: 10px 10px 7px;
+}
+.content .con-nav h3 a{
+  color: #333;
+  float: left;
+  font-size: 20px;
+  font-weight: normal;
+}
+.content .con-nav .title {
+  float: left;
+  margin: 0 0 0 20px;
+}
+.content .con-nav .title a {
+  color: #777;
+  padding: 0 5px;
+  display: inline-block;
+}
+.content .con-nav .title a:hover {
+  text-decoration: underline;
+}
+.content .con-nav .title span {
+  color: #777;
+}
+.content .con-nav .arrow2 {
+  float: right;
+  position: relative;
+  top: 12px;
+  background: url(../images/index.png) no-repeat 0 -240px;
+  width: 12px;
+  height: 12px;
+}
+
+.content .con-nav .more {
+  color: #777;
+  float: right;
+  margin-right: 10px;
+}
+.content .con-nav .more:hover{
+  text-decoration: underline;
+}
+
+/* 内容部分 */
+.content .items{
+  margin-left: -42px;
+
+}
+/* 元素定位 */
+.content li{
+  width: 182px;
+  height: 234px;
+  padding: 0 0 30px 42px;
+  float: left;
+}
+/* 图片处理 */
+.content li .img-box{
+  position: relative;
+  width: 140px;
+  height: 140px;
+
+}
+.content li .img-box .img-bg{
+  position: absolute;
+  z-index: 1;
+  background: url(../images/coverall.png) no-repeat 0 0;
+	width: 140px;
+	height: 141px;
+}
+.content li .img-box .img-bg a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.content li .img-box .img-bg .img-bg-bottom{
+  position: absolute;
+  background: url(../images/coverall.png) no-repeat 0 -537px;
+	width: 100%;
+	height: 27px;
+  z-index: 2;
+  bottom: 0;
+
+  line-height: 27px;
+  color:#ccc ;
+}
+.content li .img-box .img-bg .img-bg-bottom .ears{
+  position: relative;
+  top: 2px;
+  left: 7px;
+  display: inline-block;
+  background: url(../images/iconall.png) no-repeat 0 -24px;
+	width: 14px;
+	height: 11px;
+}
+.content li .img-box .img-bg .img-bg-bottom .nb{
+  display: inline-block;
+margin-left: 10px;
+}
+.content li .img-box .img-bg .img-bg-bottom .play{
+  position: relative;
+  top: 5px;
+  right: 9px;
+  display: block;
+  float: right;
+  background: url(../images/iconall.png) no-repeat 0 0;
+	width: 16px;
+	height: 17px;
+}
+.content li .img-box .img-bg .img-bg-bottom .play:hover{
+  cursor: pointer;
+  background: url(../images/iconall.png) no-repeat 0 -60px;
+}
+
+.content li .img-box img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 文字部分 */
+.content li a{
+  display: block;
+  margin-top: 8px;
+  color: #333;
+  font-size: 14px;
+}
+.content li a:hover{
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+.ad-box {
+  float: left;
+  width: 254px;
+  height: 126px;
+  background-color: orange;
+}
+.singer {
+  float: left;
+  width: 254px;
+  height: 1000px;
+  background-color: red;
+}

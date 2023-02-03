@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let arr = ['foo', 'bar', 'baz']
+  let nums = [1, 2, 3, 4, 5]
+
+  // 迭代器给数组解耦合
+  function createIterator(array) {
+    let index = 0;
+    return {
+      next: function () {
+        if (index < array.length) {
+          return { done: false, value: array[index++] }
+        } else {
+          return { done: true }
+        }
+      }
+    }
+  }
+
+  let arrIterator=createIterator(arr)
+  console.log(arrIterator.next());
+  console.log(arrIterator.next());
+  console.log(arrIterator.next());
+  console.log(arrIterator.next());
+
+  let numsIterator=createIterator(nums)
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+  console.log(numsIterator.next());
+</script>
+
+</html>

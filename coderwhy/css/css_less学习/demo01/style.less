@@ -1,0 +1,95 @@
+// less中也可以设置变量，但是这个变量‘不可变’，只能定义一次
+// 用@定义变量
+// @color:#999;
+// @bgcolor:skyblue;
+// @width:50%;
+
+// #wrap{
+//   color: @color;
+//   background-color: @bgcolor;
+//   width: @width;
+// }
+
+// 可化万物
+// 选择器变量
+@mySelector: #wrap;
+@wrap: wrap;
+
+@{mySelector} {
+  //变量名 必须使用大括号包裹
+  color: #999;
+  width: 50%;
+}
+
+// @后面加大括号，里面填入变量，代表使用变量里面的值
+.@{wrap} {
+  color: #999;
+}
+
+#@{wrap} {
+  background-color: aqua;
+}
+
+
+// 属性变量
+@borderStyle: border-style;
+@solid: solid;
+
+#wrap {
+  // 什么时候该加大括号呢
+  @{borderStyle}: @solid;
+}
+
+// url变量
+@url: "../img";
+
+body {
+  background: url("@{url}/dog.png");
+}
+
+
+// 声明变量
+// 结构：@name:{};
+// 使用：@name（）；
+@background: {
+  background-color: red;
+
+}
+
+.box {
+  @background()
+}
+
+@rules: {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+
+.item {
+  @rules()
+}
+
+// 变量运算
+// 加减法时，以第一个数据的单位为基准
+// 乘除法也以第一个单位为基准
+@width: 200px;
+@color: #333;
+
+.box {
+  // 注意要有空格
+  width: @width - 20;
+  height: @width + 100;
+  color: @color + #666;
+  background-color: @color*2;
+
+}
+
+// 变量的作用域
+@var : @a;
+@a: 100%;
+
+#wrap {
+  width: @var;
+  @a: 9%;
+}

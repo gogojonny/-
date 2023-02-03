@@ -1,0 +1,63 @@
+body {
+  /* 字体统一样式 */
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 顶部居中对齐 */
+/* wrapper表示对某单个对象进行包装 */
+.wrapper_01 {
+  width: 1100px;
+  margin: 0 auto;
+}
+/* 内容居中对齐 */
+.wrapper_02 {
+  width: 980px;
+  margin: 0 auto;
+}
+.wrapper_03 {
+  width: 982px;
+  margin: 0 auto;
+}
+.sprite_icon_hot {
+  display: inline-block;
+  background: url(../images/topbar.png) no-repeat -192px 0;
+  width: 26px;
+  height: 13px;
+}
+
+/* 去除input的边框和外线
+ */
+input {
+  outline: none;
+  border: 0px;
+}
+
+img {
+  /* 让图片不在基线对齐 */
+  vertical-align: top;
+}
+
+/* .area .area-right区域的header复用
+ */
+.singerbox_ban {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  height: 23px;
+
+  line-height: 23px;
+  font-size: 12px;
+}
+
+.singerbox_ban p {
+  font-weight: bold;
+  color: #333;
+}
+.singerbox_ban a {
+  color: #666;
+}
+.singerbox_ban a:hover {
+  text-decoration: underline;
+}

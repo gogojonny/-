@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 往期异步处理没有很优雅的解决办法,通常会遇到回调地狱的难题
+    // 异步回调需求:当浏览器与服务器之间收发请求时，通常是在浏览器接收到结果后，把结果进行包装然后再发送一次。
+
+
+    function execDate(date) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(date)
+
+        }, 2000);
+      })
+    }
+
+    // 回调地狱式做法
+    // execDate('cat').then(e => {
+    //   console.log('已处理数据', e);
+    //   // 只有拿到服务器返回的数据才进行第二次请求
+    //   execDate(e + 'dog').then(e => {
+    //     console.log('已处理数据', e);
+    //     // 只有拿到服务器返回的数据才进行第三次请求
+    //     execDate(e + 'monkey').then(e => {
+    //       console.log('已处理数据', e);
+    //     })
+    //   })
+    // })
+
+    // 链式期约调用
+    // execDate('cat').then(e => {
+    //   console.log('已处理数据', e);
+    //   // 返回一个新期约
+    //   return execDate(e + 'dog')
+    // }).then(e => {
+    //   console.log('已处理数据', e);
+    //   return execDate(e + 'monkey')
+    // }).then(e => {
+    //   console.log('已处理数据', e);
+    // })
+
+    // 如果能这样写就再好不过了,拿到数据在进一步处理,不过真的有实现方法
+    // function getDate() {
+    //   let date1 = execDate('dog')
+    //   let date2 = execDate(date1 + 'cat')
+    //   let date3 = execDate(date2 + 'monkey')
+    // }
+
+
+
+    // 我们需要做的就是控制函数,在拿到结果后在进行第二步操作
+    // 将getDate转变为生成器函数
+    function* getDate() {
+      // 将期约中的值提取出来
+      let date1 = yield execDate('dog')
+      let date2 = yield execDate(date1 + ' cat')
+      let date3 = yield execDate(date2 + ' monkey')
+      let date4 = yield execDate(date3 + ' donkey')
+      let date5 = yield execDate(date4 + ' panda')
+      let date6 = yield execDate(date5 + ' lion')
+    }
+
+    let generator = getDate()
+    let i=0;
+
+    function nextFunc(item) {
+      let obj = generator.next(item)
+      if (!obj.done) {
+        obj.value.then(date => {
+          console.log('date'+ i++, date);
+          nextFunc(date)
+        })
+      } else {
+        console.log('all requests was handled');
+      }
+    }
+
+    nextFunc()
+
+    // generator.next().value.then(date1 => {
+    //   console.log('date1', date1);
+    //   generator.next(date1).value.then(date2 => {
+    //     console.log('date2', date2);
+    //     generator.next(date2).value.then(date3 => {
+    //       console.log('date3', date3);
+    //       generator.next(date3).value.then(date4=>{
+    //         console.log('date4',date4);
+    //       })
+    //     })
+    //   })
+    // })
+
+    // let generator = getDate()
+    // generator.next().value.then(e => {
+    //   console.log('以获取', e);
+    //   // 将拿到的值作为参数传入date1中
+    //   generator.next(e).value.then(e => {
+    //     console.log('以获取', e);
+    //     generator.next(e).value.then(e => {
+    //       console.log('以获取', e);
+    //     })
+    //   })
+    // })
+
+    // 似乎生成器中也出现了回调地狱,有没有更好的办法? 只需要使用await/async即可!
+    // async function getDate() {
+    //   // 将期约中的值提取出来
+    //   let date1 = await execDate('dog')
+    //   console.log(date1);
+    //   let date2 = await execDate(date1 + 'cat')
+    //   console.log(date2);
+    //   let date3 = await execDate(date2 + 'monkey')
+    //   console.log(date3);
+    // }
+
+    // let generator = getDate()
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

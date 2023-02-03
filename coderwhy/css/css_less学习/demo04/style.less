@@ -1,0 +1,25 @@
+.borderColor(left,@width:20px,@color:#888){
+  border-color: transparent transparent transparent @color;
+}
+.borderColor(right,@width:20px,@color:#888){
+  border-color: transparent @color transparent transparent;
+}
+.borderColor(top,@width:20px,@color:#888){
+  border-color: @color transparent transparent transparent;
+}
+.borderColor(bottom,@width:20px,@color:#888){
+  border-color: transparent transparent @color transparent;
+}
+
+// 不管匹配哪一条，都会匹配到这一条
+.borderColor(@_,@width:20px,@color:#888){
+  width: @width;
+  border-style: solid;
+  border-width: 3px
+
+}
+
+#wrap{
+  .borderColor(left,50px );
+  
+}

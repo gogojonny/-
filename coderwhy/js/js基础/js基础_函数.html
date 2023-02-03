@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn">btn</button>
+  <script>
+    // 资料来源:
+    //  * 红宝书
+    //  * corderwhy视频
+
+    // 函数四种定义方法
+    // * 声明式
+    // * 表达式
+    // * 箭头函数
+    // * new Function(...arg,fnBody)(不推荐)
+
+    // JavaScript中,函数实际上是一种对象,每个函数其实都是Function的实例. 函数名存放着函数的指针
+
+    // 箭头函数
+    // 箭头函数不能使用arguments,super,new.target,也不能new,也没用prototype属性
+
+    // 函数名
+    // 通常,函数名是一个存放着函数指针的变量,一个函数可以有对个函数名
+    // 函数有一个只读的name属性
+
+    // function foo(){}
+    // let bar=function(){}
+    // let baz=()=>{}
+
+    // console.log(foo.name)
+    // console.log(bar.name)
+    // console.log(baz.name)
+    // console.log((()=>{}).name)//无名的箭头函数的name为空字符串
+    // console.log((new Function()).name)//anonymous 专用于构造函数创建的函数
+
+    // 用bind绑定的函数，name会加上前缀bound，也就是bind的过去式
+    // function foo(){}
+    // console.log(foo.bind(null).name)
+
+    // 函数参数
+    // 在调用函数时，不必担心传入多少个参数，在非箭头函数条件下，调用时传入的所有参数都会被保存在一个arguments的类数组对象中，而且这个对象在function声明的函数内部可以访问，可以使用中括号语法来获取参数，也可以使用length知道多少参数。
+    // 在严格模式下，arguments会有一些变化
+    // 需要注意的是，虽然在箭头函数中无法访问arguments，但是可以访问外部作用域中的arguments。
+    // 另外，JavaScript中参数都是值传递的方式传递参数，如果传递的是对象，那么就把对象的引用传递过去
+
+    // function foo(a,b){
+    //   console.log(arguments)
+    //   console.log(arguments.length)
+    // }
+
+    // foo(1,2,3,'hi',{name:'bar'})
+
+
+    // 没有重载
+    // 不像java语言，把函数的签名修改就可以使用一个同名不同功能的函数。JavaScript没有重载，后定义的同名函数会覆盖先定义的重名函数，就像值一样
+
+
+    // 默认参数值
+    // es5之前的语法就是判断参数是否为undefined
+    // function foo(name) {
+    //   name = (typeof name === 'undefined') ? 'louis' : name;
+    //   return `${name} 18 years old`
+    // }
+
+    // console.log(foo('foo'))
+    // console.log(foo())
+
+    // es6之后就没有那么麻烦了
+    // function foo(name = 'louis', age = 18) {
+    //   return `${name} 18 years old`
+    // }
+
+    // console.log(foo())
+    // console.log(foo('li'))
+    // // 通过设置undefined来使用默认值
+    // console.log(foo(undefined, 20))
+
+    // 不只是原始值或者对象类型可以使用默认值，函数也可以充当默认值，以及函数返回的值。另外，函数的默认值只有在调用函数但没有传参数的时候才会计算默认值，而不是在定义的时候就确定默认值。
+    // 箭头函数也可以传入默认值
+    // let foo = (name = 'foo') => {               console.log(name) }
+    // foo()
+
+    //
+
+    // 收集参数
+    // 在JavaScript中可以使用扩展操作符收集参数，而且扩展操作符不会影响arguments
+
+    // function foo(...names) {
+    //   // 不影响arguments
+    //   console.log(arguments)
+    //   console.log(arguments.length)
+    //   names.forEach((name) => {
+    //     console.log(name)
+    //   })
+    // }
+
+    // foo('tom', 'jerry', 'lucy')
+
+    // 另外，箭头函数也可以使用扩展语法
+    // let bar=(...ages)=>{
+    //   ages.forEach((age)=>{
+    //     console.log(age)
+    //   })
+    // }
+    // bar(18,20,22,28)
+
+
+    // 函数声明与函数表达式
+    // 函数声明会在任何代码之前先被读取并添加到执行上下文，这叫做函数声明，但是函数表达式必须执行到那一行才可以声明函数定义
+
+
+    // 函数作为值
+    // 这里定义了一个含有对象的数组，通过对象的属性对数组进行排序，声明一个返回值为比较函数的函数（比较函数返回1，-1,0，返回-1和0不会发生什么，返回1就会改变位置）
+
+    // let arrObj = [
+    //   { name: 'foo', age: 4 },
+    //   { name: 'bar', age: 3 }
+    // ]
+
+    // function compareProperty( property) {
+    //   return function (beforeObj, afterObj) {
+    //     let value1 = beforeObj[property]
+    //     let value2 = afterObj[property]
+
+    //     if (value1 > value2) {
+    //       return 1;
+    //     } else if (value1 < value2) {
+    //       return -1;
+    //     } else {
+    //       return 0
+    //     }
+    //   }
+    // }
+
+    // arrObj.sort(compareProperty('name'))
+    // console.log(arrObj)
+
+
+    // 函数内部
+    // arguments除了.length属性外，还有callee的属性,callee是指被呼叫,也就是arguments.callee返回的是arguments被呼叫的对象,也就是调用arguments的函数
+    // function foo() {
+    //   console.log(arguments.callee)
+    // }
+    // foo()
+
+    // callee的主要作用与this类似，目的是松耦合
+    // 例如下面阶乘函数
+    // function factorial(num) {
+    //   if (num <= 1) {
+    //     return 1;
+    //   } else {
+    //     return num * factorial(num - 1)
+    //   }
+    // }
+    // console.log(factorial(5))
+
+    // // 当修改函数名
+    // let newFactorial = factorial;
+    // factorial = () => { }//不能给函数设置undefined和null
+    // console.log(newFactorial(5))//NaN
+    // 这样的紧耦合不好，一旦修改函数名就不能使用了
+    // function factorial(num) {
+    //   if (num <= 1) {
+    //     return 1;
+    //   } else {
+    //     return num * arguments.callee(num - 1)
+    //   }
+    // }
+
+    // let newFactorial = factorial;
+    // factorial = () => { }//不能给函数设置undefined和null
+    // console.log(newFactorial(5))
+    // 设置为callee后就不会在乎函数名是谁了
+
+
+    // this
+    // this不多讲
+
+
+
+    // caller
+    // caller会指向引用当前函数的函数
+    // function foo() {
+    //   bar()
+    // }
+    // function bar() {
+    //   console.log(bar.caller)
+    // }
+
+    // foo()
+
+    // // 推荐一个弱耦合度的写法
+    // function bar() {
+    //   console.log(arguments.callee.caller)
+    // }
+    // 这样无论函数名是否被修改都可以保证正确定位到其父函数
+
+
+    // new.target
+    // 函数可以被正常调用,也可以使用new关键字调用(除了箭头函数)
+    // function foo() {
+    //   console.log(new.target)
+    // }
+    // foo()//正常调用就会返回undefined
+    // new foo()//如果用new关键字构造的,那么new.target就是调用new.target的这个函数
+
+
+    // 函数的属性和方法
+    // 函数本事是一种对象,所以拥有属性和方法
+    // 函数的属性:length,prototype
+    // length属性指的是函数被定义时,有多少形参,形参不包括有默认值的,也不包括es6的拓展...符号
+    // prototype是所有引用类型共有的属性,里面包含了许多基本的方法,prototype是JavaScript的核心
+    // 函数的方法:call,apply,bind
+
+    // 递归
+    // 递归的松耦合写法
+    // 在非严格模式,递归松耦合可以使用arguments.callee来调用函数本身,但是在严格模式下不能使用callee,因为会报错.
+    // 在严格模式下,可以使用命名函数表达式写法
+
+    // const factory = (function f(num) {
+    //   if (num <= 1) {
+    //     return 1
+    //   } else {
+    //     return num * f(num - 1)
+    //   }
+
+    // })
+
+    // console.log(factory(5))
+    // 这样即使是严格模式,也可以使用递归了,而且是松耦合的
+
+
+
+    // 尾调用优化的代码
+
+    // function fib(n){
+    //   if(n<2){
+    //     return n
+    //   }
+    //   return fib(n-1)+fib(n-2)
+    // }
+
+    // console.log(fib(40))
+
+    // "use strict"//条件一,严格模式
+    // function fib(n) {//条件二,返回值是另一个函数的执行结果
+    //   //条件三,尾调用函数返回后不需要进行额外操作
+    //   //条件四,尾调用函数不是引用外部作用域的闭包
+    //   return fibImpl(0, 1, n)
+    // }
+
+    // function fibImpl(a, b, n) {
+    //   if (n === 0) {
+    //     return a
+    //   } else {
+    //     return fibImpl(b, a + b, n - 1)
+    //   }
+    // }
+    // console.log(fibImpl(0, 1, 1000)))
+
+
+    // 闭包
+
+    // let arrObj = [
+    //   { name: 'foo', age: 15 },
+    //   { name: 'bar', age: 14 },
+    //   { name: 'bar', age: 13 },
+    //   { name: 'bar', age: 12 },
+    //   { name: 'bar', age: 11 },
+    //   { name: 'bar', age: 10 },
+    // ]
+
+    // function creatCompareFunction(property) {
+    //   return function (obj1, obj2) {
+    //     // property在自己的作用域中没有找到,但是在父函数找到了,所以这个函数是个闭包
+
+    //     // debugger
+    //     let value1 = obj1[property];
+    //     let value2 = obj2[property];
+
+    //     if (value1 > value2) {
+    //       return 1
+    //     } else if (value1 < value2) {
+    //       return -1
+    //     } else {
+    //       return 0
+    //     }
+    //   }
+    // }
+
+
+    // arrObj.sort(creatCompareFunction('age'))
+
+    // console.log(arrObj)
+
+    // 函数的生命历程:
+    // * 函数被定义
+    // * 函数被调用
+    // * 函数被解除占用
+
+    // 函数的定义阶段:
+    // 函数被定义时,就会创建这个函数的作用域链,并且会预装载全局对象,然后把全局对象放到[[scope]]中
+    // 函数被调用时,会执行三个步骤:
+    // * 创建这个函数的执行上下文
+    // * 复制[[scope]]中的全局对象粘贴到作用域链中
+    // * 创建这个函数的活动对象,活动对象中包含arguments以及当前上下文中被定义的变量并把活动对象推到作用域链的最顶端
+
+    // 函数调用完成后,活动对象会被销毁,但是如果有其他闭包函数调用这个活动对象中的变量,这个活动对象就不会销毁,直到闭包函数执行完成后才会销毁
+
+    // 函数被解除占用时,也就是被设置值为null时,作用域链会被销毁,包含的所有活动对象也可以销毁
+
+
+    // function foo(a){
+    //   return setTimeout(()=>{
+    //     let b=10
+    //     foo=null
+    //     setTimeout(()=>{
+    //       // debugger
+    //       console.log(a)
+    //     },1000)
+    //   },1000)
+    // }
+    // foo(1)
+
+    // 解决早期ie内存泄漏问题
+    // 早期ie,在闭包中有对btn的引用,只要这个闭包一直存在,那么对btn的引用就会一直存在
+    // function foo() {
+    //   let btn=document.getElementById('btn')
+    //   let a=10;
+    //   btn.onclick = () => {
+    //     debugger
+    //      console.log(btn.id) }
+    // }
+
+    // foo()
+
+    // 针对ie早期浏览器的解决办法
+    // function foo() {
+    //   let btn = document.getElementById('btn')
+    //   let id = btn.id;
+    //   btn.onclick = () => {
+    //     // debugger
+    //     console.log(id)
+    //   }
+
+    //   btn = null;
+    // }
+
+    // foo()//这样引用的不是btn,即使保存foo的活动对象,btn被设置为null也会让引用计数减一
+
+
+    // 私有变量
+    // 任何定义在函数中的变量,都可以认为是私有变量,例如函数参数,局部变量,在函数中定义的函数
+    // 私有变量的特点是不会被外界访问到
+    // function foo(){
+    //   let primaryVar='i am primary'
+
+    //   function primaryFunc(){
+    //     console.log('i am also primary')
+    //   }
+
+
+    // }
+
+    // console.log(primaryVar)//访问不到
+
+    // 私有变量的特权方法
+    // 是指能够访问私有变量的方法
+    // function foo() {
+    //   let primaryVar = 'i am primary'
+
+    //   function primaryFunc() {
+    //     console.log('i am also primary')
+    //   }
+
+    //   // 特权方法
+    //   return function() {
+    //     console.log(primaryVar)
+    //     console.log(primaryFunc)
+    //   }
+
+    // }
+    // foo()()
+
+    // 特权方法一般在一些构造函数中使用
+    // function Foo() {
+    //   let name = '';
+
+    //   this.getName = function () {
+    //     console.log(name)
+    //   }
+    //   this.setName = function (newName) {
+    //     name = newName
+
+    //   }
+    // }
+
+    // let foo=new Foo()
+    // console.log(foo.name)//使用私有变量的目的是防止直接获取变量或者设置变量
+    // foo.getName()//通过闭包拿到name
+    // foo.setName('matt')
+    // foo.getName()
+
+    // let bar=new Foo()
+    // bar.getName()//缺点是每个实例都必须重新设置
+
+    // 静态私有变量
+    // (function () {
+    //   let name = '';//用于在闭包中引用
+    //   Person = function (newName) {
+    //     name = newName
+
+    //   }
+
+    //   Person.prototype.getName = function () {
+    //     console.log(name)
+    //   }
+
+    //   Person.prototype.setName = function (newName) {
+    //     name = newName
+    //   }
+
+    // })()
+
+    // let person=new Person('matt')
+    // person.getName()
+    // person.setName('bar')
+    // person.getName()
+    // let newPerson=new Person('foo')
+    // person.getName()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 异步函数返回一个resolve的期约,如果在异步函数内部出现错误,就会包裹这个错误并返回一个reject的期约
+    async function foo() {
+      console.log('hello');
+      '123'.filters()
+      console.log('world');
+      // 因为返回的是一个resolve的期约,所以如果返回的是期约,那么就接替这个包装的期约,如果是一个thenable对象,就会执行里面的then()方法
+      return 'hello world'
+
+    }
+    foo().then(value => {
+      console.log(value);
+    }).catch(err => {
+      console.log(err);
+    })
+  </script>
+</body>
+
+</html>

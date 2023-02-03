@@ -1,0 +1,34 @@
+*{
+  /* 初始化 */
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  /* 100%视口高度 */
+  height: 100vh;
+  /* 渐变背景色 */
+  background: linear-gradient(200deg,#005bea,#00c6fb);
+  /* overflow: hidden; */
+}
+
+#plane{
+  color: #fff;
+  font-size: 70px;
+  /* 绝对定位 */
+  position: absolute;
+  /* 弹性布局 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: aqua; */
+  /* margin: 500px 500px; */
+  /* flex-direction: column; */
+  /* margin: 300px; */
+
+  /* transform: rotate(0deg); */
+
+  /* left: 100px; */
+
+
+}

@@ -1,0 +1,161 @@
+
+    .match-section {
+      display: flex;
+    }
+
+    .match-left .title .desc {
+      background-position: 0 -184px;
+    }
+
+    .match-right .title .desc {
+      background-position: -157px -106px;
+    }
+
+    .detile-banner {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .detile-banner .banner-left {
+      display: block;
+      margin-right: 19px;
+      width: 211px;
+      height: 260px;
+
+    }
+
+    .detile-banner .banner-right {
+      flex: 1;
+
+      /* text-decoration: underline; */
+    }
+
+    .banner-right .up {
+      height: 66px;
+    }
+
+    .banner-right .title {
+      width: 577px;
+
+      font-size: 24px;
+      font-weight: normal;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .banner-right p {
+      width: 450px;
+      color: #666;
+      font-size: 14px;
+    }
+
+
+    .banner-right .news-list li {
+      height: 23px;
+      margin-bottom: 9px;
+    }
+
+    .banner-right .news-list li .kic {
+      float: left;
+      display: block;
+      margin-right: 12px;
+      width: 19px;
+      height: 19px;
+      border-radius: 10px;
+      border: 2px solid #e3e3e3;
+      background-color: #e3e3e3;
+
+      color: #999;
+      line-height: 19px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .banner-right .news-list li .date {
+      float: right;
+      font-size: 12px;
+      color: #b8b9c5;
+    }
+
+    .match-right .common_title .category {
+      background-color: #f5f5f5;
+    }
+
+    .match-right .common_title .category .item {
+      color: #999;
+    }
+
+    .match-right .common_title .category .item .occupancy {
+      max-width: 40px;
+    }
+
+    /* 右侧 */
+    .match-right .title .buy {
+      position: absolute;
+      top: 2px;
+      right: 68px;
+      color: #323235;
+      width: 70px;
+      height: 22px;
+      border: 1px solid #f3c258;
+      border-radius: 3px;
+      box-sizing: border-box;
+      text-indent: 32px;
+      line-height: 19px;
+      background: url(../img/main-sprite.png) no-repeat -243px -85px;
+    }
+    
+
+    .match-right .match-team {
+      display: flex;
+      height: 67px;
+      border-bottom: 1px solid #e5e5e5;
+      line-height: 67px;
+    }
+
+
+    .match-right .match-team .date {
+      width: 80px;
+      color: #333;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .match-right .match-team .team-name {
+      width: 79px;
+      height: 67px;
+      color: #333333;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .match-right .match-team .team-name img {
+      display: block;
+      width: 25px;
+      height: 25px;
+      margin: 10px auto 0;
+    }
+
+    .match-right .match-team .team-name p {
+      white-space: nowrap;
+      line-height: 24px;
+      font-size: 12px;
+    }
+
+    .match-right .match-team .vs {
+      width: 43px;
+      text-align: center;
+      color: #f3c258;
+      font-size: 14px;
+    }
+
+    .match-right .match-img {
+      margin-top: 20px;
+      width: 293px;
+    }
+
+    .match-right .match-img img {
+      width: 100%;
+    }

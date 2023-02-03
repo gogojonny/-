@@ -1,0 +1,14 @@
+.box .error {
+  width: 200px;
+  height: 200px;
+}
+
+.error_unknow {
+  .box {
+    @extend .error;
+
+    h1 {
+      background-color: orange;
+    }
+  }
+}

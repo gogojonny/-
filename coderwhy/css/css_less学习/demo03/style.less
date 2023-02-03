@@ -1,0 +1,123 @@
+// // 嵌套
+// #header {
+//   &:after {
+//     content: 'less is more';
+//   }
+
+//   .content {
+//     font-weight: bold;
+//   }
+
+//   &_content {
+//     margin: 20px;
+//   }
+// }
+
+// // 这不和sass一样嘛
+
+// // 媒体查询
+// #main {
+//   @media screen {
+//     @media (max-width:1000px) {
+//       width: 400px;
+//     }
+
+
+//   }
+
+//   @media tv {
+//     width: 1000px;
+//   }
+// }
+
+// // 实战技巧
+// #main {
+//   &.show {
+//     display: block;
+//   }
+// }
+
+// .show {
+//   display: none;
+// }
+
+// 混合方法
+// 无参数方法
+// .card {
+//   border-color: #666;
+//   box-shadow: 0 1px 2px rgba(0, 0, 0, .58);
+// }
+
+// #wrap {
+//   // 相当于复制.card的样式
+//   .card();
+// }
+
+// // 参数含有默认值，与sass中定义默认值的方式类似
+// .card(@a: 0, @b: 10px, @c: 20px, @color: #333) {
+//   border: 1px solid @color;
+//   box-shadow: @arguments; //arguments相当于所有参数，与js中的arguments类似
+
+// }
+
+// #wrap {
+//   .card(1000px)
+// }
+
+// #content {
+//   .card(); //相当于使用默认值
+// }
+
+// 方法的匹配模式
+// less中的变量'@_'
+// .borderColor(left, @width: 20px, @color: #888) {
+//   border-color: transparent transparent transparent @color;
+// }
+
+// .borderColor(right, @width: 20px, @color: #888) {
+//   border-color: transparent @color transparent transparent;
+// }
+
+// .borderColor(top, @width: 20px, @color: #888) {
+//   border-color: @color transparent transparent transparent;
+// }
+
+// .borderColor(bottom, @width: 20px, @color: #888) {
+//   border-color: transparent transparent @color transparent;
+// }
+
+// // 不管匹配哪一条，都会匹配到这一条
+// .borderColor(@_, @width: 20px, @color: #888) {
+//   width: @width;
+
+// }
+
+// #wrap {
+//   .borderColor(top, 30px, red)
+// }
+
+
+// 方法的命名空间
+// #card() {
+//   background: red;
+
+//   .d (@w: 300px) {
+//     width: @w;
+
+//     .a (@h: 200px) {
+//       height: @h;
+//       .d(500px); //可以使用上层传进来的方法
+//     }
+//   }
+// }
+
+// #wrap {
+//   #card();
+//   #card > .d;
+//   #card > .d > .a;
+// }
+// .box{
+//   #wrap;//必须要有#wrap才能使用后面的
+//   .d;
+// }
+

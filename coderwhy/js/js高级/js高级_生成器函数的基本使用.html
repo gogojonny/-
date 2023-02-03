@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 生成器函数与普通函数的区别
+      // 1.生成器函数的标志是在function后面添加一个字符:*
+      // 2.生成器函数可以通过yield关键字来控制函数的执行
+      // 3.生成器函数会返回一个迭代器,这个迭代器被叫做生成器
+
+    // 生成器函数function后面跟*
+    function* foo() {
+      console.log(111);
+      console.log(222);
+      yield
+      console.log(333);
+      console.log(444);
+      yield
+      console.log(555);
+      console.log(666);
+    }
+    let generator = foo()
+    // 通过生成器的next方法执行函数
+    generator.next()//在第一个yield处停止,紧跟yield后面的代码也会执行
+    generator.next();
+    generator.next()
+  </script>
+
+</body>
+
+</html>

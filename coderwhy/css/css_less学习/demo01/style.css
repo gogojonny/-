@@ -1,0 +1,33 @@
+#wrap {
+  color: #999;
+  width: 50%;
+}
+.wrap {
+  color: #999;
+}
+#wrap {
+  background-color: aqua;
+}
+#wrap {
+  border-style: solid;
+}
+body {
+  background: url("../img/dog.png");
+}
+.box {
+  background-color: red;
+}
+.item {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+.box {
+  width: 180px;
+  height: 300px;
+  color: #999999;
+  background-color: #666666;
+}
+#wrap {
+  width: 9%;
+}

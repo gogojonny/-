@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    * iife 立即执行函数。
+   -->
+
+  <script>
+    // //基本语法
+    // ; (function () {
+    //   console.log('立即执行')
+    // })()
+
+    //   // 使用场景
+    //   // 立即执行函数拥有自己独立的作用域，外部作用域无法访问立即执行函数内的变量与函数。防止引入文件后出现变量混乱的问题。
+    //   // ;的作用是防止前面没有写分号导致出现的错误。
+    //   ; (function () {
+    //     let newVar = 'foo'
+    //     console.log(newVar)
+    //   })()
+    // // 由于newVar在内部作用域，所以无法访问。
+    // // console.log(newVar)
+  </script>
+  <!-- <script src="./new.js"></script>
+  <script src="./utile.js"></script> -->
+
+  <input class="btn" type="button" value="按钮1">
+  <input class="btn" type="button" value="按钮2">
+  <input class="btn" type="button" value="按钮3">
+  <input class="btn" type="button" value="按钮4">
+  <script>
+
+    // 早期应用场景
+    var btnEls = document.querySelectorAll('.btn')
+
+    for (var i = 0; i < btnEls.length; i++) {
+      var btn = btnEls[i];
+      // 为了使用这些数字，每次定义行为时都需要把对应的数字存到对应的作用域中，在点击时使用被存储的数字
+
+      ; (function (m) {
+        btn.onclick = function () {
+          console.log('按下按钮', m + 1)
+        }
+      })(i)
+
+    }
+    // 使用var定义的变量会出现在全局作用域中,不会被限制作用域
+    console.log(i)
+    console.log(btn)
+
+  </script>
+
+
+</body>
+
+</html>

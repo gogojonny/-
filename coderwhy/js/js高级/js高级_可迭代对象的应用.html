@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--  -->
+
+</body>
+<script>
+  // js中默认的可迭代对象
+  // 数组,arguments,map,set等
+  // 可迭代对象可以应用在yield*,...操作符,解构.创建map,weakMap,set,weakSet等
+  // 还有for...of语法,在一些方法中,例如promise.all(),promise.race()当创建方法时指定可以填入iterator就可以应用可迭代对象
+
+  // let arr = [0, 1, 2, 3, 4]
+  // // 利用数组内的迭代器将值拆出来并传递给log
+  // console.log(...arr);
+  // // from接收一个可迭代对象，所以from并不局限于数组
+  // let nums = Array.from(arr)
+  // console.log(nums);
+  // let obj = {
+  //   name: 'foo',
+  //   age: 18,
+  //   address: 'china'
+  // }
+  // // 对象解构破例可以使用对象解构，但是不能用...来解构非可迭代对象
+  // let { name, age } = obj
+  // console.log(name, age);
+  // // Found non-callable @@iterator
+  // console.log(...obj);
+
+  let foo = {
+    name: 'bar',
+    age: 20,
+    address: 'uk',
+    [Symbol.iterator]() {
+      let index = 0;
+      let values = Object.values(foo)
+      return {
+        next: () => {
+          if (index < values.length) {
+            return { done: false, value: values[index++] }
+          } else {
+            return { done: true }
+          }
+        }
+      }
+    }
+  }
+
+  let { name, age, address } = foo
+  let [c, d] = foo
+  console.log(name,age,address);
+  console.log(c, d);
+  //设置了迭代器
+  console.log(...foo);
+
+
+</script>
+
+</html>

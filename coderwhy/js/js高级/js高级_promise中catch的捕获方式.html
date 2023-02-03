@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 当期约状态为reject时,如果后面有定义catch,会直接找到该reject
+    let promise = new Promise((resolve, reject) => {
+      reject(new Error("err"))
+    })
+
+    promise.then(res => {
+      console.log('调用的第一个then方法');
+    }).then(res => {
+      console.log('调用的第二个then方法');
+    }).catch(err => {
+      // 如果promise状态变为reject,会直接找到最近的catch并执行
+      console.log('捕获到错误:', err);
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    let obj = {
+      name: "foo",
+      age: 28,
+      sex: "male"
+    }
+
+    // 利用proxy做监听优点很多,可以监听对象的各种操作,删除,修改,增加等等
+    let objProxy = new Proxy(obj, {
+      set(target, key, newVal) {
+        console.log(`修改了${key}`);
+        target[key] = newVal
+      },
+      get(target, key) {
+        console.log(`获取了${key}`);
+        return target[key]
+      }
+    })
+    // 对对象的监听改为对代理的监听
+    console.log(objProxy.name);
+    console.log(obj.name);
+
+    obj.name = "matt"//不会监听源对象
+    objProxy.name = "kobe"//会监听代理
+    console.log(objProxy.name);
+    console.log(obj.name);//不会监听源对象
+
+    objProxy.address = "618"//可以添加源对象没有的属性,且依旧会被监听到
+
+    console.log(obj.address);//源对象上也会出现这个对象
+
+
+  </script>
+</body>
+
+</html>

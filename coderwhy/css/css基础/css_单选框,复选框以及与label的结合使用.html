@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="/cba">
+    <label for="sing">
+      <!-- 相同name的单选框只能选择其中一个选项,且name在提交时会成为queryString的key,而value会成为queryString的value -->
+      <input id="sing" type="checkbox" name="hobby" value="sing">唱
+    </label>
+    <label for="dance">
+      <input type="checkbox" name="hobby" id="dance" value="dance">跳
+    </label>
+    <label for="rap">
+      <input type="checkbox" name="hobby" id="rap" value="rap">rap
+    </label>
+    <label for="basketball">
+      <input type="checkbox" name="hobby" id="basketball" value="basketball">篮球
+    </label>
+    <input type="submit" name="" id="" value="提交按钮">
+  </form>
+
+</body>
+
+</html>

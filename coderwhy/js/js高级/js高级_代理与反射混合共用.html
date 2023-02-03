@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+
+    let obj = {
+      _name: "foo",
+      set name(newValue) {
+        this._name = newValue
+
+      },
+      get name() {
+        return this._name
+      }
+    }
+
+    let objProxy = new Proxy(obj, {
+      get(target, key, receiver) {
+        console.log(`检测到获取${target}${key}`);
+        //反射的API与捕捉函数对象的方法的方法名和参数一致
+
+
+        //使用反射作为返回值的好处:
+        //反射本身就有很多方法,不用自己设置拦截后的返回值,也不用考虑捕获器不变式
+        //反射方法一般都会有状态值,也就是会返回布尔值,可以根据状态值判断是否执行成功
+        //利用receiver可以不止对对象监听一次,而是通过控制对象的this值达到多次监听的效果
+
+        return Reflect.get(target, key, receiver)
+      },
+      set(target, key, newValue, receiver) {
+        console.log(`检测到设置了${target}${key}`);
+        return Reflect.set(target, key, newValue, receiver)//如果不设置就只能监听一次,设置后在obj里面当要设置值的时候this都指向objProxy,这样就又相当于调用一次代理设置值,就又会返回set,继续监听
+      }
+    })
+
+    console.log(objProxy.name);
+    // objProxy.setname("matt")
+    objProxy.name = "matt"
+
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

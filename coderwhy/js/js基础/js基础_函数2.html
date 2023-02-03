@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 函数的自有属性
+    // name
+    // function foo() {
+    //   console.log('hello')
+    // }
+    // console.log(foo.name)
+
+    // // length 是指函数参数的长度. length属性与函数的柯里化有关
+    // function bar(a, b, c, d = 20) {
+    //   console.log('hello')
+    // }
+    // console.log(bar.length)//length不计算带有默认值的参数
+
+    // // 额外补充
+    // function baz(...args) {
+    //   console.log(args)
+    // }
+    // baz(1, 2, 3, 4)//...args表示可以传入任意参数，参数会被打包为数组接受
+    // console.log(baz.length)//...args不会增加length的长度
+
+
+    // arguments的使用
+    // arguments没有foreach，但是可以把arguments转为数组
+
+    // arguments转为数组的方法1：
+    // function foo() {
+    //   let nums = [];
+    //   for (let num of arguments){
+    //     nums.push(num)
+    //   }
+    //   return nums
+    // }
+
+    // arguments转为数组的方法2：
+    // function foo(){
+    //   let nums=[...arguments]
+    //   return nums
+    // }
+    // console.log(foo(1,2,3))
+
+    // arguments转为数组的方法3:
+    // function foo(){
+    //   let nums=Array.from(arguments)
+    //   return nums
+    // }
+    // console.log(foo(1,2,3))
+
+    // arguments转为数组方法4:
+    // function foo() {
+    //   let nums = [].slice.call(arguments)//这里实际上把slice的方法应用到arguments上,在es5中经常使用. []也可以用Array.prototype代替
+    //   return nums
+    // }
+    // console.log(foo(1, 2, 3))
+
+    // 剩余参数
+    // rest参数接受所有没有对应形参的实参,把他们合成一个参数列表(数组),与arguments相比多了很多优点,是arguments的替代
+    // function foo(a,b,...args){
+    //   console.log(...args)
+    // }
+    // foo('foo','bar','baz','new')
+
+    // 纯函数的概念理解与应用
+    // 什么是纯函数:纯函数有两条规则,满足规则的就是纯函数
+    // * 函数的输入与输出不受其他因素影响,固定输入一定会产生固定输出
+    // * 函数的调用不会产生对其他函数,变量,对象的影响,也就是没有副作用
+
+    // 纯函数在react中十分常用
+    // 纯函数的优点:可以安心的编写与安心的使用
+    // * 安心的编写:在你写的时候保证了函数的纯度,只是单纯的实现了自己的业务即可,不需要担心传入的内容是如何获得的或者依赖其他的外部变量是否发生修改
+    // * 安心的使用:在你用的时候,不必担心自己的内容会被篡改,并且确定自己的输入,就一定会有确定的输出
+
+    // JavaScript中的纯函数
+    // slice与splice的对比
+    // const arr = ['nba', 'cba', 'mba', 'aba']
+
+    // let newArr = arr.slice(0, 3)
+    // console.log(arr)//原函数没有修改,固定输入一直产生固定输出,所以slice是一个纯函数
+
+    // let anotherArr = arr.splice(3, 1)
+    // console.log(arr)//这里原数组被修改了,所以splice不是一个纯函数
+
+    // 什么是固定输入产生固定输出
+    // let num = 100;
+    // function add(a, b) {
+    //   return a + b + num
+    // }
+
+    // console.log(add(10,20))
+    // num=200
+    // console.log(add(10,20))//同样的输入却产生了不同的输出,这个就不是纯函数了
+
+    // 什么是有副作用
+    // function foo(obj) {
+    //   console.log(obj.name)
+    //   console.log(obj.age)
+    //   obj.address = 'newYork'
+    // }
+
+    // let obj = {
+    //   name: 'foo',
+    //   age: 18
+    // }
+
+    // foo(obj)
+    // console.log(obj)//obj本来没有address的,但是经过调用foo函数,被赋予了address属性,这就是副作用,因此foo不是纯函数
+
+
+    // 函数柯里化
+    // function foo(a, b, c) {
+    //   console.log(a + b + c)
+    // }
+    // foo(10, 20, 30)
+
+    // // 科里化之后
+    // let bar = x => y => z => x + y + z
+
+    // bar(10)(20)(30)
+
+    // function sum(num1, num2, num3) {
+    //   console.log(num1 + num2 + num3)
+    // }
+
+    // function person(name, age, address) {
+    //   console.log('姓名：', name, '年龄:', age, '地址：', address)
+    // }
+
+    // // 前面的xs是自己加的后缀，科里化函数性能并不高，而且如果想使用科里化函数，那么应该在定义的时候就设置为科里化函数。
+    // // 一般科里化函数都会有第三方库可以调用，不必自己写一个科里化函数。
+    // function xsCurrying(fn) {
+    //   function curryFn(...args) {
+    //     console.log(args)//args是一个参数数组
+    //     // 如果传入参数个数大于原函数参数个数，就直接调用原函数
+    //     if (args.length >= fn.length) {
+    //       fn.apply(this, ...args)
+    //     } else {
+    //       return function (...newArgs) {
+    //         // 传参个数小于原函数时，需要保存参数，并接收新的参数，重新调用curryFn函数
+    //         return curryFn.apply(this, ...args.concat(newArgs))
+    //       }
+    //     }
+    //   }
+    //   return curryFn
+    // }
+
+
+    // let sumCurry = xsCurrying(sum)
+    // sumCurry(10, 20)(30)
+
+    // let personCurry = xsCurrying(person)
+    // personCurry('matt')(18)('Boston')
+
+    //   // 函数自动复合
+    //   function double(num) {
+    //   return num * 2
+    // }
+
+    // function square(num) {
+    //   return num ** 2
+    // }
+
+    // // function compositeFunc(num) {
+    // //   return square(double(num))
+    // // }
+    // // console.log(compositeFunc(100))
+
+    // // 自动复合几个函数
+    // function compositing(...fns) {
+    //   // 边缘判断
+    //   // 参数是否传入
+    //   if (fns.length == 0) return
+    //   for (let i = 0; i < fns.length; i++) {
+    //     // 参数必须是函数
+    //     if (typeof fns[i] !== 'function') {
+    //       throw new Error(`index function ${i} is not a function`)
+    //     }
+
+    //   }
+
+    //   function compositeFunc(...args) {
+    //     let result = fns[0].apply(this, args)
+    //     // 第一次已经执行了
+    //     for (let i = 1; i < fns.length; i++) {
+
+    //       result = fns[i].apply(this, [result])
+    //     }
+    //     console.log(result)
+
+    //   }
+    //   return compositeFunc
+    // }
+
+    // let compositeFunc = compositing(double, square)
+    // compositeFunc(100)
+
+    // 严格模式
+    // 严格模式会把以前静默处理的错误直接抛出
+    // 定义严格模式的方法有两种
+    //  * 在文档头部设置“use strict”
+    //  * 在函数头部设置“use strict”
+    // 在现代JavaScript中，类似于class'会默认自动开启严格模式
+
+    // function foo() {
+    //   // 使用严格模式的函数，必须在头部设置
+    //   'use strict'
+
+    //   console.log('hello')
+    // }
+
+    // 没有“no use strict”一说，也就是文档一旦开启严格模式，就不能定义某个函数不是严格模式
+
+
+
+  </script>
+
+</body>
+
+</html>

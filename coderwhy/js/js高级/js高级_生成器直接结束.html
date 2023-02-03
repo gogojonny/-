@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 生成器中调用return方法或者throw方法可以直接让done返回true,并且后续next都不会执行
+    function* foo() {
+      console.log(111);
+      console.log(222);
+      try {
+        let value = yield 'aaa'
+        console.log(333, value);
+        console.log(444, value);
+
+      } catch (e) {
+        console.log(e);
+      }
+
+      let value = yield 'bbb'
+      console.log(555, value);
+      console.log(666, value);
+    }
+
+    let generator = foo()
+    console.log(generator.next());
+    // 调用return方法,将参数直接返回,并让后续next失效
+    // console.log(generator.return('a'));
+    // throw方法也可以干掉后面next,如果被捕获就把done设置为false,并继续执行,throw方法也会返回{done:boolen,value:value}
+    console.log(generator.throw(new Error('next2 throw err')));
+    console.log(generator.next('b'));
+  </script>
+
+</body>
+
+</html>

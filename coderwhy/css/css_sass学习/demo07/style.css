@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/*这段注释不会消失*/
+.box {
+  width: 200px;
+  height: 200px; /*这段注释不知道会不会消失*/
+  background: red;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #f5f5f5;
+}
+body,
+textarea,
+select,
+input,
+button {
+  font-size: 12px;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+
+ul{
+  list-style: none;
+}
+.clear-fix::after {
+  content: '';
+  display: block;
+  clear: both;
+
+  /* 考虑兼容性 */
+  visibility: hidden;
+  height: 0px;
+}

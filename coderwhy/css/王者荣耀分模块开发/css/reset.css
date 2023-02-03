@@ -1,0 +1,18 @@
+/* 对padding和margin进行重置 */
+body,h1,h2,h3,ul,ol,li,p{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  color: #333;
+}
+
+/* img的vertical-aline的重置 */
+img{
+  vertical-align: top;
+}
+/* 对ul，li进行重置 */
+li{
+  list-style: none;
+}

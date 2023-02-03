@@ -1,0 +1,54 @@
+/* 初始化 */
+*{
+  margin: 0;
+  padding: 0;
+}
+/* 元素定位 */
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  user-select: none;
+  /* 让箭头更好看 */
+  font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+/* 分别给a元素和i元素设置样式 */
+.paging i,
+.paging a{
+  display: inline-block;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  line-height: 32px;
+  text-align: center;
+  color:#fff;
+  margin: 0 1px;
+  font-size: 13px;
+}
+
+.paging a{
+  background-color: #333;
+  border: 1px solid #333;
+}
+.paging i{
+  color: #333;
+  font-size: 18px;
+}
+
+.paging a:hover{
+  background-color: #000;
+  cursor: pointer;
+}
+
+.paging a.active{
+  background-color: transparent;
+  color: #333;
+  font-weight: bold;
+}
+
+

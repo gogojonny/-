@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .flex-box {
+      width: 900px;
+      background-color: orange;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+   
+     
+    }
+
+
+    .flex-item {
+      margin-bottom: 10px;
+      width: 200px;
+      height: 200px;
+    }
+    span{
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex-box">
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+    <div class="flex-item">4</div>
+    <div class="flex-item">5</div>
+    <div class="flex-item">1</div>
+    <div class="flex-item">2</div>
+    <div class="flex-item">3</div>
+    <div class="flex-item">4</div>
+    <div class="flex-item">5</div>
+    <span></span><span></span><span></span>
+   
+  </div>
+
+  <script>
+
+    let items = document.querySelectorAll('.flex-item')
+
+    function itemColorRandom(target) {
+      let red = Math.floor(255 * Math.random())
+      let green = Math.floor(255 * Math.random())
+      let blue = Math.floor(255 * Math.random())
+      console.log(red, green, blue);
+      target.setAttribute('style', `background-color:rgb(${red},${green},${blue})`)
+    }
+
+    items.forEach(item => {
+      itemColorRandom(item)
+    })
+  </script>
+
+</body>
+
+</html>

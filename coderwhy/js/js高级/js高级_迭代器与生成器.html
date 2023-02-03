@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let arr = ['foo', 'bar', 'baz'];
+  let nums = [123, 321, 234];
+
+  const arrIterator = {
+    // 初始化,用于进入for循环
+    handlers: [{ listName: '', index: -1 }],
+    // next方法
+    net: function (array) {
+      // 状态码,不存在handler就添加这个handler
+      let status = 0
+      for (let handler of this.handlers) {
+        if (handler.listName == array) {
+          status = 1;
+          if (handler.index < array.length) {
+            // 返回带有done和value的对象
+            return { done: false, value: array[handler.index++] }
+          } else {
+            return { done: true }
+          }
+        }
+      }
+      if (status == 0) {
+        this.handlers.push({ listName: array, index: 0 })
+        // 需要return这个函数的结果
+        return this.net(array)
+      }
+    }
+  }
+
+  console.log(arrIterator.net(arr));
+  console.log(arrIterator.net(arr));
+  console.log(arrIterator.net(arr));
+
+</script>
+
+</html>

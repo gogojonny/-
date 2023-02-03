@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button></button>
+  <!-- 
+    资料来源
+      * 现代JavaScript教程中的this指向
+      * corder-why视频教程
+      * 红宝书
+   -->
+  <script>
+    // // 在标准函数中，this引用的是把函数当成方法调用的上下文对象
+    // window.color='red';
+    // let o={
+    //   color:'blue'
+    // }
+    // function sayColor(){
+    //   console.log(this.color)
+    // }
+
+    // sayColor();
+    // // 在标准函数中，这时候this引用是一个对象，这个对象调用量这个标准函数（方法），所以这里的this指向window
+    // window.sayColor();
+
+    // o.sayColor=sayColor;
+    // // 把标准函数赋值给了o这个对象的sayColor属性，这时调用这个sayColor方法，this指向.前面的对象，所以this引用的是o
+    // o.sayColor();
+
+    // // 对于高阶函数
+    // function bar(){
+    //   console.log(this)
+    // }
+    // function foo(fn){
+    //   fn()
+    // }
+    // // 结果依旧是window
+    // foo(bar)
+
+
+
+    // //-------------------------------------------------------
+    // // 在箭头函数中，this引用的是定义箭头函数的上下文
+    // // window.color='red'
+    // // let o={
+    // //   color:'blue'
+    // // }
+    // // // 在箭头函数中，this指向的是一个上下文，这个上下文是定义箭头函数的上下文，因为sayColor这个箭头函数定义在window这个上下文中，所以this指向window这个上下文，而且这个箭头函数会一直保留这个this指向
+    // // let sayColor=()=>console.log(this.color)
+
+    // // sayColor();
+    // // // o中的sayColor属性的值被一个箭头函数赋予
+    // // o.sayColor=sayColor
+    // // // 箭头函数的this一直指向定义箭头函数的上下文，在这里也就是this一直指向window。所以o调用这个方法得到的是red。
+    // // o.sayColor()
+
+    // // 用let定义的变量不属于window对象的属性
+    // // let color='brown'
+    // window.color = 'blue'
+    // color = 'yellow'
+    // function sayColor1() {
+    //   setTimeout(() => {
+    //     console.log(this.color)
+    //   }, 1000)
+    // }
+    // function sayColor2() {
+    //   setTimeout(function () { console.log(this.color) }, 1000)
+    // }
+    // let o = {
+    //   color: 'red',
+    //   sayColor1: sayColor1,
+    //   sayColor2: sayColor2
+    // }
+    // // sayColor1是一个普通函数，被赋予到o这个对象上当做方法，this指向.前面的o，sayColor里面定义了箭头函数，箭头函数的this指向定义他的作用域，所以指向了o
+    // o.sayColor1()
+    // // 由于setTimeout里面定义的是一个普通函数，1s后再次调用时已经是window在调用了，所以window是这个this的指向。
+    // //另一点说明，延迟回调函数第一个参数函数的调用者是window对象,在node.js中，this指向计时器对象
+    // o.sayColor2()
+
+    // // 显式绑定
+    // function sayHi(){
+    //   console.log('hi',this.name)
+    // }
+    // let o={
+    //   name:'foo'
+    // }
+
+    // sayHi.call(o)
+    // sayHi.apply(o)
+    // let fn=sayHi.bind(o)
+    // fn()
+    // 
+    // 内置函数的绑定
+    // let btnEl=document.querySelector('button')
+    // btnEl.onclick=function(){
+    //   console.log(this===btnEl)//true
+    // }
+
+    // btnEl.addEventListener('click',function(){
+    //   console.log(this===btnEl)//true
+    // })
+
+    // setTimeout(function(){
+    //   console.log(this)//window
+    // },1000)
+
+    // let arr=['abc','cba','nba']
+    // arr.forEach(function(item){
+    //   console.log(this)
+
+    // },'obj')
+
+    // // 绑定优先级
+    // function foo() {
+    //   console.log(this)
+    // }
+
+    // let obj = {
+    //   name: 'obj',
+    //   foo: foo
+    // }
+    // let o={
+    //   name:'o'
+    // }
+    // let bar={
+    //   name:'bar'
+    // }
+
+    // obj.foo()
+    // // 说明call/apply优先级高于隐式绑定
+    // obj.foo.call(o)
+    // obj.foo.apply(o)
+    // // 同样bind优先级高于隐式绑定
+    // let fn=obj.foo.bind(bar)
+    // fn()
+    // // 说明bind优先级高于call、apply
+    // fn.call(o)
+    // fn.apply(o)
+
+    // new obj.foo()
+    // // 说明new优先级高于bind
+    // new fn()
+    // console.log('first')
+    // // new 不能与call、apply连用
+    // let newvar=new obj.foo.call(o)
+
+    let message = 'hi'
+    let obj = {
+      name: 'foo',
+      message: 'hello',
+      sayName: () => {
+        let foo = () => {
+          console.log(this, message)
+        }
+        return foo
+      }
+    }
+    obj.sayName()()
+
+
+
+
+  </script>
+
+</body>
+
+</html>

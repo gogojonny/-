@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 重置样式 */
+    a{
+      text-decoration: none;
+      color: #333;
+    }
+
+    body{
+      background-color: #f5f5f5;
+    }
+
+    .good{
+      display: block;
+      margin: 100px auto;
+      width: 234px;
+      height: 300px;
+      padding: 20px 0;
+      background-color: white;
+      text-align: center;
+
+      transition: all 0.5s ease-out;
+
+      /* background-color: orange; */
+    }
+    .good .img-box{
+      margin: 0 auto 14px;
+      /* background-color: aqua; */
+      text-align: center;
+    }
+    .good .name{
+
+      text-align: center;
+      font-size: 14px;
+      font-weight: normal;
+    }
+    .good .category{
+      color: #b0b0b0;
+      margin: 0 10px 14px;
+      font-size: 12px;
+      /* 超出部分隐藏 */
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .good .price{
+      color: #ff6700;
+    }
+
+    .good:hover{
+      transform: translate(0,-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,.1);
+    }
+  </style>
+</head>
+<body>
+  <a href="#" class="good">
+    <div class="img-box">
+      <img src="./img/202210262033_ef39fca0e37395d07682124770fd3ad9.webp" alt="">
+    </div>
+    <h3 class="name">
+      Redmi Note 12 5G
+  </h3>
+    <p class="category">三星 OLED 护眼屏｜骁龙 5G 芯｜5000mAh 电量</p>
+    <span class="price">1199元起</span>
+
+  </a>
+  
+</body>
+</html>

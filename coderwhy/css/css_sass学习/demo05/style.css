@@ -1,0 +1,15 @@
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
+.box .item {
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  background-color: purple;
+  float: left;
+}
+
+/*# sourceMappingURL=style.css.map */

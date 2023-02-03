@@ -1,0 +1,32 @@
+@mixin borderWithFont {
+  border: 1px solid red;
+  font-size: 14px;
+  font-family: serif;
+  font-weight: bold;
+}
+
+.box {
+  width: 300px;
+  height: 300px;
+  @include borderWithFont;
+}
+
+@mixin item($width,$height){
+  width: $width;
+  height: $height;
+  background-color: orange;
+}
+
+.item{
+  @include item($width:300px,$height:200px )
+}
+$default-color:red;
+@mixin center($width:100%,$height:100px,$bgc:$default-color){
+  width: $width;
+  height: $height;
+  background-color: $bgc;
+}
+.center{
+  @include center(1300px)
+}
+
