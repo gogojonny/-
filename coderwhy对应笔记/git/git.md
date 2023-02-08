@@ -303,6 +303,132 @@ git pull =git fetch+git merge
 
 
 
+## 遇到不同平台换行符问题
+
+如果出现`warning: in the working copy of ‘XXX.py’, LF will be replaced by CRLF the next time Git touches it`表示当前文件中换行符不匹配。一般window系统的换行符是/r/n，而linux系统的换行符是/n，因此不能push，解决办法是
+
+```
+git config --global core.autocrlf true
+```
+
+*适用于Windows系统，且一般为Windows默认设置，会在提交时对换行符进行CRLF - LF的转换，检出时又会进行LF - CRLF的转换。
+
+
+
+
+
+## 解决git的一系列问题
+
+解决的问题？
+
+解决从0开始到实现远程push操作的一些列问题
+
+应该如何学习？
+
+理解每一步的原理是什么
+
+
+
+第一步，初始化一个。git文件
+
+```
+$ git init
+```
+
+第二步，添加远程仓库到本地
+
+```
+$ git remote add origin https://github.com/gogojonny/gitDemo.git
+```
+
+第三步，将未追踪的文件添加到本地仓库
+
+```
+$ git commit -a -m 'aaa'
+```
+
+第四部，将远程仓库中的origin/main分支拉到本地
+
+```
+$ git fetch origin main
+```
+
+第五步，将origin/main分支设置为master的上游分支
+
+```
+$ git branch --set-upstream-to=origin/main
+```
+
+第六步，将master分支与origin/main分支进行合并，注意要统一相关历史
+
+```
+$ git merge --allow-unrelated-histories
+```
+
+第七部，设置上游分支为默认push的分支
+
+```
+$ git config push.default upstream
+```
+
+第八步，将master分支推送到origin/main分支中，实现push操作
+
+```
+$ git push
+```
+
+
+
+虽然上面方法可行，但是让master分支的东西push到main分支总觉得有问题。下面提出更好的方法----追踪分支
+
+第一步 初始化git
+
+```
+$ git init
+```
+
+
+
+第二步 设置远程仓库
+
+```
+$ git remote add origin https://github.com/gogojonny/gitDemo.git
+```
+
+第三步 获取origin/main分支
+
+```
+$ git fetch origin main
+```
+
+第四部 跟踪origin/main分支
+
+```
+$ git checkout --track origin/main
+```
+
+使用这个语句会追踪origin/main分支，并在本地设置一个新的main分支，这个分支可以直接push到远程origin/main分支上
+
+第五步 添加新的文件，并提交到本地仓库
+
+```
+$ git commit -a -m 'bbb'
+```
+
+第六步 将本地仓库的内容推送至远程仓库
+
+```
+$ git push
+```
+
+
+
+
+
+
+
+
+
 
 
 
